@@ -53,7 +53,7 @@ echo "alias pbcopy='xsel --clipboard --input'" >>~/.my-bashrc
 mkdir ~/.config
 git clone git@github.com:rotarymars/neovim-setup ~/.config/nvim
 
-git clone https://github.com/ryanoasis/nerd-fonts.git
+git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
 cd nerd-fonts
 ./install.sh
 cd ..
