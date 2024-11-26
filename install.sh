@@ -31,7 +31,7 @@ DISTRO=$(lsb_release -c -s)
 echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net/openvpn3/debian $DISTRO main" | sudo tee /etc/apt/sources.list.d/openvpn-packages.list
 
 sudo apt update && sudo apt upgrade
-sudo apt-get install -y google-chrome-stable rpi-imager ibus-mozc mozc-utils-gui curl apt-transport-https git kicad clang clangd clang-format build-essential warp-terminal libreoffice docker-ce docker-ce-cli containerd.io blender obs-studio openvpn3 network-manager-l2tp network-manager-l2tp-gnome xsel NetworkManager-openvpn-gnome
+sudo apt-get install -y google-chrome-stable rpi-imager ibus-mozc mozc-utils-gui curl apt-transport-https git kicad clang clangd clang-format build-essential warp-terminal libreoffice docker-ce docker-ce-cli containerd.io blender obs-studio openvpn3 network-manager-l2tp network-manager-l2tp-gnome xsel
 sudo apt-get -y install docker-compose-plugin
 sudo apt-get update
 sudo apt-get install -y code
@@ -42,6 +42,7 @@ sudo tar -C /opt -xzf nvim-linux64.tar.gz
 rm -f nvim-linux64.tar.gz
 # add to bashrc
 # echo "export PATH="$PATH:/opt/nvim-linux64/bin"" >> ~/.bashrc
+echo "export PATH=\"\$PATH:/opt/nvim-linux64/bin\"" >> ~/.my-bashrc 
 git config --global user.name rotarymars
 git config --global user.email s.goto2050@gmail.com
 git config --global commit.gpgsign true
@@ -49,6 +50,7 @@ git config --global gpg.format ssh
 echo "source ~/.my-bashrc" >>~/.bashrc
 echo "alias pbcopy='xsel --clipboard --input'" >>~/.my-bashrc
 # git config --global user.signingkey ~/projects/ssh-keys/signing-keys.pub
+
 
 mkdir ~/.config
 git clone git@github.com:rotarymars/neovim-setup ~/.config/nvim
