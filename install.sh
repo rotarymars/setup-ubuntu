@@ -75,3 +75,11 @@ echo "export PATH=\"\$PATH:/home/rotarymars/.local/bin\"" >>~/.my-bashrc
 # add user to docker droup
 # like the bellow
 # docker:x:999:rotarymars
+
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.13.1
+echo ". \"\$HOME/.asdf/asdf.sh\"" >>~/.my-bashrc
+echo ". \"\$HOME/.asdf/completions/asdf.bash\"" >>~/.my-bashrc
+asdf plugin add python
+asdf plugin add ruby
+asdf install python latest
+asdf install ruby latest
