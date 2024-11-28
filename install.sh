@@ -86,3 +86,7 @@ asdf install python latest
 asdf install ruby latest
 asdf global python latest
 asdf global ruby latest
+asdf plugin add zoxide https://github.com/nyrst/asdf-zoxide.git
+asdf install zoxide latest
+asdf global zoxide latest
+zoxide init bash --cmd cd >>~/.my-bashrc
