@@ -70,6 +70,10 @@ sudo apt autoremove -y
 pip install jedi
 pip install git+https://github.com/rotarymars/oj.git
 echo "export PATH=\"\$PATH:/home/rotarymars/.local/bin\"" >>~/.my-bashrc
+npm install -g atcoder-cli
+echo "alias compile='clang++ -g -std=c++2b'" >>~/.my-bashrc
+echo "alias accnew='acc new --template kyopuro'" >>~/.my-bashrc
+echo "alias accadd='acc add --template kyopuro'" >>~/.my-bashrc
 
 # open /etc/group
 # sudo vi /etc/group
