@@ -29,9 +29,12 @@ sudo add-apt-repository ppa:obsproject/obs-studio
 sudo mkdir -p /etc/apt/keyrings && curl -fsSL https://packages.openvpn.net/packages-repo.gpg | sudo tee /etc/apt/keyrings/openvpn.asc
 DISTRO=$(lsb_release -c -s)
 echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net/openvpn3/debian $DISTRO main" | sudo tee /etc/apt/sources.list.d/openvpn-packages.list
+# discord
+sudo -E gpg --no-default-keyring --keyring=/usr/share/keyrings/javinator9889-ppa-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 08633B4AAAEB49FC
+sudo tee /etc/apt/sources.list.d/javinator9889-ppa.list <<< "deb [arch=amd64 signed-by=/usr/share/keyrings/javinator9889-ppa-keyring.gpg] https://ppa.javinator9889.com all main"
 
 sudo apt update && sudo apt upgrade
-sudo apt-get install -y google-chrome-stable rpi-imager ibus-mozc mozc-utils-gui curl apt-transport-https git kicad clang clangd clang-format build-essential warp-terminal libreoffice docker-ce docker-ce-cli containerd.io blender obs-studio openvpn3 network-manager-l2tp network-manager-l2tp-gnome xsel nodejs npm python3-pip exuberant-ctags ripgrep eza make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev lldb libxslt1-dev autoconf bison libyaml-dev libncurses5-dev libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap openssh-server bacula-console-qt
+sudo apt-get install -y google-chrome-stable rpi-imager ibus-mozc mozc-utils-gui curl apt-transport-https git kicad clang clangd clang-format build-essential warp-terminal libreoffice docker-ce docker-ce-cli containerd.io blender obs-studio openvpn3 network-manager-l2tp network-manager-l2tp-gnome xsel nodejs npm python3-pip exuberant-ctags ripgrep eza make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev lldb libxslt1-dev autoconf bison libyaml-dev libncurses5-dev libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap openssh-server bacula-console-qt discord blueman
 sudo apt-get -y install docker-compose-plugin
 sudo apt-get update
 sudo apt-get install -y code
