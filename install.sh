@@ -35,13 +35,15 @@ DISTRO=$(lsb_release -c -s)
 echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net/openvpn3/debian $DISTRO main" | sudo tee /etc/apt/sources.list.d/openvpn-packages.list
 # discord
 sudo -E gpg --no-default-keyring --keyring=/usr/share/keyrings/javinator9889-ppa-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 08633B4AAAEB49FC
-sudo tee /etc/apt/sources.list.d/javinator9889-ppa.list <<< "deb [arch=amd64 signed-by=/usr/share/keyrings/javinator9889-ppa-keyring.gpg] https://ppa.javinator9889.com all main"
+sudo tee /etc/apt/sources.list.d/javinator9889-ppa.list <<<"deb [arch=amd64 signed-by=/usr/share/keyrings/javinator9889-ppa-keyring.gpg] https://ppa.javinator9889.com all main"
+# apt-fast
+sudo add-apt-repository ppa:apt-fast/stable
+sudo apt install -y apt-fast
 
-sudo apt update
-sudo apt-get install -y google-chrome-stable rpi-imager ibus-mozc mozc-utils-gui curl apt-transport-https git kicad clang clangd clang-format build-essential warp-terminal libreoffice docker-ce docker-ce-cli containerd.io blender obs-studio openvpn3 network-manager-l2tp network-manager-l2tp-gnome xsel nodejs npm python3-pip exuberant-ctags ripgrep eza make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev lldb libxslt1-dev autoconf bison libyaml-dev libncurses5-dev libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap openssh-server bacula-console-qt discord blueman
-sudo apt-get -y install docker-compose-plugin
-sudo apt-get update
-sudo apt-get install -y code
+sudo apt-fast update
+sudo apt-fast install -y google-chrome-stable rpi-imager ibus-mozc mozc-utils-gui curl apt-transport-https git kicad clang clangd clang-format build-essential warp-terminal libreoffice docker-ce docker-ce-cli containerd.io blender obs-studio openvpn3 network-manager-l2tp network-manager-l2tp-gnome xsel nodejs npm python3-pip exuberant-ctags ripgrep eza make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev lldb libxslt1-dev autoconf bison libyaml-dev libncurses5-dev libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap openssh-server bacula-console-qt discord blueman apt-fast code
+sudo apt-fast -y install docker-compose-plugin
+sudo apt-fast update
 
 sudo apt install -y tigervnc-viewer
 
@@ -120,7 +122,8 @@ fi
 sudo gpasswd -a rotarymars docker
 
 echo "alias rm='trash-put'" >>~/.my-bashrc
-echo "git config --global core.editor 'code --wait'" >> ~/.my-bashrc
+echo "git config --global core.editor 'code --wait'" >>~/.my-bashrc
 
 # replace cap
 sudo sed -i 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
+
