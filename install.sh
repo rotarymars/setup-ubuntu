@@ -1,30 +1,34 @@
-sudo apt update && sudo apt upgrade
+#!/bin/bash
+
+set -eu
+
+sudo apt update && sudo apt upgrade -y
 # chrome stuff
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/googlechrom-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmor -o /usr/share/keyrings/googlechrom-keyring.gpg
+curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --yes --dearmor -o /usr/share/keyrings/googlechrom-keyring.gpg
 
 # vscode
 sudo apt-get install wget gpg
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --yes --dearmor >packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
 echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
 rm -f packages.microsoft.gpg
 # kicad
-sudo add-apt-repository ppa:kicad/kicad-8.0-releases
+sudo add-apt-repository -y ppa:kicad/kicad-8.0-releases
 # warp
-wget -qO- https://releases.warp.dev/linux/keys/warp.asc | gpg --dearmor >warpdotdev.gpg
+wget -qO- https://releases.warp.dev/linux/keys/warp.asc | gpg --yes --dearmor >warpdotdev.gpg
 sudo install -D -o root -g root -m 644 warpdotdev.gpg /etc/apt/keyrings/warpdotdev.gpg
 sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.gpg] https://releases.warp.dev/linux/deb stable main" > /etc/apt/sources.list.d/warpdotdev.list'
 rm warpdotdev.gpg
 # docker
 sudo apt-get -y install ca-certificates curl gnupg lsb-release
 sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 # obs studio
 sudo apt-get install -y ffmpeg
-sudo add-apt-repository ppa:obsproject/obs-studio
+sudo add-apt-repository -y ppa:obsproject/obs-studio
 # openvpn
 sudo mkdir -p /etc/apt/keyrings && curl -fsSL https://packages.openvpn.net/packages-repo.gpg | sudo tee /etc/apt/keyrings/openvpn.asc
 DISTRO=$(lsb_release -c -s)
@@ -33,11 +37,13 @@ echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net
 sudo -E gpg --no-default-keyring --keyring=/usr/share/keyrings/javinator9889-ppa-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 08633B4AAAEB49FC
 sudo tee /etc/apt/sources.list.d/javinator9889-ppa.list <<< "deb [arch=amd64 signed-by=/usr/share/keyrings/javinator9889-ppa-keyring.gpg] https://ppa.javinator9889.com all main"
 
-sudo apt update && sudo apt upgrade
+sudo apt update
 sudo apt-get install -y google-chrome-stable rpi-imager ibus-mozc mozc-utils-gui curl apt-transport-https git kicad clang clangd clang-format build-essential warp-terminal libreoffice docker-ce docker-ce-cli containerd.io blender obs-studio openvpn3 network-manager-l2tp network-manager-l2tp-gnome xsel nodejs npm python3-pip exuberant-ctags ripgrep eza make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev lldb libxslt1-dev autoconf bison libyaml-dev libncurses5-dev libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap openssh-server bacula-console-qt discord blueman
 sudo apt-get -y install docker-compose-plugin
 sudo apt-get update
 sudo apt-get install -y code
+
+sudo apt install -y gvncviewer
 
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim
@@ -56,14 +62,25 @@ echo "alias g='git'" >>~/.my-bashrc
 echo "alias ls='eza --icons'" >>~/.my-bashrc
 # git config --global user.signingkey ~/projects/ssh-keys/signing-keys.pub
 
-mkdir ~/.config
-git clone git@github.com:rotarymars/neovim-setup ~/.config/nvim
+if [ ! -d ~/.config ]; then
+  mkdir ~/.config
+fi
 
-git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
-cd nerd-fonts
-./install.sh
-cd ..
-rm -rf nerd-fonts
+if [ ! -d ~/.config/nvim ]; then
+  git clone git@github.com:rotarymars/neovim-setup ~/.config/nvim
+else
+  pushd ~/.config/nvim
+  git pull
+  popd
+fi
+
+if [ ! -d ~/.local/share/fonts/NerdFonts ]; then
+  git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+  cd nerd-fonts
+  ./install.sh
+  cd ..
+  rm -rf nerd-fonts
+fi
 
 sudo npm install n -g
 
@@ -101,3 +118,5 @@ sudo gpasswd -a rotarymars docker
 
 echo "alias rm='trash-put'" >>~/.my-bashrc
 echo "git config --global core.editor 'code --wait'" >> ~/.my-bashrc
+
+cp home/.xinitrc ~/
