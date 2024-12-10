@@ -8,5 +8,5 @@ alias accnew='acc new --template kyopuro'
 alias accadd='acc add --template kyopuro'
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/completions/asdf.bash"
-
-source ~/.my-bashrc
+alias rm='trash-put'
+echo "eval "$(direnv hook bash)"
