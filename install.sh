@@ -41,7 +41,7 @@ sudo add-apt-repository ppa:apt-fast/stable
 sudo apt install -y apt-fast
 
 sudo apt-fast update
-sudo apt-fast install -y google-chrome-stable rpi-imager ibus-mozc mozc-utils-gui curl apt-transport-https git kicad clang clangd clang-format build-essential warp-terminal libreoffice docker-ce docker-ce-cli containerd.io blender obs-studio openvpn3 network-manager-l2tp network-manager-l2tp-gnome xsel nodejs npm python3-pip exuberant-ctags ripgrep eza make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev lldb libxslt1-dev autoconf bison libyaml-dev libncurses5-dev libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap openssh-server bacula-console-qt discord blueman apt-fast code direnv
+sudo apt-fast install -y google-chrome-stable rpi-imager ibus-mozc mozc-utils-gui curl apt-transport-https git kicad clang clangd clang-format build-essential warp-terminal libreoffice docker-ce docker-ce-cli containerd.io blender obs-studio openvpn3 network-manager-l2tp network-manager-l2tp-gnome xsel nodejs npm python3-pip exuberant-ctags ripgrep eza make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev lldb libxslt1-dev autoconf bison libyaml-dev libncurses5-dev libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap openssh-server bacula-console-qt discord blueman apt-fast code direnv cargo
 sudo apt-fast -y install docker-compose-plugin
 sudo apt-fast update
 
