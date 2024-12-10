@@ -43,7 +43,7 @@ sudo apt-get -y install docker-compose-plugin
 sudo apt-get update
 sudo apt-get install -y code
 
-sudo apt install -y gvncviewer
+sudo apt install -y tigervnc-viewer
 
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 sudo rm -rf /opt/nvim
@@ -90,7 +90,7 @@ sudo apt autoremove -y
 pip install jedi
 pip install git+https://github.com/rotarymars/oj.git
 echo "export PATH=\"\$PATH:/home/rotarymars/.local/bin\"" >>~/.my-bashrc
-npm install -g atcoder-cli
+sudo npm install -g atcoder-cli
 echo "alias compile='clang++ -g -std=c++2b'" >>~/.my-bashrc
 echo "alias accnew='acc new --template kyopuro'" >>~/.my-bashrc
 echo "alias accadd='acc add --template kyopuro'" >>~/.my-bashrc
@@ -101,22 +101,26 @@ echo "alias accadd='acc add --template kyopuro'" >>~/.my-bashrc
 # like the bellow
 # docker:x:999:rotarymars
 
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.13.1
-echo ". \"\$HOME/.asdf/asdf.sh\"" >>~/.my-bashrc
-echo ". \"\$HOME/.asdf/completions/asdf.bash\"" >>~/.my-bashrc
-asdf plugin add python
-asdf plugin add ruby
-asdf install python latest
-asdf install ruby latest
-asdf global python latest
-asdf global ruby latest
-asdf plugin add zoxide https://github.com/nyrst/asdf-zoxide.git
-asdf install zoxide latest
-asdf global zoxide latest
-zoxide init bash --cmd cd >>~/.my-bashrc
+if [ ! -d ~/.asdf ]; then
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.13.1
+  echo ". \"\$HOME/.asdf/asdf.sh\"" >>~/.my-bashrc
+  echo ". \"\$HOME/.asdf/completions/asdf.bash\"" >>~/.my-bashrc
+  asdf plugin add python
+  asdf plugin add ruby
+  asdf install python latest
+  asdf install ruby latest
+  asdf global python latest
+  asdf global ruby latest
+  asdf plugin add zoxide https://github.com/nyrst/asdf-zoxide.git
+  asdf install zoxide latest
+  asdf global zoxide latest
+  zoxide init bash --cmd cd >>~/.my-bashrc
+fi
+
 sudo gpasswd -a rotarymars docker
 
 echo "alias rm='trash-put'" >>~/.my-bashrc
 echo "git config --global core.editor 'code --wait'" >> ~/.my-bashrc
 
-cp home/.xinitrc ~/
+# replace cap
+sudo sed -i 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
