@@ -37,7 +37,7 @@ echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net
 sudo -E gpg --no-default-keyring --keyring=/usr/share/keyrings/javinator9889-ppa-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 08633B4AAAEB49FC
 sudo tee /etc/apt/sources.list.d/javinator9889-ppa.list <<<"deb [arch=amd64 signed-by=/usr/share/keyrings/javinator9889-ppa-keyring.gpg] https://ppa.javinator9889.com all main"
 # apt-fast
-sudo add-apt-repository ppa:apt-fast/stable
+sudo add-apt-repository -y ppa:apt-fast/stable
 sudo apt install -y apt-fast
 
 sudo apt-fast update
@@ -122,10 +122,12 @@ fi
 sudo gpasswd -a rotarymars docker
 
 echo "alias rm='trash-put'" >>~/.my-bashrc
-echo "git config --global core.editor 'code --wait'" >>~/.my-bashrc
+git config --global core.editor 'code --wait'
 
 # replace cap
 sudo sed -i 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
 
-# direnv
-echo "eval \"\$\(direnv hook bash\)\""
+TEMPLATE_PATH=$(dirname $0)/templates
+cp ${TEMPLATE_PATH}/.ssh/config ~/.ssh/config
+cp ${TEMPLATE_PATH}/.my-bashrc ~/.my-bashrc
+
