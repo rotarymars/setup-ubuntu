@@ -128,7 +128,7 @@ if [ ! -d ~/.asdf ]; then
   asdf plugin add zoxide https://github.com/nyrst/asdf-zoxide.git
   asdf install zoxide latest
   asdf global zoxide latest
-  zoxide init bash --cmd cd >>~/.my-bashrc
+  # zoxide init bash --cmd cd >>~/.my-bashrc
 fi
 
 sudo gpasswd -a rotarymars docker
@@ -144,9 +144,10 @@ cp ${TEMPLATE_PATH}/.ssh/config ~/.ssh/config
 cp ${TEMPLATE_PATH}/.my-bashrc ~/.my-bashrc
 
 # add to load my-bashrc if necessary
-grep .my-bashrc ~/.bashrc >> /dev/null
+grep .my-bashrc ~/.bashrc >>/dev/null
 EC=$?
 if [ $EC -ne 0 ]; then
   echo set .my-bashrc to .bashrc
-  echo "source ~/.my-bashrc" >> ~/.bashrc
+  echo "source ~/.my-bashrc" >>~/.bashrc
 fi
+
