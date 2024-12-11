@@ -14,3 +14,14 @@ autoload -Uz compinit && compinit
 alias rm='trash-put'
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh --cmd cd)"
+
+function _prompt_is_in_git {
+  if git rev-parse 2> /dev/null; then
+    echo true
+  else
+    echo false
+  fi
+}
+function _prompt_git_branch_name {
+  echo $(git symbolic-ref --short HEAD 2> /dev/null || git rev-parse --short HEAD 2> /dev/null)
+}
