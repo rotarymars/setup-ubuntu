@@ -142,6 +142,7 @@ sudo sed -i 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
 TEMPLATE_PATH=$(dirname $0)/templates
 cp ${TEMPLATE_PATH}/.ssh/config ~/.ssh/config
 cp ${TEMPLATE_PATH}/.my-bashrc ~/.my-bashrc
+cp ${TEMPLATE_PATH}/.my-zshrc ~/.my-zshrc
 
 # add to load my-bashrc if necessary
 grep .my-bashrc ~/.bashrc >>/dev/null
@@ -157,4 +158,5 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # for zsh
 grep .my-zshrc ~/.zshrc >> /dev/null
 if [ $? -ne 0]; then
-echo "source ~/.my-zshrc" >> ~/.zshrc
+  echo "source ~/.my-zshrc" >> ~/.zshrc
+fi
