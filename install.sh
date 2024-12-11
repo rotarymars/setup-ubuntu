@@ -101,7 +101,7 @@ sudo npm install n -g
 sudo n stable
 # sudo apt purge -y nodejs npm
 sudo apt autoremove -y
-pip install jedi
+pip install jedi yapf
 pip install git+https://github.com/rotarymars/oj.git
 # echo "export PATH=\"\$PATH:/home/rotarymars/.local/bin\"" >>~/.my-bashrc
 sudo npm install -g atcoder-cli
@@ -151,3 +151,10 @@ if [ $EC -ne 0 ]; then
   echo "source ~/.my-bashrc" >>~/.bashrc
 fi
 
+# oh-my-zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# for zsh
+grep .my-zshrc ~/.zshrc >> /dev/null
+if [ $? -ne 0]; then
+echo "source ~/.my-zshrc" >> ~/.zshrc

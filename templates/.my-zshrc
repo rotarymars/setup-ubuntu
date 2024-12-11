@@ -7,8 +7,10 @@ alias compile='clang++ -g -std=c++2b'
 alias accnew='acc new --template kyopuro'
 alias accadd='acc add --template kyopuro'
 . "$HOME/.asdf/asdf.sh"
-. "$HOME/.asdf/completions/asdf.bash"
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
 alias rm='trash-put'
-eval "$(direnv hook bash)"
-eval "$(zoxide init bash --cmd cd)"
-zsh
+eval "$(direnv hook zsh)"
+eval "$(zoxide init zsh --cmd cd)"
