@@ -16,53 +16,6 @@ alias rm='trash-put'
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh --cmd cd)"
 
-# function _prompt_is_in_git {
-#   if git rev-parse 2> /dev/null; then
-#     echo true
-#   else
-#     echo false
-#   fi
-# }
-# function _prompt_git_branch_name {
-#   echo $(git symbolic-ref --short HEAD 2> /dev/null || git rev-parse --short HEAD 2> /dev/null)
-# }
-
-# function _git_status_icon {
-#   if git rev-parse 2> /dev/null; then
-#     if git status | grep "^nothing to"; then
-#       echo "o"
-#     elif git status | grep "^Untracked files"; then
-#       echo "X"
-#     elif git status | grep "^Changes to be committed"; then
-#       echo "O"
-#     else
-#       echo ""
-#     fi
-#   else
-#     echo ""
-#   fi
-# }
-
-# function _git_status_color {
-#   if git rev-parse 2> /dev/null; then
-#     if git status | grep "^nothing to"; then
-#       echo "%F{green}%f"
-#     elif git status | grep "^Untracked files"; then
-#       echo "%F{red}%f"
-#     elif git status | grep "^Changes to be committed"; then
-#       echo "%F{purple}%f"
-#     else
-#       echo ""
-#     fi
-#   else
-#     echo ""
-#   fi
-# }
-
-# setopt prompt_subst
-
-# PROMPT='[%n@%m][%F{cyan}%~%f] %F{red}$(_prompt_git_branch_name)%f %% '
-# RPROMPT='$(_git_status_color)$(_git_status_icon)'
 autoload -Uz add-zsh-hook
 
 # for async update right prompt
