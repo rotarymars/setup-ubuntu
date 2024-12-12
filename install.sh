@@ -152,10 +152,8 @@ if [ $EC -ne 0 ]; then
   echo "source ~/.my-bashrc" >>~/.bashrc
 fi
 
-# oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
 # for zsh
+touch ~/.zshrc
 grep .my-zshrc ~/.zshrc >> /dev/null
 if [ $? -ne 0]; then
   echo "source ~/.my-zshrc" >> ~/.zshrc
