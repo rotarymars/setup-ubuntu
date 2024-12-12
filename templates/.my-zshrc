@@ -25,3 +25,5 @@ function _prompt_is_in_git {
 function _prompt_git_branch_name {
   echo $(git symbolic-ref --short HEAD 2> /dev/null || git rev-parse --short HEAD 2> /dev/null)
 }
+setopt prompt_subst
+PROMPT='[%n@%m][%F{cyan}%~%f] %F{red}$(_prompt_git_branch_name)%f %% '
