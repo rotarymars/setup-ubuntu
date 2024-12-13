@@ -168,3 +168,6 @@ RPROMPT_BASE="%F{${RPROMPT_FG_COLOR}}[%(4~,%-1~/.../%2~,%~)%f]"
 RPROMPT=${RPROMPT_BASE}
 autoload -U compinit
 compinit
+
+setopt correct
+setopt auto_cd
