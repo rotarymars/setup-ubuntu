@@ -55,7 +55,8 @@ sudo apt-fast install -y \
   lldb libxslt1-dev autoconf bison libyaml-dev libncurses5-dev \
   libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap \
   openssh-server bacula-console-qt discord blueman apt-fast code \
-  direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples 
+  direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples\
+  fortune-mod
 
 if [ ! -d /opt/nvim ]; then
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
