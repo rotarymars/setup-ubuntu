@@ -58,7 +58,7 @@ sudo apt-fast install -y \
   libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap \
   openssh-server bacula-console-qt discord blueman apt-fast code \
   direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples\
-  fortune-mod software-properties-common ansible
+  fortune-mod software-properties-common ansible v4l-utils cheese micropython
 
 if [ ! -d /opt/nvim ]; then
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
@@ -158,6 +158,6 @@ fi
 # for zsh
 touch ~/.zshrc
 grep .my-zshrc ~/.zshrc >> /dev/null
-if [ $? -ne 0]; then
+if [ $? -ne 0 ]; then
   echo "source ~/.my-zshrc" >> ~/.zshrc
 fi
