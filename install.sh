@@ -36,6 +36,8 @@ echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net
 # discord
 sudo -E gpg --no-default-keyring --keyring=/usr/share/keyrings/javinator9889-ppa-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 08633B4AAAEB49FC
 sudo tee /etc/apt/sources.list.d/javinator9889-ppa.list <<<"deb [arch=amd64 signed-by=/usr/share/keyrings/javinator9889-ppa-keyring.gpg] https://ppa.javinator9889.com all main"
+# ansible
+sudo add-apt-repository --yes --update ppa:ansible/ansible
 # apt-fast
 sudo add-apt-repository -y ppa:apt-fast/stable
 sudo apt install -y apt-fast
@@ -56,7 +58,7 @@ sudo apt-fast install -y \
   libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap \
   openssh-server bacula-console-qt discord blueman apt-fast code \
   direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples\
-  fortune-mod
+  fortune-mod software-properties-common ansible
 
 if [ ! -d /opt/nvim ]; then
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
