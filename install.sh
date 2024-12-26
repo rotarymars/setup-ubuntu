@@ -38,6 +38,9 @@ sudo -E gpg --no-default-keyring --keyring=/usr/share/keyrings/javinator9889-ppa
 sudo tee /etc/apt/sources.list.d/javinator9889-ppa.list <<<"deb [arch=amd64 signed-by=/usr/share/keyrings/javinator9889-ppa-keyring.gpg] https://ppa.javinator9889.com all main"
 # ansible
 sudo add-apt-repository --yes --update ppa:ansible/ansible
+# windsurf
+curl -fsSL "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg" | sudo gpg --dearmor -o /usr/share/keyrings/windsurf-stable-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/windsurf-stable-archive-keyring.gpg arch=amd64] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main" | sudo tee /etc/apt/sources.list.d/windsurf.list > /dev/null
 # apt-fast
 sudo add-apt-repository -y ppa:apt-fast/stable
 sudo apt install -y apt-fast
@@ -58,7 +61,7 @@ sudo apt-fast install -y \
   libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap \
   openssh-server bacula-console-qt discord blueman apt-fast code \
   direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples\
-  fortune-mod software-properties-common ansible v4l-utils cheese micropython
+  fortune-mod software-properties-common ansible v4l-utils cheese micropython windsurf
 
 if [ ! -d /opt/nvim ]; then
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
