@@ -33,6 +33,14 @@ function _prompt_is_in_git {
   fi
 }
 
+function _fetch_if_in_git {
+  if [[ -d ".git" ]] ; then
+    git fetch&
+  fi
+}
+
+add-zsh-hook chpwd _fetch_if_in_git
+
 function _prompt_git_branch_name {
   echo $(git symbolic-ref --short HEAD 2> /dev/null || git rev-parse --short HEAD 2> /dev/null)
 }
