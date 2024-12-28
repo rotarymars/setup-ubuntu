@@ -11,4 +11,3 @@ alias accadd='acc add --template kyopuro'
 alias rm='trash-put'
 eval "$(direnv hook bash)"
 eval "$(zoxide init bash --cmd cd)"
-zsh
