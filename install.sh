@@ -44,6 +44,9 @@ echo "deb [signed-by=/usr/share/keyrings/windsurf-stable-archive-keyring.gpg arc
 # apt-fast
 sudo add-apt-repository -y ppa:apt-fast/stable
 sudo apt install -y apt-fast
+# llvm
+sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+
 
 sudo apt-fast update
 sudo apt-fast install -y \
@@ -60,8 +63,9 @@ sudo apt-fast install -y \
   lldb libxslt1-dev autoconf bison libyaml-dev libncurses5-dev \
   libgdbm-dev libdb-dev uuid-dev fzf htop net-tools trash-cli nmap \
   openssh-server bacula-console-qt discord blueman apt-fast code \
-  direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples\
-  fortune-mod software-properties-common ansible v4l-utils cheese micropython windsurf
+  direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples \
+  fortune-mod software-properties-common ansible v4l-utils cheese micropython windsurf \
+  cmake ninja-build
 
 if [ ! -d /opt/nvim ]; then
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
