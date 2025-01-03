@@ -39,7 +39,7 @@ function _fetch_if_in_git {
   fi
 }
 
-add-zsh-hook chpwd _fetch_if_in_git
+# add-zsh-hook chpwd _fetch_if_in_git
 
 function _prompt_git_branch_name {
   echo $(git symbolic-ref --short HEAD 2> /dev/null || git rev-parse --short HEAD 2> /dev/null)
