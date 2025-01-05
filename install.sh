@@ -46,6 +46,8 @@ sudo add-apt-repository -y ppa:apt-fast/stable
 sudo apt install -y apt-fast
 # llvm
 sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
+# FUSE
+sudo add-apt-repository universe
 
 
 sudo apt-fast update
@@ -65,7 +67,7 @@ sudo apt-fast install -y \
   openssh-server bacula-console-qt discord blueman apt-fast code \
   direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples \
   fortune-mod software-properties-common ansible v4l-utils cheese micropython windsurf \
-  cmake ninja-build
+  cmake ninja-build libfuse2t64
 
 if [ ! -d /opt/nvim ]; then
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
