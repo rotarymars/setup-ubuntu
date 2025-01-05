@@ -67,7 +67,7 @@ sudo apt-fast install -y \
   openssh-server bacula-console-qt discord blueman apt-fast code \
   direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples \
   fortune-mod software-properties-common ansible v4l-utils cheese micropython windsurf \
-  cmake ninja-build libfuse2t64 virtualbox
+  cmake ninja-build libfuse2t64
 
 if [ ! -d /opt/nvim ]; then
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
