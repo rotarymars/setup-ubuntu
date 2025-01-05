@@ -179,3 +179,6 @@ git config --global alias.ci commit
 git config --global alias.ps push
 git config --global alias.pl pull
 git config --global alias.lg 'log --format=full --graph --decorate'
+
+# virtual monitors
+gsettings set org.gnome.desktop.remote-desktop.rdp screen-share-mode extend
