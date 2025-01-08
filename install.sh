@@ -67,7 +67,7 @@ sudo apt-fast install -y \
   openssh-server bacula-console-qt discord blueman apt-fast code \
   direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples \
   fortune-mod software-properties-common ansible v4l-utils cheese micropython windsurf \
-  cmake ninja-build libfuse2t64
+  cmake ninja-build libfuse2t64 aria2
 sudo snap install zoom-client
 
 if [ ! -d /opt/nvim ]; then
@@ -173,13 +173,17 @@ if [ $? -ne 0 ]; then
 fi
 
 # git config
-git config --global alias.st status
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.ps push
-git config --global alias.pl pull
-git config --global alias.lg 'log --format=full --graph --decorate'
-
+# git config --global alias.st status
+# git config --global alias.co checkout
+# git config --global alias.br branch
+# git config --global alias.ci commit
+# git config --global alias.ps push
+# git config --global alias.pl pull
+# git config --global alias.lg 'log --format=full --graph --decorate'
+cp ${TEMPLATE_PATH}/.gitconfig ~/.gitconfig
+# delta
+aria2c 'https://github.com/dandavison/delta/releases/download/0.18.2/git-delta_0.18.2_amd64.deb'
+sudo dpkg -i ./git-delta_0.18.2_amd64.deb
+rm ./git-delta_0.18.2_amd64.deb
 # virtual monitors
 gsettings set org.gnome.desktop.remote-desktop.rdp screen-share-mode extend

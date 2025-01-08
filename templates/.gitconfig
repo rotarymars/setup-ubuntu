@@ -1,0 +1,40 @@
+[user]
+	signingkey = /home/rotarymars/projects/ssh-keys/github.pub
+	email = s.goto2050@gmail.com
+	name = rotarymars
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
+[core]
+	editor = code --wait
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	ps = push
+	pl = pull
+	lb = log --graph --decorate --oneline
+	lg = log --format=full --graph --decorate
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[delta]
+    # syntax-theme = Monokai Extended
+    navigate = true
+
+[interactive]
+    diffFilter = delta --color-only
+	[core]
+    pager = delta
+
+[merge]
+    conflictstyle = zdiff3

@@ -137,8 +137,8 @@ add-zsh-hook precmd _async_git_stat_update
 
 
 # prompt
-PROMPT_FG_COLOR=black
-RPROMPT_FG_COLOR=black
+PROMPT_FG_COLOR=white
+RPROMPT_FG_COLOR=white
 
 # git status
 # untracked yellow ●
@@ -172,7 +172,7 @@ RPROMPT_CL_SUFIX="%f"
 # PROMPT="${PROMPT_PREFIX}%#${PROMPT_CL_SUFIX} "
 # PROMPT2="${PROMPT_CL_PREFIX}%_\$${PROMPT_CL_SUFIX} "
 # SPROMPT="${PROMPT_CL_PREFIX}%r is correct? [n,y,a,e]:${PROMPT_CL_SUFIX} "
-PROMPT="%F{black}%D %* %%%f "
+PROMPT="%F{white}%D %* %%%f "
 RPROMPT_BASE="%F{${RPROMPT_FG_COLOR}}[%(4~,%-1~/.../%2~,%~)]%f"
 RPROMPT="${RPROMPT_BASE}"
 autoload -U compinit
