@@ -68,6 +68,7 @@ sudo apt-fast install -y \
   direnv cargo sshpass docker-compose-plugin tigervnc-viewer zsh libheif-examples \
   fortune-mod software-properties-common ansible v4l-utils cheese micropython windsurf \
   cmake ninja-build libfuse2t64
+sudo snap install zoom-client
 
 if [ ! -d /opt/nvim ]; then
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
