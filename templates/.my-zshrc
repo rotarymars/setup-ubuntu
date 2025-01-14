@@ -180,3 +180,4 @@ compinit
 
 setopt correct
 setopt auto_cd
+source $(dpkg -L fzf | grep key | grep zsh )

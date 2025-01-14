@@ -1,0 +1,258 @@
+---
+- name: Setup Ubuntu Environment
+  hosts: all
+  gather_facts: true
+  roles:
+    - rotarymars_setup
+#   tasks:
+#     - name: Determine architecture
+#       command: dpkg --print-architecture
+#       register: architecture_output
+
+#     - name: Determine Ubuntu codename
+#       command: lsb_release -cs
+#       register: codename_output
+
+#     - name: Update and upgrade apt packages
+#       become: true
+#       ansible.builtin.apt:
+#         update_cache: yes
+#         upgrade: yes
+#       failed_when: false
+
+#     - name: Ensure dependencies are installed
+#       ansible.builtin.apt:
+#         name: 
+#           - dirmngr
+#           - ca-certificates
+#           - curl
+#           - gnupg
+#           - lsb-release
+#           - ffmpeg
+
+#     - name: Add Google Chrome signing key and repository
+#       shell: |
+#         echo "deb [arch=amd64 signed-by=/usr/share/keyrings/googlechrom-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+#         curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --yes --dearmor -o /usr/share/keyrings/googlechrom-keyring.gpg
+
+#     - name: Add VS Code signing key and repository
+#       shell: |
+#         sudo apt-get install wget gpg
+#         wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --yes --dearmor >packages.microsoft.gpg
+#         sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+#         echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list >/dev/null
+#         rm -f packages.microsoft.gpg
+
+#     - name: Add KiCad repository
+#       shell: |
+#         sudo add-apt-repository -y ppa:kicad/kicad-8.0-releases
+
+#     - name: Add Warp signing key and repository
+#       shell: |
+#         wget -qO- https://releases.warp.dev/linux/keys/warp.asc | gpg --yes --dearmor >warpdotdev.gpg
+#         sudo install -D -o root -g root -m 644 warpdotdev.gpg /etc/apt/keyrings/warpdotdev.gpg
+#         sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.gpg] https://releases.warp.dev/linux/deb stable main" > /etc/apt/sources.list.d/warpdotdev.list'
+#         rm warpdotdev.gpg
+
+#     - name: Add Docker signing key and repository
+#       shell: |
+#         sudo mkdir -p /etc/apt/keyrings
+#         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /etc/apt/keyrings/docker.gpg
+#         sudo chmod a+r /etc/apt/keyrings/docker.gpg
+#         echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+#     - name: Add obs studio repository
+#       shell: |
+#         sudo add-apt-repository -y ppa:obsproject/obs-studio
+#     - name: Add Discord signing key and repository
+#       shell: |
+#         sudo -E gpg --no-default-keyring --keyring=/usr/share/keyrings/javinator9889-ppa-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 08633B4AAAEB49FC
+#         sudo tee /etc/apt/sources.list.d/javinator9889-ppa.list <<<"deb [arch=amd64 signed-by=/usr/share/keyrings/javinator9889-ppa-keyring.gpg] https://ppa.javinator9889.com all main"
+
+#     - name: Add Ansible repository manually
+#       shell: |
+#         sudo add-apt-repository --yes --update ppa:ansible/ansible
+
+#     - name: Add Windsurf signing key and repository
+#       shell: |
+#         curl -fsSL "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg" | sudo gpg --yes --dearmor -o /usr/share/keyrings/windsurf-stable-archive-keyring.gpg
+#         echo "deb [signed-by=/usr/share/keyrings/windsurf-stable-archive-keyring.gpg arch=amd64] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main" | sudo tee /etc/apt/sources.list.d/windsurf.list > /dev/null
+#     - name: Add apt-fast repository manually
+#       shell: |
+#         sudo add-apt-repository -y ppa:apt-fast/stable
+
+#     - name: Install apt-fast
+#       apt:
+#         name: apt-fast
+#         state: present
+
+#     - name: Enable Universe repository
+#       shell: "sudo add-apt-repository universe"
+
+#     - name: Update and install all packages
+#       apt:
+#         name:
+#           - google-chrome-stable
+#           - rpi-imager
+#           - ibus-mozc
+#           - mozc-utils-gui
+#           - curl
+#           - apt-transport-https
+#           - git
+#           - kicad
+#           - clang
+#           - clangd
+#           - clang-format
+#           - build-essential
+#           - warp-terminal
+#           - libreoffice
+#           - docker-ce
+#           - docker-ce-cli
+#           - containerd.io
+#           - blender
+#           - obs-studio
+#           - openvpn3
+#           - network-manager-l2tp
+#           - network-manager-l2tp-gnome
+#           - xsel
+#           - nodejs
+#           - npm
+#           - python3-pip
+#           - exuberant-ctags
+#           - ripgrep
+#           - eza
+#           - make
+#           - libssl-dev
+#           - zlib1g-dev
+#           - libbz2-dev
+#           - libreadline-dev
+#           - libsqlite3-dev
+#           - llvm
+#           - libncursesw5-dev
+#           - xz-utils
+#           - tk-dev
+#           - libxml2-dev
+#           - libxmlsec1-dev
+#           - libffi-dev
+#           - liblzma-dev
+#           - lldb
+#           - libxslt1-dev
+#           - autoconf
+#           - bison
+#           - libyaml-dev
+#           - libncurses5-dev
+#           - libgdbm-dev
+#           - libdb-dev
+#           - uuid-dev
+#           - fzf
+#           - htop
+#           - net-tools
+#           - trash-cli
+#           - nmap
+#           - openssh-server
+#           - bacula-console-qt
+#           - discord
+#           - blueman
+#           - apt-fast
+#           - code
+#           - direnv
+#           - cargo
+#           - sshpass
+#           - docker-compose-plugin
+#           - tigervnc-viewer
+#           - zsh
+#           - libheif-examples
+#           - fortune-mod
+#           - software-properties-common
+#           - ansible
+#           - v4l-utils
+#           - cheese
+#           - micropython
+#           - windsurf
+#           - cmake
+#           - ninja-build
+#           - libfuse2
+#           - aria2
+#         state: present
+
+#     - name: Install Neovim
+#       shell: |
+#         if [ ! -d /opt/nvim ]; then
+#           curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+#           sudo rm -rf /opt/nvim
+#           sudo tar -C /opt -xzf nvim-linux64.tar.gz
+#           rm -f nvim-linux64.tar.gz
+#         fi
+
+#     - name: Set git global configurations
+#       shell: |
+#         git config --global user.name rotarymars
+#         git config --global user.email s.goto2050@gmail.com
+#         git config --global commit.gpgsign true
+#         git config --global gpg.format ssh
+
+#     - name: Clone Neovim setup
+#       git:
+#         repo: git@github.com:rotarymars/neovim-setup
+#         dest: "~/.config/nvim"
+#         update: yes
+
+#     - name: Clone Nerd Fonts repository and install fonts
+#       shell: |
+#         if [ ! -d ~/.local/share/fonts/NerdFonts ]; then
+#           git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+#           cd nerd-fonts
+#           ./install.sh
+#           cd ..
+#           rm -rf nerd-fonts
+#         fi
+
+#     - name: Install Python packages
+#       pip:
+#         name:
+#           - jedi
+#           - yapf
+#           - git+https://github.com/rotarymars/oj.git
+
+#     - name: Install atcoder-cli
+#       npm:
+#         name: atcoder-cli
+#         global: yes
+
+#     - name: Add rotarymars to docker group
+#       command: sudo gpasswd -a rotarymars docker
+
+#     - name: Replace XKB options
+#       lineinfile:
+#         path: /etc/default/keyboard
+#         regexp: '^XKBOPTIONS=.*'
+#         line: 'XKBOPTIONS="ctrl:nocaps"'
+
+#     - name: Setup .my-bashrc
+#       copy:
+#         src: templates/.my-bashrc
+#         dest: ~/.my-bashrc
+
+#     - name: Setup .zshrc
+#       lineinfile:
+#         path: ~/.zshrc
+#         line: "source ~/.my-zshrc"
+#         state: present
+
+#     - name: Setup .my-zshrc
+#       copy:
+#         src: templates/.my-zshrc
+#         dest: ~/.my-zshrc
+
+#     - name: Configure git aliases
+#       copy:
+#         src: templates/.gitconfig
+#         dest: ~/.gitconfig
+
+#     - name: Install git-delta
+#       shell: |
+#         aria2c 'https://github.com/dandavison/delta/releases/download/0.18.2/git-delta_0.18.2_amd64.deb'
+#         sudo dpkg -i ./git-delta_0.18.2_amd64.deb
+#         rm ./git-delta_0.18.2_amd64.deb
+
+#     - name: Configure virtual monitors
+#       shell: gsettings set org.gnome.desktop.remote-desktop.rdp screen-share-mode extend

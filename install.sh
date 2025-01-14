@@ -29,25 +29,19 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 # obs studio
 sudo apt-get install -y ffmpeg
 sudo add-apt-repository -y ppa:obsproject/obs-studio
-# openvpn
-sudo mkdir -p /etc/apt/keyrings && curl -fsSL https://packages.openvpn.net/packages-repo.gpg | sudo tee /etc/apt/keyrings/openvpn.asc
-DISTRO=$(lsb_release -c -s)
-echo "deb [signed-by=/etc/apt/keyrings/openvpn.asc] https://packages.openvpn.net/openvpn3/debian $DISTRO main" | sudo tee /etc/apt/sources.list.d/openvpn-packages.list
 # discord
 sudo -E gpg --no-default-keyring --keyring=/usr/share/keyrings/javinator9889-ppa-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 08633B4AAAEB49FC
 sudo tee /etc/apt/sources.list.d/javinator9889-ppa.list <<<"deb [arch=amd64 signed-by=/usr/share/keyrings/javinator9889-ppa-keyring.gpg] https://ppa.javinator9889.com all main"
 # ansible
 sudo add-apt-repository --yes --update ppa:ansible/ansible
 # windsurf
-curl -fsSL "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg" | sudo gpg --dearmor -o /usr/share/keyrings/windsurf-stable-archive-keyring.gpg
+curl -fsSL "https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg" | sudo gpg --yes --dearmor -o /usr/share/keyrings/windsurf-stable-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/windsurf-stable-archive-keyring.gpg arch=amd64] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main" | sudo tee /etc/apt/sources.list.d/windsurf.list > /dev/null
 # apt-fast
 sudo add-apt-repository -y ppa:apt-fast/stable
 sudo apt install -y apt-fast
-# llvm
-sudo bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"
 # FUSE
-sudo add-apt-repository universe
+sudo add-apt-repository -y universe
 
 
 sudo apt-fast update

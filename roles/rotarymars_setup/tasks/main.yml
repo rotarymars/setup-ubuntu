@@ -1,0 +1,10 @@
+---
+- name: Set target roles
+  ansible.builtin.set_fact:
+    # target_roles: ["bluetooth_pan"]
+    target_roles: ["apt-upgrade", "apt"]
+
+- name: Ubuntu setup
+  ansible.builtin.include_role:
+    name: "{{ item }}"
+  loop: "{{ target_roles }}"
