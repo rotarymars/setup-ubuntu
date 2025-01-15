@@ -2,7 +2,7 @@
 - name: Set target roles
   ansible.builtin.set_fact:
     # target_roles: ["bluetooth_pan"]
-    target_roles: ["apt-upgrade", "apt"]
+    target_roles: ["apt-upgrade", "apt", "snap", "setup-git", "nerd-fonts", "asdf", "utils"]
 
 - name: Ubuntu setup
   ansible.builtin.include_role:

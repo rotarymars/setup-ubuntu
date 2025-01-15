@@ -1,0 +1,39 @@
+---
+- name: Add rotarymars to docker group
+  ansible.builtin.shell: |
+    sudo gpasswd -a rotarymars docker
+
+- name: Replace capslock to ctrl
+  ansible.builtin.shell: |
+    sudo sed -i 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
+
+- name: Add source .my-bashrc if not written
+  ansible.builtin.lineinfile:
+    path: ~/.bashrc
+    line: "source ~/.my-bashrc"
+
+- name: Copy .my-bashrc
+  ansible.builtin.template:
+    src: ".my-bashrc"
+    dest: "~/.my-bashrc"
+
+- name: Add source .my-zshrc if not written
+  ansible.builtin.lineinfile:
+    path: ~/.zshrc
+    line: "source ~/.my-zshrc"
+
+- name: Copy .my-zshrc
+  ansible.builtin.template:
+    src: ".my-zshrc"
+    dest: "~/.my-zshrc"
+
+- command: which delta
+  register: result
+  ignore_errors: true
+
+- name: Install delta if needed
+  ansible.builtin.shell: |
+    aria2c 'https://github.com/dandavison/delta/releases/download/0.18.2/git-delta_0.18.2_amd64.deb'
+    sudo dpkg -i ./git-delta_0.18.2_amd64.deb
+    rm ./git-delta_0.18.2_amd64.deb
+  when: result is failed

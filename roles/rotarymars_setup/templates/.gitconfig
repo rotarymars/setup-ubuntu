@@ -1,5 +1,5 @@
 [user]
-	signingkey = /home/rotarymars/projects/ssh-keys/github.pub
+	signingkey = /home/rotarymars/.ssh/id_rsa.pub
 	email = s.goto2050@gmail.com
 	name = rotarymars
 [commit]

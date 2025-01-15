@@ -1,0 +1,14 @@
+---
+- name: Register directory name for nerd font
+  ansible.builtin.stat:
+    path: "~/.local/share/fonts/NerdFonts"
+  register: chk_file
+- name: Install nerd fonts if not installed
+  ansible.builtin.shell: |
+    cd /tmp
+    git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+    cd nerd-fonts
+    ./install.sh
+    cd ..
+    rm -rf nerd-fonts
+  when: chk_file.stat.isdir == false

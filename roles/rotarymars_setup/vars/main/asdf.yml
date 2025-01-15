@@ -1,0 +1,14 @@
+---
+asdf_plugins_without_dest:
+  - 
+    name: python
+    version: 3.12.6
+  - 
+    name: ruby
+    version: 3.3.6
+
+asdf_plugins_with_dest:
+  -
+    name: zoxide
+    url: https://github.com/nyrst/asdf-zoxide
+    version: 0.9.6

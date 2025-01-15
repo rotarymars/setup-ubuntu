@@ -1,0 +1,25 @@
+---
+- name: Make ssh directory
+  ansible.builtin.file:
+    path: ~/.ssh
+    state: "directory"
+- name: Copy ssh-config
+  ansible.builtin.template:
+    src: ".ssh/config"
+    dest: "~/.ssh/config"
+- name: Copy ssh public key
+  ansible.builtin.template:
+    src: "ssh-keys/id_rsa.pub"
+    dest: "~/.ssh/id_rsa.pub"
+- name: Copy ssh private key
+  ansible.builtin.template:
+    src: "ssh-keys/id_rsa"
+    dest: "~/.ssh/id_rsa"
+- name: Change permission for private key
+  ansible.builtin.file:
+    path: ~/.ssh/id_rsa
+    mode: go-rwx,u+rw
+- name: Copy .gitconfig
+  ansible.builtin.template:
+    src: ".gitconfig"
+    dest: "~/.gitconfig"

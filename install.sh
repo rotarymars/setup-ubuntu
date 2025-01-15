@@ -108,8 +108,7 @@ sudo npm install n -g
 sudo n stable
 # sudo apt purge -y nodejs npm
 sudo apt autoremove -y
-pip install jedi yapf
-pip install git+https://github.com/rotarymars/oj.git
+pip install jedi yapf git+https://github.com/rotarymars/oj.git
 # echo "export PATH=\"\$PATH:/home/rotarymars/.local/bin\"" >>~/.my-bashrc
 sudo npm install -g atcoder-cli
 # echo "alias compile='clang++ -g -std=c++2b'" >>~/.my-bashrc
@@ -179,5 +178,3 @@ cp ${TEMPLATE_PATH}/.gitconfig ~/.gitconfig
 aria2c 'https://github.com/dandavison/delta/releases/download/0.18.2/git-delta_0.18.2_amd64.deb'
 sudo dpkg -i ./git-delta_0.18.2_amd64.deb
 rm ./git-delta_0.18.2_amd64.deb
-# virtual monitors
-gsettings set org.gnome.desktop.remote-desktop.rdp screen-share-mode extend

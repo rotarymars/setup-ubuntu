@@ -26,11 +26,10 @@ apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.asc] https://releases.warp.dev/linux/deb stable main
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable
   - ppa:obsproject/obs-studio
-  - deb [arc=amd64 signed-by=/etc/apt/keyrings/discord.asc] https://ppa.javinator9889.com all main
+  - deb [arch=amd64 signed-by=/etc/apt/keyrings/discord.asc] https://ppa.javinator9889.com all main
   - ppa:ansible/ansible
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/windsurf.asc] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main
   - ppa:apt-fast/stable
-  - universe
 
 apt_packages:
   - dirmngr
@@ -41,3 +40,83 @@ apt_packages:
   - ffmpeg
   - apt-fast
   - google-chrome-stable
+  - rpi-imager
+  - ibus-mozc
+  - mozc-utils-gui
+  - curl
+  - apt-transport-https
+  - git
+  - kicad
+  - clang
+  - clangd
+  - clang-format
+  - build-essential
+  - warp-terminal
+  - libreoffice
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - blender
+  - obs-studio
+  - openvpn3
+  - network-manager-l2tp
+  - network-manager-l2tp-gnome
+  - xsel
+  - nodejs
+  - npm
+  - python3-pip
+  - exuberant-ctags
+  - ripgrep
+  - eza
+  - make
+  - libssl-dev
+  - zlib1g-dev
+  - libbz2-dev
+  - libreadline-dev
+  - libsqlite3-dev
+  - llvm
+  - libncursesw5-dev
+  - xz-utils
+  - tk-dev
+  - libxml2-dev
+  - libxmlsec1-dev
+  - libffi-dev
+  - liblzma-dev
+  - lldb
+  - libxslt1-dev
+  - autoconf
+  - bison
+  - libyaml-dev
+  - libncurses5-dev
+  - libgdbm-dev
+  - libdb-dev
+  - uuid-dev
+  - fzf
+  - htop
+  - net-tools
+  - trash-cli
+  - nmap
+  - openssh-server
+  - bacula-console-qt
+  - discord
+  - blueman
+  - apt-fast
+  - code
+  - direnv
+  - cargo
+  - sshpass
+  - docker-compose-plugin
+  - tigervnc-viewer
+  - zsh
+  - libheif-examples
+  - fortune-mod
+  - software-properties-common
+  - ansible
+  - v4l-utils
+  - cheese
+  - micropython
+  - windsurf
+  - cmake
+  - ninja-build
+  - libfuse2t64
+  - aria2
