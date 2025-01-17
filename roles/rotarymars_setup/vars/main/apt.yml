@@ -120,4 +120,3 @@ apt_packages:
   - ninja-build
   - libfuse2t64
   - aria2
-  - freecad
