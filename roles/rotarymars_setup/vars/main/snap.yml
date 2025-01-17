@@ -1,3 +1,4 @@
 ---
 snap_packages:
   - zoom-client
+  - freecad
