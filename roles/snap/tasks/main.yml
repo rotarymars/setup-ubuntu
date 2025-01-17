@@ -1,5 +1,5 @@
 ---
-- name: Install apt packages
+- name: Install snap packages
   become: true
   ansible.builtin.snap:
     name: "{{ snap_packages }}"
