@@ -111,3 +111,4 @@ apt_packages:
   - libfuse2t64
   - aria2
   - tmux
+  - python3-venv
