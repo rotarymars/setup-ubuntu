@@ -108,7 +108,6 @@ apt_packages:
   - v4l-utils
   - cheese
   - micropython
-  - windsurf
   - cmake
   - ninja-build
   - libfuse2t64
