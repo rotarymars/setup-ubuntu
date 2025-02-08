@@ -13,8 +13,8 @@ apt_keys:
     url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x08633B4AAAEB49FC
     keyname: /etc/apt/keyrings/discord.asc
   - 
-    url: https://download.opensuse.org/repositories/home:/strycore/Debian_12/Release.key
-    keyname: /etc/apt/keyrings/lutris.asc
+    url: https://dl.winehq.org/wine-builds/Release.key
+    keyname: /usr/share/keyrings/winehq-archive.asc
 apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/googlechrom-keyring.asc] http://dl.google.com/linux/chrome/deb/ stable main
   - deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main
@@ -24,7 +24,7 @@ apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/discord.asc] https://ppa.javinator9889.com all main
   - ppa:ansible/ansible
   - ppa:apt-fast/stable
-  - deb [signed-by=/etc/apt/keyrings/lutris.asc] https://download.opensuse.org/repositories/home:/strycore/Debian_12/ ./
+  - deb https://dl.winehq.org/wine-builds/ubuntu/ noble main
 apt_packages:
   - dirmngr
   - ca-certificates
@@ -114,3 +114,4 @@ apt_packages:
   - aria2
   - tmux
   - python3-venv
+  - winehq-stable
