@@ -1,7 +1,7 @@
 export PATH="$PATH:/opt/nvim-linux64/bin"
 alias pbcopy='xsel --clipboard --input'
 alias g='git'
-alias ls='eza --icons'
+alias ls='eza --icons -g --git'
 alias l='ls'
 export PATH="$PATH:/home/rotarymars/.local/bin"
 alias compile='clang++ -g -std=c++2b'

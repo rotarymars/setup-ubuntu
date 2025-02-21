@@ -115,3 +115,4 @@ apt_packages:
   - tmux
   - python3-venv
   - winehq-stable
+  - imagemagick
