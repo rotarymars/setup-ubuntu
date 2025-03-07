@@ -7,30 +7,24 @@ apt_keys:
     url: https://packages.microsoft.com/keys/microsoft.asc
     keyname: /etc/apt/keyrings/packages.microsoft.asc
   - 
-    url: https://releases.warp.dev/linux/keys/warp.asc
-    keyname: /etc/apt/keyrings/warpdotdev.asc
-  - 
     url: https://download.docker.com/linux/ubuntu/gpg
     keyname: /etc/apt/keyrings/docker.asc
   - 
     url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x08633B4AAAEB49FC
     keyname: /etc/apt/keyrings/discord.asc
   - 
-    url: https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg
-    keyname: /etc/apt/keyrings/windsurf.asc
-
+    url: https://dl.winehq.org/wine-builds/Release.key
+    keyname: /usr/share/keyrings/winehq-archive.asc
 apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/googlechrom-keyring.asc] http://dl.google.com/linux/chrome/deb/ stable main
   - deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main
   - ppa:kicad/kicad-8.0-releases
-  - deb [arch=amd64 signed-by=/etc/apt/keyrings/warpdotdev.asc] https://releases.warp.dev/linux/deb stable main
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable
   - ppa:obsproject/obs-studio
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/discord.asc] https://ppa.javinator9889.com all main
   - ppa:ansible/ansible
-  - deb [arch=amd64 signed-by=/etc/apt/keyrings/windsurf.asc] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main
   - ppa:apt-fast/stable
-
+  - deb https://dl.winehq.org/wine-builds/ubuntu/ noble main
 apt_packages:
   - dirmngr
   - ca-certificates
@@ -51,7 +45,6 @@ apt_packages:
   - clangd
   - clang-format
   - build-essential
-  - warp-terminal
   - libreoffice
   - docker-ce
   - docker-ce-cli
@@ -115,7 +108,6 @@ apt_packages:
   - v4l-utils
   - cheese
   - micropython
-  - windsurf
   - cmake
   - ninja-build
   - libfuse2t64

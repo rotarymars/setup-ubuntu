@@ -3,6 +3,10 @@
   ansible.builtin.shell: |
     sudo gpasswd -a rotarymars docker
 
+- name: Add rotarymars to video group
+  ansible.builtin.shell: |
+    sudo gpasswd -a rotarymars video
+
 - name: Replace capslock to ctrl
   ansible.builtin.shell: |
     sudo sed -i 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
