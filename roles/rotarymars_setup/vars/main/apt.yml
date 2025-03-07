@@ -121,3 +121,4 @@ apt_packages:
   - libfuse2t64
   - aria2
   - tmux
+  - tree
