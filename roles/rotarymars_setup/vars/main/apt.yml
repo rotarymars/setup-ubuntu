@@ -114,3 +114,4 @@ apt_packages:
   - aria2
   - tmux
   - tree
+  - ncdu
