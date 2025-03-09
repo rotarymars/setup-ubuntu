@@ -115,3 +115,4 @@ apt_packages:
   - tmux
   - tree
   - ncdu
+  - avahi-daemon
