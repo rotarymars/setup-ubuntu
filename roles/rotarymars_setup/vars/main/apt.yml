@@ -25,6 +25,7 @@ apt_repositories:
   - ppa:ansible/ansible
   - ppa:apt-fast/stable
   - deb https://dl.winehq.org/wine-builds/ubuntu/ noble main
+  - deb [trusted=yes] https://apt.fury.io/notion-repackaged/ /
 apt_packages:
   - dirmngr
   - ca-certificates
