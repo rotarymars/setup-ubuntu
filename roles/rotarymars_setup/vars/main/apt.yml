@@ -25,6 +25,7 @@ apt_repositories:
   - ppa:ansible/ansible
   - ppa:apt-fast/stable
   - deb https://dl.winehq.org/wine-builds/ubuntu/ noble main
+  - ppa:openshot.developers/ppa
 apt_packages:
   - dirmngr
   - ca-certificates
@@ -116,3 +117,5 @@ apt_packages:
   - tree
   - ncdu
   - avahi-daemon
+  - openshot-qt 
+  - python3-openshot
