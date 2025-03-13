@@ -32,6 +32,11 @@
     src: ".my-bashrc"
     dest: "~/.my-bashrc"
 
+- name: Copy lazygit's config.yml
+  ansible.builtin.template:
+    src: "lazygit_config.yml"
+    dest: "~/.config/lazygit/config.yml"
+
 - name: Add source .my-zshrc if not written
   ansible.builtin.lineinfile:
     path: ~/.zshrc
