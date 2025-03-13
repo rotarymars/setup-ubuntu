@@ -1,9 +1,9 @@
 ---
 asdf_plugins_without_dest:
-  - 
+  -
     name: python
     version: 3.12.6
-  - 
+  -
     name: ruby
     version: 3.3.6
   -
