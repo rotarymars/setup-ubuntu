@@ -6,7 +6,7 @@ asdf_plugins_without_dest:
   - 
     name: ruby
     version: 3.3.6
-  - 
+  -
     name: lazygit
     version: latest
 
