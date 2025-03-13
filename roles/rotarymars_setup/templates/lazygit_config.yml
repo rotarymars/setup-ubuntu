@@ -1,5 +1,9 @@
-# gui:
-  # showIcons: true
+gui:
+  showIcons: true
+  nerdFontsVersion: "3"
 
 git:
   branchLogCmd: git log --format=full --graph --decorate
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
