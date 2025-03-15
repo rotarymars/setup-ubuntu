@@ -8,6 +8,7 @@ alias compile='clang++ -g -std=c++2b'
 alias accnew='acc new --template kyopuro'
 alias accadd='acc add --template kyopuro'
 fortune
+fastfetch
 . "$HOME/.asdf/asdf.sh"
 # append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)

@@ -26,6 +26,7 @@ apt_repositories:
   - ppa:apt-fast/stable
   - deb https://dl.winehq.org/wine-builds/ubuntu/ noble main
   - ppa:openshot.developers/ppa
+  - ppa:zhangsongcui3371/fastfetch
 apt_packages:
   - dirmngr
   - ca-certificates
@@ -119,3 +120,4 @@ apt_packages:
   - avahi-daemon
   - openshot-qt 
   - python3-openshot
+  - fastfetch
