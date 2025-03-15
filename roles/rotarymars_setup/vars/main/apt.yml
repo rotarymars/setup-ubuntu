@@ -121,3 +121,4 @@ apt_packages:
   - openshot-qt 
   - python3-openshot
   - fastfetch
+  - hydra
