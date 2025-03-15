@@ -1,6 +1,8 @@
 gui:
   showIcons: true
   nerdFontsVersion: "3"
+  authorColors:
+    'rotarymars': '#ff0000'
 
 git:
   branchLogCmd: git log --format=full --graph --decorate
