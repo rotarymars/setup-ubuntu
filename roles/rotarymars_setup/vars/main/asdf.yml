@@ -9,6 +9,9 @@ asdf_plugins_without_dest:
   -
     name: lazygit
     version: latest
+  -
+    name: lazydocker
+    version: latest
 
 asdf_plugins_with_dest:
   -
