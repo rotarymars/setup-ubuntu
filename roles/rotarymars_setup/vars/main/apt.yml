@@ -24,8 +24,6 @@ apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/discord.asc] https://ppa.javinator9889.com all main
   - ppa:ansible/ansible
   - ppa:apt-fast/stable
-  - deb https://dl.winehq.org/wine-builds/ubuntu/ noble main
-  - ppa:openshot.developers/ppa
   - ppa:zhangsongcui3371/fastfetch
 apt_packages:
   - dirmngr
@@ -118,7 +116,5 @@ apt_packages:
   - tree
   - ncdu
   - avahi-daemon
-  - openshot-qt 
-  - python3-openshot
   - fastfetch
   - hydra
