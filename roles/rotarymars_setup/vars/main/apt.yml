@@ -19,7 +19,7 @@ apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/googlechrom-keyring.asc] http://dl.google.com/linux/chrome/deb/ stable main
   - deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main
   - ppa:kicad/kicad-8.0-releases
-  - deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable
+  - deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
   - ppa:obsproject/obs-studio
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/discord.asc] https://ppa.javinator9889.com all main
   - ppa:ansible/ansible
@@ -118,8 +118,6 @@ apt_packages:
   - avahi-daemon
   - fastfetch
   - hydra
-  - gcc-9
-  - g++-9
   - gcc-10
   - g++-10
   - gcc-11
