@@ -57,3 +57,21 @@
     sudo dpkg -i ./git-delta_0.18.2_amd64.deb
     rm ./git-delta_0.18.2_amd64.deb
   when: result is failed
+
+- name: Check for cursor
+  ansible.builtin.shell: |
+    if [ -e "/opt/cursor.AppImage" ] && [ -x "/opt/cursor.AppImage" ]; then
+      exit 0
+    else
+      exit 1
+    fi
+  register: result
+  ignore_errors: true
+
+- name: Install cursor if needed
+  ansible.builtin.shell: |
+    sudo wget https://downloader.cursor.sh/linux/appImage/x64 -O /opt/cursor.AppImage
+
+- name: Add execute command to cursor if needed
+  ansible.builtin.shell: |
+    sudo chmod +x /opt/cursor.AppImage
