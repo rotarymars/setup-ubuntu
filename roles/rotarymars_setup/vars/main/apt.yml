@@ -118,8 +118,6 @@ apt_packages:
   - avahi-daemon
   - fastfetch
   - hydra
-  - gcc-10
-  - g++-10
   - gcc-11
   - g++-11
   - gcc-12
