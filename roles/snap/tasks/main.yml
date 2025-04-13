@@ -3,3 +3,4 @@
   become: true
   ansible.builtin.snap:
     name: "{{ snap_packages }}"
+    classic: true
