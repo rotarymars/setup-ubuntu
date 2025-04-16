@@ -9,7 +9,9 @@ asdf_plugins_without_dest:
   -
     name: lazygit
     version: latest
-
+  -
+    name: nodejs
+    version: latest
 asdf_plugins_with_dest:
   -
     name: zoxide
