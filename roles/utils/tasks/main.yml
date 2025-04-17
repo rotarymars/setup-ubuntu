@@ -47,6 +47,11 @@
     src: ".my-zshrc"
     dest: "~/.my-zshrc"
 
+- name: Copy .hotspot_config.zsh
+  ansible.builtin.template:
+    src: "hotspot_config.zsh"
+    dest: "~/.hotspot_config.zsh"
+
 - command: which delta
   register: result
   ignore_errors: true
