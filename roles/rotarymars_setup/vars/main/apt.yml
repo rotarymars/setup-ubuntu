@@ -130,3 +130,6 @@ apt_packages:
   - clang-17
   - clang-18
   - clang-19
+  - arp-scan
+  - vim
+  - dnsmasq
