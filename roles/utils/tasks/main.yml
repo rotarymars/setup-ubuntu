@@ -75,7 +75,7 @@
 
 - name: Install cursor if needed
   ansible.builtin.shell: |
-    sudo wget "https://downloads.cursor.com/production/61e99179e4080fecf9d8b92c6e2e3e00fbfb53f4/linux/x64/Cursor-0.48.9-x86_64.AppImage" /opt/cursor.AppImage
+    sudo wget "https://downloads.cursor.com/production/61e99179e4080fecf9d8b92c6e2e3e00fbfb53f4/linux/x64/Cursor-0.48.9-x86_64.AppImage" -O /opt/cursor.AppImage
   when: result is failed
 
 - name: Add execute privilege to cursor if needed
