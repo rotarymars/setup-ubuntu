@@ -25,6 +25,7 @@ apt_repositories:
   - ppa:ansible/ansible
   - ppa:apt-fast/stable
   - ppa:zhangsongcui3371/fastfetch
+  - ppa:lakinduakash/lwh
 apt_packages:
   - dirmngr
   - ca-certificates
@@ -135,3 +136,4 @@ apt_packages:
   - dnsmasq
   - hostapd
   - isc-dhcp-server
+  - linux-wifi-hotspot
