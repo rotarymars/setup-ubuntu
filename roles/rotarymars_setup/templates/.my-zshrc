@@ -18,6 +18,7 @@ autoload -Uz compinit && compinit
 alias rm='trash-put'
 eval "$(direnv hook zsh)"
 eval "$(zoxide init zsh --cmd cd)"
+eval "$(gh completion -s zsh)"
 
 autoload -Uz add-zsh-hook
 

@@ -15,6 +15,9 @@ apt_keys:
   - 
     url: https://dl.winehq.org/wine-builds/Release.key
     keyname: /usr/share/keyrings/winehq-archive.asc
+  - 
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    keyname: /etc/apt/keyrings/githubcli-archive-keyring.gpg
 apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/googlechrom-keyring.asc] http://dl.google.com/linux/chrome/deb/ stable main
   - deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/code stable main
@@ -26,6 +29,7 @@ apt_repositories:
   - ppa:apt-fast/stable
   - ppa:zhangsongcui3371/fastfetch
   - ppa:lakinduakash/lwh
+  - deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main
 apt_packages:
   - dirmngr
   - ca-certificates
@@ -137,3 +141,4 @@ apt_packages:
   - hostapd
   - isc-dhcp-server
   - linux-wifi-hotspot
+  - gh
