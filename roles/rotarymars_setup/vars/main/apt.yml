@@ -133,3 +133,4 @@ apt_packages:
   - arp-scan
   - vim
   - dnsmasq
+  - hostapd
