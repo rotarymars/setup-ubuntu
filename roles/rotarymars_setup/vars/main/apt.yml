@@ -134,3 +134,4 @@ apt_packages:
   - vim
   - dnsmasq
   - hostapd
+  - isc-dhcp-server
