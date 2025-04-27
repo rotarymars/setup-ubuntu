@@ -142,3 +142,4 @@ apt_packages:
   - isc-dhcp-server
   - linux-wifi-hotspot
   - gh
+  - openjdk-21-jdk
