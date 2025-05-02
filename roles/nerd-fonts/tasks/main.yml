@@ -11,4 +11,4 @@
     ./install.sh
     cd ..
     rm -rf nerd-fonts
-  when: chk_file.stat.isdir == false
+  when: chk_file.stat.exists == false
