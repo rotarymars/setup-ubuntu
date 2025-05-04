@@ -139,3 +139,4 @@ apt_packages:
   - linux-wifi-hotspot
   - gh
   - openjdk-21-jdk
+  - libboost-all-dev
