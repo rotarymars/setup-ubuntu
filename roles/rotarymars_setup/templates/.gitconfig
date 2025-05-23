@@ -1,11 +1,9 @@
 [user]
-	signingkey = /home/rotarymars/.ssh/id_rsa.pub
+	signingkey = 8E54858030FA9334
 	email = s.goto2050@gmail.com
 	name = rotarymars
 [commit]
 	gpgsign = true
-[gpg]
-	format = ssh
 [pull]
 	rebase = false
 [init]
