@@ -140,3 +140,4 @@ apt_packages:
   - gh
   - openjdk-21-jdk
   - libboost-all-dev
+  - mysql-client
