@@ -141,3 +141,6 @@ apt_packages:
   - openjdk-21-jdk
   - libboost-all-dev
   - mysql-client
+  - asunder
+  - lame
+  - sg3-utils
