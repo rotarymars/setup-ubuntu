@@ -144,3 +144,4 @@ apt_packages:
   - asunder
   - lame
   - sg3-utils
+  - libopencv-dev
