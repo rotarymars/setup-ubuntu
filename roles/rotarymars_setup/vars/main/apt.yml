@@ -145,3 +145,4 @@ apt_packages:
   - lame
   - sg3-utils
   - libopencv-dev
+  - apache2-utils
