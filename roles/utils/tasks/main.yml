@@ -87,3 +87,7 @@
 - name: Add execute privilege to cursor if needed
   ansible.builtin.shell: |
     sudo chmod +x /opt/cursor.AppImage
+
+- name: Install zinit
+  ansible.builtin.shell: |
+    bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
