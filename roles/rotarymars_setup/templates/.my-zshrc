@@ -9,8 +9,8 @@ alias accnew='acc new --template kyopuro'
 alias accadd='acc add --template kyopuro'
 alias cursor='/opt/cursor.AppImage --no-sandbox'
 alias allissues='gh search issues --assignee @me --state open'
-fortune
-fastfetch
+# fortune
+# fastfetch
 . "$HOME/.asdf/asdf.sh"
 # append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
@@ -191,3 +191,7 @@ source ~/.hotspot_config.zsh
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
+zinit load zsh-users/zsh-syntax-highlighting
+zinit load zsh-users/zsh-autosuggestions
+zinit load zsh-users/zsh-completions
+zinit load mollifier/cd-gitroot
