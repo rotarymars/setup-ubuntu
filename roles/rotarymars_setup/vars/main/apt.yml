@@ -145,3 +145,4 @@ apt_packages:
   - libopencv-dev
   - apache2-utils
   - screen
+  - virtualbox
