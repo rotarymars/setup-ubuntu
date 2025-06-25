@@ -146,3 +146,4 @@ apt_packages:
   - apache2-utils
   - screen
   - virtualbox
+  - libcgi-pm-perl
