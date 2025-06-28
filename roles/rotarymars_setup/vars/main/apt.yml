@@ -147,3 +147,5 @@ apt_packages:
   - screen
   - virtualbox
   - libcgi-pm-perl
+  - dos2unix
+  - rubberband-cli
