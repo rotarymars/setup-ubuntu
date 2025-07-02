@@ -149,3 +149,5 @@ apt_packages:
   - libcgi-pm-perl
   - dos2unix
   - rubberband-cli
+  - sox
+  - libsox-fmt-mp3
