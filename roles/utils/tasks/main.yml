@@ -52,6 +52,12 @@
     src: "hotspot_config.zsh"
     dest: "~/.hotspot_config.zsh"
 
+- name: Fetch neovim config
+  ansible.builtin.git:
+    repo: https://github.com/rotarymars/neovim-setup
+    dest: "~/.config/nvim"
+    update: yes
+
 - name: Add config for Apple's USB Superdrive
   become: true
   ansible.builtin.template:
