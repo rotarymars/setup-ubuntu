@@ -151,3 +151,4 @@ apt_packages:
   - rubberband-cli
   - sox
   - libsox-fmt-mp3
+  - neovim
