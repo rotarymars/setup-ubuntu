@@ -3,6 +3,8 @@ gui:
   nerdFontsVersion: "3"
   authorColors:
     'rotarymars': '#ff0000'
+    'K10-K10': '#0000ff'
+    'rintaro1018': '#00ff00'
 
 git:
   overrideGpg: true
