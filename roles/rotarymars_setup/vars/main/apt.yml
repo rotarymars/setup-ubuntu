@@ -152,3 +152,5 @@ apt_packages:
   - sox
   - libsox-fmt-mp3
   - neovim
+  - opam
+  - ocamlbuild
