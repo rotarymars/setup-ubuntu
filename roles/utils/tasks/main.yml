@@ -77,7 +77,7 @@
 
 - name: Check for cursor
   ansible.builtin.shell: |
-    if [ -e "/opt/cursor.AppImage" ] && [ -x "/opt/cursor.AppImage" ]; then
+    if [ -e "/opt/cursor/AppRun" ] && [ -x "/opt/cursor/AppRun" ]; then
       exit 0
     else
       exit 1
@@ -85,10 +85,10 @@
   register: result
   ignore_errors: true
 
-- name: Install cursor if needed
-  ansible.builtin.shell: |
-    sudo wget "https://downloads.cursor.com/production/61e99179e4080fecf9d8b92c6e2e3e00fbfb53f4/linux/x64/Cursor-0.48.9-x86_64.AppImage" -O /opt/cursor.AppImage
-  when: result is failed
+# - name: Install cursor if needed
+#   ansible.builtin.shell: |
+#     sudo wget "https://downloads.cursor.com/production/61e99179e4080fecf9d8b92c6e2e3e00fbfb53f4/linux/x64/Cursor-0.48.9-x86_64.AppImage" -O /opt/cursor.AppImage
+#   when: result is failed
 
 - name: Add execute privilege to cursor if needed
   ansible.builtin.shell: |
