@@ -75,15 +75,15 @@
     rm ./git-delta_0.18.2_amd64.deb
   when: result is failed
 
-- name: Check for cursor
-  ansible.builtin.shell: |
-    if [ -e "/opt/cursor/AppRun" ] && [ -x "/opt/cursor/AppRun" ]; then
-      exit 0
-    else
-      exit 1
-    fi
-  register: result
-  ignore_errors: true
+# - name: Check for cursor
+#   ansible.builtin.shell: |
+#     if [ -e "/opt/cursor/AppRun" ] && [ -x "/opt/cursor/AppRun" ]; then
+#       exit 0
+#     else
+#       exit 1
+#     fi
+#   register: result
+#   ignore_errors: true
 
 # - name: Install cursor if needed
 #   ansible.builtin.shell: |
