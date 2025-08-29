@@ -7,7 +7,6 @@ export PATH="$PATH:/home/rotarymars/.local/bin"
 alias compile='clang++ -g -std=c++2b'
 alias accnew='acc new --template kyopuro'
 alias accadd='acc add --template kyopuro'
-alias cursor='/opt/cursor/AppRun'
 alias allissues='gh search issues --assignee @me --state open'
 # fortune
 # fastfetch
