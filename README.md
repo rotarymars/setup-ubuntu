@@ -8,3 +8,9 @@ pip install jedi yapf git+https://github.com/rotarymars/oj.git
 gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
 
 ```
+
+Disabling KVM for virtualbox
+```bash
+echo "blacklist kvm"       | sudo tee /etc/modprobe.d/blacklist-kvm.conf
+echo "blacklist kvm_intel" | sudo tee -a /etc/modprobe.d/blacklist-kvm.conf
+```
