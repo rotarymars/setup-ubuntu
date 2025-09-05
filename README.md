@@ -13,4 +13,6 @@ Disabling KVM for virtualbox
 ```bash
 echo "blacklist kvm"       | sudo tee /etc/modprobe.d/blacklist-kvm.conf
 echo "blacklist kvm_intel" | sudo tee -a /etc/modprobe.d/blacklist-kvm.conf
+sudo update-initramfs -u
+
 ```
