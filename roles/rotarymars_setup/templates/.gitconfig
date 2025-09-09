@@ -9,7 +9,7 @@
 [init]
 	defaultBranch = main
 [core]
-	editor = vim
+	editor = cursor --wait
 [alias]
 	st = status
 	co = checkout
