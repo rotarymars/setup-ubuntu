@@ -16,3 +16,8 @@ echo "blacklist kvm_intel" | sudo tee -a /etc/modprobe.d/blacklist-kvm.conf
 sudo update-initramfs -u
 
 ```
+
+Installing cursor-cli
+```
+curl https://cursor.com/install -fsS | bash
+```
