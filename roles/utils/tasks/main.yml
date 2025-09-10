@@ -58,6 +58,11 @@
     dest: "~/.config/nvim"
     update: yes
 
+- name: Fetch claude config
+  ansible.builtin.git:
+    repo: https://github.com/rotarymars/claude-templates
+    dest: "~/.claude/commands"
+
 - name: Add config for Apple's USB Superdrive
   become: true
   ansible.builtin.template:
