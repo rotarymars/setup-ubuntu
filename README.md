@@ -21,3 +21,8 @@ Installing cursor-cli
 ```
 curl https://cursor.com/install -fsS | bash
 ```
+
+Installing claude cli
+```
+npm install -g @anthropic-ai/claude-code
+```
