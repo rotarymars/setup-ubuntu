@@ -26,3 +26,5 @@ Installing claude cli
 ```
 npm install -g @anthropic-ai/claude-code
 ```
+
+Install vscode manually using deb
