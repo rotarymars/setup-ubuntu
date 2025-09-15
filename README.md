@@ -29,7 +29,7 @@ npm install -g @anthropic-ai/claude-code
 
 Install vscode manually using deb
 
-Adding Serena into project
+Adding Serena into project(For each)
 ```
-claude mcp add serena --scope=user -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project $(pwd)
+claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project $(pwd)
 ```
