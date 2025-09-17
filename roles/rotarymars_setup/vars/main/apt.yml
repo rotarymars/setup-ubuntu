@@ -154,3 +154,4 @@ apt_packages:
   - neovim
   - opam
   - ocamlbuild
+  - python3-tk
