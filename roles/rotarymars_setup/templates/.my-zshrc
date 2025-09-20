@@ -8,6 +8,7 @@ alias compile='clang++ -g -std=c++2b'
 alias accnew='acc new --template kyopuro'
 alias accadd='acc add --template kyopuro'
 alias allissues='gh search issues --assignee @me --state open'
+alias allprs='gh search prs --assignee @me --state open'
 # fortune
 # fastfetch
 . "$HOME/.asdf/asdf.sh"
