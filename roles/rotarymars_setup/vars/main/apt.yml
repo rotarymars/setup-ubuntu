@@ -155,3 +155,4 @@ apt_packages:
   - opam
   - ocamlbuild
   - python3-tk
+  - bat
