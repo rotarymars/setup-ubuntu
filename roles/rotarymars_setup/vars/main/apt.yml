@@ -156,3 +156,4 @@ apt_packages:
   - ocamlbuild
   - python3-tk
   - bat
+  - cu
