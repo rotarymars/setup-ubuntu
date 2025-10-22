@@ -18,7 +18,7 @@
 	ps = push
 	pl = pull
 	lb = log --graph --decorate --oneline
-	lg = log --format=full --graph --decorate
+	lg = log --graph --decorate
 [pager]
     diff = delta
     log = delta
