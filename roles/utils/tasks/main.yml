@@ -21,8 +21,11 @@
     append: yes
 
 - name: Replace capslock to ctrl
-  ansible.builtin.shell: |
-    sudo sed -i 's/^XKBOPTIONS=.*/XKBOPTIONS="ctrl:nocaps"/' /etc/default/keyboard
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/default/keyboard
+    regexp: '^XKBOPTIONS='
+    line: 'XKBOPTIONS="ctrl:nocaps"'
 
 # - name: install lazygit
   # ansible.builtin.shell: |
