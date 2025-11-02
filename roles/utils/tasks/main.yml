@@ -1,15 +1,24 @@
 ---
 - name: Add rotarymars to docker group
-  ansible.builtin.shell: |
-    sudo gpasswd -a rotarymars docker
+  become: true
+  ansible.builtin.user:
+    name: rotarymars
+    groups: docker
+    append: yes
 
 - name: Add rotarymars to video group
-  ansible.builtin.shell: |
-    sudo gpasswd -a rotarymars video
+  become: true
+  ansible.builtin.user:
+    name: rotarymars
+    groups: video
+    append: yes
 
-- name: Add rotarymars to dailout group
-  ansible.builtin.shell: |
-    sudo gpasswd -a rotarymars dialout
+- name: Add rotarymars to dialout group
+  become: true
+  ansible.builtin.user:
+    name: rotarymars
+    groups: dialout
+    append: yes
 
 - name: Replace capslock to ctrl
   ansible.builtin.shell: |
