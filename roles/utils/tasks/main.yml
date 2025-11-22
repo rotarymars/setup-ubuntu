@@ -75,6 +75,11 @@
     repo: https://github.com/rotarymars/claude-templates
     dest: "~/.claude/commands"
 
+- name: Fetch atcoder-cli-template
+  ansible.builtin.git:
+    repo: https://github.com/rotarymars/atcoder-cli-template
+    dest: "~/.config/atcoder-cli-nodejs/kyopuro"
+
 - name: Add config for Apple's USB Superdrive
   become: true
   ansible.builtin.template:
