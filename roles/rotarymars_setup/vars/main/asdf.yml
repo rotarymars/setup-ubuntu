@@ -14,10 +14,6 @@ asdf_plugins_without_dest:
     version: latest
 asdf_plugins_with_dest:
   -
-    name: zoxide
-    url: https://github.com/nyrst/asdf-zoxide
-    version: 0.9.6
-  -
     name: lazydocker
     url: https://github.com/comdotlinux/asdf-lazydocker.git
     version: latest

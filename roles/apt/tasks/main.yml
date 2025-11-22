@@ -1,19 +1,17 @@
 ---
-# - name: Install apt key
-#   become: true
-#   ansible.builtin.get_url:
-#     url: "{{ item.url }}"
-#     dest: "{{ item.keyname }}"
-#   loop: "{{ apt_keys }}"
-
-# - name: Install apt repository
-#   become: true
-#   ansible.builtin.apt_repository:
-#     repo: "{{ item }}"
-#   loop: "{{ apt_repositories }}"
-
-# - name: Install apt packages
-#   become: true
-#   ansible.builtin.apt:
-#     name: "{{ apt_packages }}"
-#     install_recommends: true
+- name: Install apt key
+  become: true
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.keyname }}"
+  loop: "{{ apt_keys }}"
+- name: Install apt repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "{{ item }}"
+  loop: "{{ apt_repositories }}"
+- name: Install apt packages
+  become: true
+  ansible.builtin.apt:
+    name: "{{ apt_packages }}"
+    install_recommends: true

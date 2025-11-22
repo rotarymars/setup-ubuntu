@@ -33,3 +33,5 @@ Adding Serena into project(For each)
 ```
 claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project $(pwd)
 ```
+
+Install delta from deb package
