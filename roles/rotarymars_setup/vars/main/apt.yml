@@ -157,3 +157,5 @@ apt_packages:
   - python3-tk
   - bat
   - cu
+  - postgresql-client-common
+  - postgresql-client
