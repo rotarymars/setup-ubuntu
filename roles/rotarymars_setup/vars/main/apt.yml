@@ -160,3 +160,4 @@ apt_packages:
   - cu
   - postgresql-client-common
   - postgresql-client
+  - golang-go
