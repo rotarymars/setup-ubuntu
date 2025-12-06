@@ -187,7 +187,6 @@ setopt correct
 setopt auto_cd
 setopt SHARE_HISTORY
 setopt INC_APPEND_HISTORY
-source $(dpkg -L fzf | grep key | grep zsh )
 source ~/.hotspot_config.zsh
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
