@@ -85,7 +85,6 @@ apt_packages:
   - libgdbm-dev
   - libdb-dev
   - uuid-dev
-  - fzf
   - htop
   - net-tools
   - trash-cli

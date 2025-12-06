@@ -37,3 +37,12 @@ claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena 
 Install delta from deb package
 
 Install nvim manually
+
+Install fzf manually
+```bash
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+```
+
+```
+```
