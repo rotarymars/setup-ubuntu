@@ -4,6 +4,7 @@ alias g='git'
 alias ls='eza --icons -g --git'
 alias l='ls'
 export PATH="$PATH:/home/rotarymars/.local/bin"
+export PATH="$PATH:/home/rotarymars/.platformio/penv/bin"
 alias compile='clang++ -g -std=c++2b'
 alias accnew='npx acc new --template kyopuro'
 alias accadd='npx acc add --template kyopuro'
