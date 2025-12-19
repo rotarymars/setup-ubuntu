@@ -157,3 +157,4 @@ apt_packages:
   - python3-pyaudio
   - imagemagick
   - libmagickwand-dev
+  - kitty
