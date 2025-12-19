@@ -153,3 +153,5 @@ apt_packages:
   - postgresql-client-common
   - postgresql-client
   - golang-go
+  - portaudio19-dev
+  - python3-pyaudio
