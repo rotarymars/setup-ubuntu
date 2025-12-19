@@ -75,6 +75,47 @@
     repo: https://github.com/rotarymars/claude-templates
     dest: "~/.claude/commands"
 
+- name: Ensure .claude directory exists
+  ansible.builtin.file:
+    path: "~/.claude"
+    state: directory
+    mode: '0755'
+
+- name: Copy Claude Code statusline script
+  ansible.builtin.template:
+    src: "statusline.js"
+    dest: "~/.claude/statusline.js"
+    mode: '0755'
+
+- name: Configure Claude Code settings.json with statusLine
+  ansible.builtin.shell: |
+    SETTINGS_FILE="$HOME/.claude/settings.json"
+    if [ ! -f "$SETTINGS_FILE" ]; then
+      echo '{}' > "$SETTINGS_FILE"
+    fi
+    python3 << 'EOF'
+    import json
+    import os
+
+    settings_file = os.path.expanduser("~/.claude/settings.json")
+
+    # Read existing settings
+    with open(settings_file, 'r') as f:
+      settings = json.load(f)
+
+    # Add or update statusLine configuration
+    settings['statusLine'] = {
+      'type': 'command',
+      'command': '~/.claude/statusline.js'
+    }
+
+    # Write back
+    with open(settings_file, 'w') as f:
+      json.dump(settings, f, indent=2)
+    EOF
+  args:
+    executable: /bin/bash
+
 - name: Fetch atcoder-cli-template
   ansible.builtin.git:
     repo: https://github.com/rotarymars/atcoder-cli-template
