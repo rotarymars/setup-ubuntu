@@ -155,3 +155,5 @@ apt_packages:
   - golang-go
   - portaudio19-dev
   - python3-pyaudio
+  - imagemagick
+  - libmagickwand-dev
