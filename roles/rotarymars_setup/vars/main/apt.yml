@@ -1,22 +1,16 @@
 ---
 apt_keys:
-  - 
-    url: https://dl.google.com/linux/linux_signing_key.pub
+  - url: https://dl.google.com/linux/linux_signing_key.pub
     keyname: /etc/apt/keyrings/googlechrom-keyring.asc
-  - 
-    url: https://packages.microsoft.com/keys/microsoft.asc
+  - url: https://packages.microsoft.com/keys/microsoft.asc
     keyname: /etc/apt/keyrings/packages.microsoft.asc
-  - 
-    url: https://download.docker.com/linux/ubuntu/gpg
+  - url: https://download.docker.com/linux/ubuntu/gpg
     keyname: /etc/apt/keyrings/docker.asc
-  - 
-    url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x08633B4AAAEB49FC
+  - url: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x08633B4AAAEB49FC
     keyname: /etc/apt/keyrings/discord.asc
-  - 
-    url: https://dl.winehq.org/wine-builds/Release.key
+  - url: https://dl.winehq.org/wine-builds/Release.key
     keyname: /usr/share/keyrings/winehq-archive.asc
-  - 
-    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+  - url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
     keyname: /etc/apt/keyrings/githubcli-archive-keyring.gpg
 apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/googlechrom-keyring.asc] http://dl.google.com/linux/chrome/deb/ stable main
