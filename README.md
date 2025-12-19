@@ -46,3 +46,11 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 ```
 ```
+
+Add marketplace for claude code 
+
+```
+/plugin marketplace add anthropics/claude-code
+```
+```
+```
