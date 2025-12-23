@@ -54,3 +54,9 @@ Add marketplace for claude code
 ```
 ```
 ```
+
+Execute this to set ibus-mozc to default
+```bash
+im-config -n ibus
+
+```
