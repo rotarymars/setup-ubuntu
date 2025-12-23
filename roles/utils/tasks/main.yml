@@ -24,15 +24,15 @@
   become: true
   ansible.builtin.lineinfile:
     path: /etc/default/keyboard
-    regexp: '^XKBOPTIONS='
+    regexp: "^XKBOPTIONS="
     line: 'XKBOPTIONS="ctrl:nocaps"'
 
 # - name: install lazygit
-  # ansible.builtin.shell: |
-    # LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
-    # curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-    # tar xf lazygit.tar.gz lazygit
-    # sudo install lazygit -D -t /usr/local/bin/
+# ansible.builtin.shell: |
+# LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+# curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+# tar xf lazygit.tar.gz lazygit
+# sudo install lazygit -D -t /usr/local/bin/
 
 - name: Add source .my-bashrc if not written
   ansible.builtin.lineinfile:
@@ -64,6 +64,11 @@
     src: "hotspot_config.zsh"
     dest: "~/.hotspot_config.zsh"
 
+- name: Copy .xprofile
+  ansible.builtin.template:
+    src: ".xprofile"
+    dest: "~/.xprofile"
+
 - name: Fetch neovim config
   ansible.builtin.git:
     repo: https://github.com/rotarymars/neovim-setup
@@ -79,13 +84,13 @@
   ansible.builtin.file:
     path: "~/.claude"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Copy Claude Code statusline script
   ansible.builtin.template:
     src: "statusline.js"
     dest: "~/.claude/statusline.js"
-    mode: '0755'
+    mode: "0755"
 
 - name: Configure Claude Code settings.json with statusLine
   ansible.builtin.shell: |
@@ -160,3 +165,4 @@
 - name: Install zinit
   ansible.builtin.shell: |
     bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+
