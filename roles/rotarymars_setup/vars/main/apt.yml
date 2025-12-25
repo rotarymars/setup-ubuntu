@@ -158,3 +158,4 @@ apt_packages:
   - imagemagick
   - libmagickwand-dev
   - kitty
+  - parallel
