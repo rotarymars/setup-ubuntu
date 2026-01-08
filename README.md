@@ -60,3 +60,8 @@ Execute this to set ibus-mozc to default
 im-config -n ibus
 
 ```
+
+Install copilot  cli
+```bash
+curl -fsSL https://gh.io/copilot-install | bash
+```
