@@ -65,3 +65,8 @@ Install copilot  cli
 ```bash
 curl -fsSL https://gh.io/copilot-install | bash
 ```
+
+Install bambu lab
+```bash
+flatpak install flathub com.bambulab.BambuStudio
+```
