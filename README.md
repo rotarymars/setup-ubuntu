@@ -70,3 +70,8 @@ Install bambu lab
 ```bash
 flatpak install flathub com.bambulab.BambuStudio
 ```
+
+Install orca slicer
+```
+https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.3.1
+```
