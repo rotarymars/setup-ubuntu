@@ -19,6 +19,10 @@ jobs:
     
     - name: Create vault password file
       run: |
+        if [ -z "${{ secrets.VAULT_PASS }}" ]; then
+          echo "Error: VAULT_PASS secret is not set"
+          exit 1
+        fi
         echo "${{ secrets.VAULT_PASS }}" > .vault_pass
         chmod 600 .vault_pass
       
