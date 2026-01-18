@@ -27,7 +27,7 @@ jobs:
       run: |
         # GitHub Actions runners have passwordless sudo, so we don't need vault
         rm -rf group_vars/all/vault
-        rm -rf group_vars/all/vars/ansible_pass.yml
+        rm -f group_vars/all/vars/ansible_pass.yml
     
     - name: Run test script
       run: |
