@@ -8,6 +8,7 @@
 
 - name: Add plugin for asdf(without destination)
   ansible.builtin.shell: |
+    export ASDF_DIR="$HOME/.asdf"
     . "$HOME/.asdf/asdf.sh"
     asdf plugin add "{{ item.name }}" 2>/dev/null || true
     asdf install "{{ item.name }}" "{{ item.version }}"
@@ -15,6 +16,7 @@
 
 - name: Add plugin for asdf(with destination)
   ansible.builtin.shell: |
+    export ASDF_DIR="$HOME/.asdf"
     . "$HOME/.asdf/asdf.sh"
     asdf plugin add "{{ item.name }}" "{{ item.url }}" 2>/dev/null || true
     asdf install "{{ item.name }}" "{{ item.version }}"
