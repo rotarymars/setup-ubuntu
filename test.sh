@@ -41,7 +41,7 @@ sudo apt-get update
 
 # Run the Ansible playbook
 echo "=== Running Ansible playbook ==="
-if ansible-playbook main.yml -i inventory.ini --become; then
+if ansible-playbook main.yml -i inventory.ini --become --vault-password-file .vault_pass; then
     echo "=== Test completed successfully ==="
     exit 0
 else
