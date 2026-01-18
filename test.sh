@@ -21,8 +21,10 @@ ansible --version
 # Remove Ansible PPA source and GPG key manually
 echo "=== Removing Ansible PPA source and GPG key ==="
 sudo rm -f /etc/apt/sources.list.d/ansible-ubuntu-ansible-*.list
-sudo apt-key del --keyring /etc/apt/trusted.gpg.d/ansible-ubuntu-ansible.gpg 7BB9C367 2>/dev/null || true
+sudo rm -f /etc/apt/sources.list.d/ansible-ubuntu-ansible-*.sources
 sudo rm -f /etc/apt/trusted.gpg.d/ansible-ubuntu-ansible.gpg*
+# Also try to remove from keyrings directory (newer Ubuntu versions)
+sudo rm -f /usr/share/keyrings/ansible-*.gpg
 
 # Update apt cache after removal
 echo "=== Updating apt cache ==="
