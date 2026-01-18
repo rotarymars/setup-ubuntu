@@ -15,7 +15,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
+    - name: Create CI inventory
+      run: |
+        cp inventory.ini inventory-ci.ini
+        sed -i "s/ansible_user=rotarymars/ansible_user=$USER/g" inventory-ci.ini
+        cat inventory-ci.ini
+    
     - name: Run test script
       run: |
-        chmod +x test.sh
-        ./test.sh
+        # Override inventory for CI
+        sed -i 's/inventory.ini/inventory-ci.ini/g' test.sh
+        bash test.sh
