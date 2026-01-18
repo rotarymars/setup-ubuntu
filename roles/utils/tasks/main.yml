@@ -55,6 +55,14 @@
     src: "lazygit_config.yml"
     dest: "~/.config/lazygit/config.yml"
 
+- name: Ensure .zshrc exists
+  ansible.builtin.file:
+    path: ~/.zshrc
+    state: touch
+    mode: '0644'
+    modification_time: preserve
+    access_time: preserve
+
 - name: Add source .my-zshrc if not written
   ansible.builtin.lineinfile:
     path: ~/.zshrc
