@@ -16,6 +16,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    
+    - name: Create vault password file
+      run: |
+        echo "${{ secrets.VAULT_PASS }}" > .vault_pass
+        chmod 600 .vault_pass
       
     - name: Create CI inventory
       run: |
@@ -23,10 +28,9 @@ jobs:
         sed -i "s/ansible_user=rotarymars/ansible_user=$USER/g" inventory-ci.ini
         cat inventory-ci.ini
     
-    - name: Remove vault-encrypted files for CI
+    - name: Remove sudo password vars for CI
       run: |
-        # GitHub Actions runners have passwordless sudo, so we don't need vault
-        rm -rf group_vars/all/vault
+        # GitHub Actions runners have passwordless sudo, so we don't need sudo password vars
         rm -f group_vars/all/vars/ansible_pass.yml
     
     - name: Run test script
