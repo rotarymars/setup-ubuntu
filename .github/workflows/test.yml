@@ -23,6 +23,12 @@ jobs:
         sed -i "s/ansible_user=rotarymars/ansible_user=$USER/g" inventory-ci.ini
         cat inventory-ci.ini
     
+    - name: Remove vault-encrypted files for CI
+      run: |
+        # GitHub Actions runners have passwordless sudo, so we don't need vault
+        rm -rf group_vars/all/vault
+        rm -rf group_vars/all/vars/ansible_pass.yml
+    
     - name: Run test script
       run: |
         # Override inventory for CI
