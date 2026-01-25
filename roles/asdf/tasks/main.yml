@@ -21,3 +21,26 @@
     asdf plugin add "{{ item.name }}" "{{ item.url }}" 2>/dev/null || true
     asdf install "{{ item.name }}" "{{ item.version }}"
   loop: "{{ asdf_plugins_with_dest }}"
+
+- name: Set global version for asdf plugins
+  ansible.builtin.shell: |
+    export ASDF_DIR="$HOME/.asdf"
+    . "$HOME/.asdf/asdf.sh"
+    asdf global "{{ item.name }}" "{{ item.version }}"
+  loop: "{{ asdf_plugins_without_dest + asdf_plugins_with_dest }}"
+
+- name: Install npm packages globally
+  ansible.builtin.shell: |
+    export ASDF_DIR="$HOME/.asdf"
+    . "$HOME/.asdf/asdf.sh"
+    npm install -g {{ item }}
+  loop: "{{ npm_packages | default([]) }}"
+  when: npm_packages is defined
+
+- name: Install pip packages
+  ansible.builtin.shell: |
+    export ASDF_DIR="$HOME/.asdf"
+    . "$HOME/.asdf/asdf.sh"
+    pip install {{ item }}
+  loop: "{{ pip_packages | default([]) }}"
+  when: pip_packages is defined

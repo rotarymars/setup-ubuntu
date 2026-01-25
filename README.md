@@ -1,67 +1,29 @@
-Install if needed
+# setup-ubuntu
 
+Automated Ubuntu setup using Ansible.
+
+## Usage
+
+Run the installation script:
+```bash
+./install.sh
 ```
 
-npm install -g atcoder-cli @google/gemini-cli
-pip install jedi yapf git+https://github.com/rotarymars/oj.git uv
-
-gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
-
+Or use Ansible directly:
+```bash
+ansible-playbook -i inventory.ini main.yml --ask-become-pass
 ```
 
-Disabling KVM for virtualbox
+## Post-Installation Manual Steps
+
+### Configure ibus-mozc as default input method
+```bash
+im-config -n ibus
+```
+
+### Disable KVM for VirtualBox (if needed)
 ```bash
 echo "blacklist kvm"       | sudo tee /etc/modprobe.d/blacklist-kvm.conf
 echo "blacklist kvm_intel" | sudo tee -a /etc/modprobe.d/blacklist-kvm.conf
 sudo update-initramfs -u
-
-```
-
-Installing cursor-cli
-```
-curl https://cursor.com/install -fsS | bash
-```
-
-Installing claude cli
-```
-curl -fsSL https://claude.ai/install.sh | bash
-```
-
-Install vscode manually using deb
-
-Adding Serena into project(For each)
-```
-claude mcp add serena -- uvx --from git+https://github.com/oraios/serena serena start-mcp-server --context ide-assistant --project $(pwd)
-```
-
-Install delta from deb package
-
-Install nvim manually
-
-Install fzf manually
-```bash
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-```
-
-```
-```
-
-Add marketplace for claude code 
-
-```
-/plugin marketplace add anthropics/claude-code
-```
-```
-```
-
-Execute this to set ibus-mozc to default
-```bash
-im-config -n ibus
-
-```
-
-Install copilot  cli
-```bash
-curl -fsSL https://gh.io/copilot-install | bash
 ```

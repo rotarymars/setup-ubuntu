@@ -89,52 +89,6 @@
     dest: "~/.config/nvim"
     update: yes
 
-- name: Fetch claude config
-  ansible.builtin.git:
-    repo: https://github.com/rotarymars/claude-templates
-    dest: "~/.claude/commands"
-
-- name: Ensure .claude directory exists
-  ansible.builtin.file:
-    path: "~/.claude"
-    state: directory
-    mode: "0755"
-
-- name: Copy Claude Code statusline script
-  ansible.builtin.template:
-    src: "statusline.js"
-    dest: "~/.claude/statusline.js"
-    mode: "0755"
-
-- name: Configure Claude Code settings.json with statusLine
-  ansible.builtin.shell: |
-    SETTINGS_FILE="$HOME/.claude/settings.json"
-    if [ ! -f "$SETTINGS_FILE" ]; then
-      echo '{}' > "$SETTINGS_FILE"
-    fi
-    python3 << 'EOF'
-    import json
-    import os
-
-    settings_file = os.path.expanduser("~/.claude/settings.json")
-
-    # Read existing settings
-    with open(settings_file, 'r') as f:
-      settings = json.load(f)
-
-    # Add or update statusLine configuration
-    settings['statusLine'] = {
-      'type': 'command',
-      'command': '~/.claude/statusline.js'
-    }
-
-    # Write back
-    with open(settings_file, 'w') as f:
-      json.dump(settings, f, indent=2)
-    EOF
-  args:
-    executable: /bin/bash
-
 - name: Fetch atcoder-cli-template
   ansible.builtin.git:
     repo: https://github.com/rotarymars/atcoder-cli-template
@@ -157,24 +111,14 @@
     rm ./git-delta_0.18.2_amd64.deb
   when: result is failed
 
-# - name: Check for cursor
-#   ansible.builtin.shell: |
-#     if [ -e "/opt/cursor/AppRun" ] && [ -x "/opt/cursor/AppRun" ]; then
-#       exit 0
-#     else
-#       exit 1
-#     fi
-#   register: result
-#   ignore_errors: true
-
-# - name: Install cursor if needed
-#   ansible.builtin.shell: |
-#     sudo wget "https://downloads.cursor.com/production/61e99179e4080fecf9d8b92c6e2e3e00fbfb53f4/linux/x64/Cursor-0.48.9-x86_64.AppImage" -O /opt/cursor.AppImage
-#   when: result is failed
-
-# - name: Add execute privilege to cursor if needed
-#   ansible.builtin.shell: |
-#     sudo chmod +x /opt/cursor.AppImage
+- name: Setup GitHub CLI zsh completions
+  become: true
+  ansible.builtin.shell: |
+    mkdir -p /usr/local/share/zsh/site-functions
+    gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
+  args:
+    creates: /usr/local/share/zsh/site-functions/_gh
+  ignore_errors: true
 
 - name: Install zinit
   ansible.builtin.shell: |
