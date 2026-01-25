@@ -33,7 +33,7 @@
   ansible.builtin.shell: |
     export ASDF_DIR="$HOME/.asdf"
     . "$HOME/.asdf/asdf.sh"
-    npm install -g {{ item }}
+    npm install -g "{{ item }}"
   loop: "{{ npm_packages | default([]) }}"
   when: npm_packages is defined
 
@@ -41,6 +41,6 @@
   ansible.builtin.shell: |
     export ASDF_DIR="$HOME/.asdf"
     . "$HOME/.asdf/asdf.sh"
-    pip install {{ item }}
+    pip install "{{ item }}"
   loop: "{{ pip_packages | default([]) }}"
   when: pip_packages is defined

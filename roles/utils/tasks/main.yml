@@ -111,6 +111,12 @@
     rm ./git-delta_0.18.2_amd64.deb
   when: result is failed
 
+- name: Check if gh command exists
+  ansible.builtin.command: which gh
+  register: gh_check
+  ignore_errors: true
+  changed_when: false
+
 - name: Setup GitHub CLI zsh completions
   become: true
   ansible.builtin.shell: |
@@ -118,7 +124,7 @@
     gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
   args:
     creates: /usr/local/share/zsh/site-functions/_gh
-  ignore_errors: true
+  when: gh_check.rc == 0
 
 - name: Install zinit
   ansible.builtin.shell: |
