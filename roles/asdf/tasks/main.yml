@@ -29,17 +29,46 @@
     asdf global "{{ item.name }}" "{{ item.version }}"
   loop: "{{ asdf_plugins_without_dest + asdf_plugins_with_dest }}"
 
-- name: Install npm packages globally
-  community.general.npm:
-    name: "{{ npm_packages | default([]) }}"
-    global: true
-    state: present
-    executable: "{{ ansible_env.HOME }}/.asdf/shims/npm"
+- name: Check installed npm packages
+  ansible.builtin.shell: |
+    export ASDF_DIR="$HOME/.asdf"
+    . "$HOME/.asdf/asdf.sh"
+    npm list -g --depth=0 "{{ item }}" 2>/dev/null || echo "not_installed"
+  loop: "{{ npm_packages | default([]) }}"
+  register: npm_check
+  changed_when: false
   when: npm_packages is defined
+  ignore_errors: true
+
+- name: Install npm packages globally
+  ansible.builtin.shell: |
+    export ASDF_DIR="$HOME/.asdf"
+    . "$HOME/.asdf/asdf.sh"
+    npm install -g "{{ item.item }}"
+  loop: "{{ npm_check.results | default([]) }}"
+  when: 
+    - npm_packages is defined
+    - item.stdout is defined
+    - "'not_installed' in item.stdout"
+
+- name: Check installed pip packages
+  ansible.builtin.shell: |
+    export ASDF_DIR="$HOME/.asdf"
+    . "$HOME/.asdf/asdf.sh"
+    pip show "{{ item }}" 2>/dev/null || echo "not_installed"
+  loop: "{{ pip_packages | default([]) }}"
+  register: pip_check
+  changed_when: false
+  when: pip_packages is defined
+  ignore_errors: true
 
 - name: Install pip packages
-  ansible.builtin.pip:
-    name: "{{ pip_packages | default([]) }}"
-    state: present
-    executable: "{{ ansible_env.HOME }}/.asdf/shims/pip"
-  when: pip_packages is defined
+  ansible.builtin.shell: |
+    export ASDF_DIR="$HOME/.asdf"
+    . "$HOME/.asdf/asdf.sh"
+    pip install "{{ item.item }}"
+  loop: "{{ pip_check.results | default([]) }}"
+  when: 
+    - pip_packages is defined
+    - item.stdout is defined
+    - "'not_installed' in item.stdout"
