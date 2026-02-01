@@ -16,6 +16,7 @@ alias datagrip='/opt/DataGrip/bin/datagrip'
 alias dataspell='/opt/dataspell/bin/dataspell'
 alias pycharm='/opt/pycharm/bin/pycharm'
 alias webstorm='/opt/webstorm/bin/webstorm'
+alias idea='/opt/idea/bin/idea'
 # fortune
 # fastfetch
 . "$HOME/.asdf/asdf.sh"
