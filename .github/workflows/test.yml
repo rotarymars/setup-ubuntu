@@ -1,0 +1,56 @@
+name: Test Ansible Playbook
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Free disk space
+      uses: jlumbroso/free-disk-space@main
+      with:
+        # This might remove tools that are not needed
+        tool-cache: false
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        swap-storage: true
+    
+    - name: Create vault password file
+      run: |
+        if [ -z "${{ secrets.VAULT_PASS }}" ]; then
+          echo "Error: VAULT_PASS secret is not set"
+          exit 1
+        fi
+        echo "${{ secrets.VAULT_PASS }}" > .vault_pass
+        chmod 600 .vault_pass
+      
+    - name: Create CI inventory
+      run: |
+        cp inventory.ini inventory-ci.ini
+        sed -i "s/ansible_user=rotarymars/ansible_user=$USER/g" inventory-ci.ini
+        cat inventory-ci.ini
+    
+    - name: Remove sudo password vars for CI
+      run: |
+        # GitHub Actions runners have passwordless sudo, so we don't need sudo password vars
+        rm -f group_vars/all/vars/ansible_pass.yml
+    
+    - name: Run test script
+      run: |
+        # Override inventory for CI
+        sed -i 's/inventory.ini/inventory-ci.ini/g' test.sh
+        bash test.sh
