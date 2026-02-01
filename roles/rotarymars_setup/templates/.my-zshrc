@@ -11,6 +11,11 @@ alias accadd='npx acc add --template kyopuro'
 alias allissues='gh search issues --assignee @me --state open'
 alias allprs='gh search prs --assignee @me --state open'
 alias nvim='/opt/nvim/AppRun'
+alias clion='/opt/clion/bin/clion'
+alias datagrip='/opt/DataGrip/bin/datagrip'
+alias dataspell='/opt/dataspell/bin/dataspell'
+alias pycharm='/opt/pycharm/bin/pycharm'
+alias webstorm='/opt/webstorm/bin/webstorm'
 # fortune
 # fastfetch
 . "$HOME/.asdf/asdf.sh"

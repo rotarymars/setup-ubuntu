@@ -170,3 +170,5 @@ apt_packages:
   - libsodium-dev
   - libspdlog-dev
   - gnuplot
+  - flatpak
+  - gnome-software-plugin-flatpak
