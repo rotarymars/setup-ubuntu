@@ -111,7 +111,7 @@
     rm ./git-delta_0.18.2_amd64.deb
   when: result is failed
 
-- name: Check if gh command exists
+- name: Check if gh command exists and get its path
   ansible.builtin.command: which gh
   register: gh_check
   ignore_errors: true
@@ -121,7 +121,7 @@
   become: true
   ansible.builtin.shell: |
     mkdir -p /usr/local/share/zsh/site-functions
-    gh completion -s zsh > /usr/local/share/zsh/site-functions/_gh
+    {{ gh_check.stdout }} completion -s zsh > /usr/local/share/zsh/site-functions/_gh
   args:
     creates: /usr/local/share/zsh/site-functions/_gh
   when: gh_check.rc == 0
