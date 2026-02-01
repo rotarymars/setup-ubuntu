@@ -75,3 +75,15 @@ Install orca slicer
 ```
 https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.3.1
 ```
+
+Install JetBrain IDEs manually
+```bash
+sudo mv <IDE_FOLDER> /opt/<IDE_NAME>
+```
+
+Currently installed IDE
+- CLion
+- DataGrip
+- dataspell
+- pycharm
+- webstorm
