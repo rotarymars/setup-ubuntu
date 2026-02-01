@@ -87,3 +87,4 @@ Currently installed IDE
 - dataspell
 - pycharm
 - webstorm
+- IntelliJ IDEA
