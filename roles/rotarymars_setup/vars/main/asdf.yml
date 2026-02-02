@@ -18,10 +18,4 @@ asdf_plugins_with_dest:
     url: https://github.com/comdotlinux/asdf-lazydocker.git
     version: latest
 npm_packages:
-  - atcoder-cli
   - "@google/gemini-cli"
-pip_packages:
-  - jedi
-  - yapf
-  - uv
-  - "git+https://github.com/rotarymars/oj.git"
