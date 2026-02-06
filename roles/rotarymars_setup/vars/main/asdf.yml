@@ -12,6 +12,9 @@ asdf_plugins_without_dest:
   -
     name: nodejs
     version: latest
+  -
+    name: uv
+    version: latest
 asdf_plugins_with_dest:
   -
     name: lazydocker
