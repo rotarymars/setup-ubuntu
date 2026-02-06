@@ -15,6 +15,7 @@ ansible-playbook -i inventory.ini main.yml --ask-become-pass
 ```
 
 ## Post-Installation Manual Steps
+Instsall vscode manually
 
 ### Configure ibus-mozc as default input method
 ```bash
@@ -40,6 +41,12 @@ flatpak install flathub com.bambulab.BambuStudio
 Install orca slicer
 ```
 https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.3.1
+```
+
+Install platformio
+```bash
+curl -fsSL -o get-platformio.py https://raw.githubusercontent.com/platformio/platformio-core-installer/master/get-platformio.py
+python3 get-platformio.py
 ```
 
 Install JetBrain IDEs manually
