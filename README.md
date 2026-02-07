@@ -17,6 +17,12 @@ ansible-playbook -i inventory.ini main.yml --ask-become-pass
 ## Post-Installation Manual Steps
 Instsall vscode manually
 
+Install fzf
+```bash
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+```
+
 ### Configure ibus-mozc as default input method
 ```bash
 im-config -n ibus
@@ -61,3 +67,12 @@ Currently installed IDE
 - pycharm
 - webstorm
 - IntelliJ IDEA
+
+
+# On thinkpad
+for realtek network cards
+
+for file /etc/modprobe.d/30-rtw89.conf
+```
+options rtw89pci disable_aspm_l1=y options rtw89pci disable_aspm_l1ss=y
+```
