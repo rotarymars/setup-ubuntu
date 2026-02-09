@@ -60,6 +60,8 @@ Install JetBrain IDEs manually
 sudo mv <IDE_FOLDER> /opt/<IDE_NAME>
 ```
 
+Install DaVinci resolve
+
 Currently installed IDE
 
 - CLion at `/opt/clion`
