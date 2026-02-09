@@ -179,3 +179,9 @@ apt_packages:
   - libimobiledevice-utils
   - libimobiledevice6
   - ifuse
+  - libapr1
+  - libaprutil1
+  - libasound2t64
+  - libasound2-data
+  - libglib2.0-0
+  - libxcb-cursor0
