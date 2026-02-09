@@ -176,3 +176,6 @@ apt_packages:
   - flatpak
   - gnome-software-plugin-flatpak
   - hwinfo
+  - libimobiledevice-utils
+  - libimobiledevice6
+  - ifuse
