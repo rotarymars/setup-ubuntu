@@ -19,6 +19,7 @@
 	pl = pull
 	lb = log --graph --decorate --oneline
 	lg = log --graph --decorate
+	mydiff = "!f() { git diff \"$(git merge-base \"$1\" HEAD)\"..HEAD; }; f"
 [pager]
     diff = delta
     log = delta
