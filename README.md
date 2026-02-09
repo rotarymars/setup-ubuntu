@@ -62,6 +62,8 @@ sudo mv <IDE_FOLDER> /opt/<IDE_NAME>
 
 Install DaVinci resolve
 
+https://www.danieltufvesson.com/makeresolvedeb
+
 Currently installed IDE
 
 - CLion at `/opt/clion`

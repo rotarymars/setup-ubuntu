@@ -185,3 +185,5 @@ apt_packages:
   - libasound2-data
   - libglib2.0-0
   - libxcb-cursor0
+  - fakeroot
+  - xorriso
