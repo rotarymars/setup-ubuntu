@@ -61,13 +61,6 @@ sudo mv <IDE_FOLDER> /opt/<IDE_NAME>
 ```
 
 Currently installed IDE
-- CLion
-- DataGrip
-- dataspell
-- pycharm
-- webstorm
-- IntelliJ IDEA
-
 
 # On thinkpad
 for realtek network cards
@@ -76,3 +69,9 @@ for file /etc/modprobe.d/30-rtw89.conf
 ```
 options rtw89pci disable_aspm_l1=y options rtw89pci disable_aspm_l1ss=y
 ```
+- CLion at `/opt/clion`
+- DataGrip at `/opt/DataGrip`
+- dataspell at `/opt/dataspell`
+- pycharm at `/opt/pycharm`
+- webstorm at `/opt/webstorm`
+- IntelliJ IDEA at `/opt/idea`
