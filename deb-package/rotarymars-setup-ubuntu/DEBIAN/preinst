@@ -1,0 +1,92 @@
+#!/bin/bash
+# Phase 1: Install GPG keys and apt sources/repositories
+# This script runs before the package files are unpacked.
+#
+# The package ships static source list files in /etc/apt/sources.list.d/.
+# This preinst handles:
+#   - Downloading all GPG keys
+#   - Adding PPA repositories (which manage their own keys and sources)
+#   - Creating dynamic source list files (those requiring the Ubuntu codename)
+#   - Updating the apt cache so that postinst can install packages
+
+set -e
+
+echo "=== Phase 1: Installing GPG keys and apt sources ==="
+
+CODENAME=$(lsb_release -cs)
+
+# Ensure keyrings directory exists
+mkdir -p /etc/apt/keyrings
+
+#######################################
+# Direct repository GPG keys
+#######################################
+echo "--- Downloading GPG keys ---"
+
+# Google Chrome
+curl -fsSL -o /etc/apt/keyrings/googlechrom-keyring.asc \
+    "https://dl.google.com/linux/linux_signing_key.pub"
+
+# Microsoft (VS Code)
+curl -fsSL -o /etc/apt/keyrings/packages.microsoft.asc \
+    "https://packages.microsoft.com/keys/microsoft.asc"
+
+# Docker
+curl -fsSL -o /etc/apt/keyrings/docker.asc \
+    "https://download.docker.com/linux/ubuntu/gpg"
+
+# Discord (javinator9889)
+curl -fsSL -o /etc/apt/keyrings/discord.asc \
+    "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x08633B4AAAEB49FC"
+
+# Wine
+curl -fsSL -o /usr/share/keyrings/winehq-archive.asc \
+    "https://dl.winehq.org/wine-builds/Release.key"
+
+# GitHub CLI
+curl -fsSL -o /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+    "https://cli.github.com/packages/githubcli-archive-keyring.gpg"
+
+# VirtualBox
+curl -fsSL -o /usr/share/keyrings/oracle-vbox.asc \
+    "https://www.virtualbox.org/download/oracle_vbox_2016.asc"
+
+echo "--- GPG keys installed ---"
+
+#######################################
+# PPA repositories (each PPA adds its own key and source list)
+#######################################
+echo "--- Adding PPA repositories ---"
+
+add-apt-repository -y ppa:kicad/kicad-9.0-releases
+add-apt-repository -y ppa:obsproject/obs-studio
+add-apt-repository -y ppa:ansible/ansible
+add-apt-repository -y ppa:apt-fast/stable
+add-apt-repository -y ppa:zhangsongcui3371/fastfetch
+add-apt-repository -y ppa:lakinduakash/lwh
+
+echo "--- PPA repositories added ---"
+
+#######################################
+# Dynamic source list files (require Ubuntu codename at install time)
+# Static source list files are shipped inside the package itself.
+#######################################
+echo "--- Adding dynamic apt repository sources ---"
+
+cat > /etc/apt/sources.list.d/docker.list <<EOF
+deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu ${CODENAME} stable
+EOF
+
+cat > /etc/apt/sources.list.d/virtualbox.list <<EOF
+deb [signed-by=/usr/share/keyrings/oracle-vbox.asc] https://download.virtualbox.org/virtualbox/debian ${CODENAME} contrib
+EOF
+
+echo "--- Dynamic apt repository sources added ---"
+
+#######################################
+# Update apt cache
+#######################################
+echo "--- Updating apt cache ---"
+apt-get update
+
+echo "=== Phase 1 complete: All sources and keys installed ==="

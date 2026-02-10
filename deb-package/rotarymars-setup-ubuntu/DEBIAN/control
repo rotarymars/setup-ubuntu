@@ -1,0 +1,12 @@
+Package: rotarymars-setup-ubuntu
+Version: 1.0.0
+Section: admin
+Priority: optional
+Architecture: amd64
+Depends: curl, gnupg, software-properties-common, ca-certificates, lsb-release
+Maintainer: rotarymars <s.goto2050@gmail.com>
+Description: Rotarymars Ubuntu Setup Package
+ A meta-package that configures apt sources, GPG keys, and installs
+ all required packages for the rotarymars Ubuntu environment.
+ Phase 1 (preinst): Installs GPG keys and apt sources/repositories.
+ Phase 2 (postinst): Updates apt cache and installs all packages.

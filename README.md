@@ -1,6 +1,41 @@
 # setup-ubuntu
 
-Automated Ubuntu setup using Ansible.
+Automated Ubuntu setup using Ansible and a custom deb package.
+
+## Architecture
+
+Package installation is handled by a custom `.deb` package (`rotarymars-setup-ubuntu`) which separates the setup into two phases:
+
+- **Phase 1 (preinst)**: Installs GPG keys, adds PPA repositories, creates apt source list files, and updates the apt cache.
+- **Phase 2 (postinst)**: Installs all apt packages.
+
+The deb package source and build script are located in `deb-package/`.
+
+### Building the deb package
+
+```bash
+cd deb-package
+bash build.sh
+```
+
+This uses `dpkg-deb` to build `rotarymars-setup-ubuntu.deb` from the package source directory.
+
+### Deb package structure
+
+```
+deb-package/
+├── build.sh                              # Build script (uses dpkg-deb)
+├── rotarymars-setup-ubuntu.deb           # Built deb package
+└── rotarymars-setup-ubuntu/              # Package source
+    ├── DEBIAN/
+    │   ├── control                       # Package metadata
+    │   ├── preinst                       # Phase 1: sources & keys
+    │   └── postinst                      # Phase 2: package installation
+    └── etc/apt/sources.list.d/           # Static apt source lists
+        ├── google-chrome.list
+        ├── discord-javinator9889.list
+        └── github-cli.list
+```
 
 ## Usage
 
@@ -12,6 +47,14 @@ Run the installation script:
 Or use Ansible directly:
 ```bash
 ansible-playbook -i inventory.ini main.yml --ask-become-pass
+```
+
+### Install only the deb package (without Ansible)
+
+```bash
+cd deb-package
+bash build.sh
+sudo dpkg -i rotarymars-setup-ubuntu.deb
 ```
 
 ## Post-Installation Manual Steps

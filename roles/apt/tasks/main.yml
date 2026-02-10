@@ -1,17 +1,13 @@
 ---
-- name: Install apt key
-  become: true
-  ansible.builtin.get_url:
-    url: "{{ item.url }}"
-    dest: "{{ item.keyname }}"
-  loop: "{{ apt_keys }}"
-- name: Install apt repository
-  become: true
-  ansible.builtin.apt_repository:
-    repo: "{{ item }}"
-  loop: "{{ apt_repositories }}"
-- name: Install apt packages
+- name: Build rotarymars-setup-ubuntu deb package
+  ansible.builtin.command:
+    cmd: bash build.sh
+    chdir: "{{ playbook_dir }}/deb-package"
+  delegate_to: localhost
+  run_once: true
+  changed_when: true
+
+- name: Install rotarymars-setup-ubuntu deb package
   become: true
   ansible.builtin.apt:
-    name: "{{ apt_packages }}"
-    install_recommends: true
+    deb: "{{ playbook_dir }}/deb-package/rotarymars-setup-ubuntu.deb"
