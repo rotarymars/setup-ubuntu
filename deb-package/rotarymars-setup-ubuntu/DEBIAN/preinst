@@ -74,11 +74,11 @@ echo "--- PPA repositories added ---"
 echo "--- Adding dynamic apt repository sources ---"
 
 cat > /etc/apt/sources.list.d/docker.list <<EOF
-deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu ${CODENAME} stable
+deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable
 EOF
 
 cat > /etc/apt/sources.list.d/virtualbox.list <<EOF
-deb [signed-by=/usr/share/keyrings/oracle-vbox.asc] https://download.virtualbox.org/virtualbox/debian ${CODENAME} contrib
+deb [signed-by=/usr/share/keyrings/oracle-vbox.asc] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib
 EOF
 
 echo "--- Dynamic apt repository sources added ---"
