@@ -187,3 +187,6 @@ apt_packages:
   - libxcb-cursor0
   - fakeroot
   - xorriso
+  - ocl-icd-libopencl1
+  - mesa-opencl-icd
+  - ocl-icd-opencl-dev
