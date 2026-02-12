@@ -73,6 +73,11 @@ Currently installed IDE
 - webstorm at `/opt/webstorm`
 - IntelliJ IDEA at `/opt/idea`
 
+Freeze kernel at generic
+```bash
+sudo apt-mark hold linux-image-generic-hwe-24.04 linux-headers-generic-hwe-24.04
+```
+
 # On thinkpad
 for realtek network cards
 

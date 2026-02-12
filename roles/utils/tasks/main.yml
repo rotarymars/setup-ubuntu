@@ -20,6 +20,13 @@
     groups: dialout
     append: yes
 
+- name: Add rotarymars to netdev group
+  become: true
+  ansible.builtin.user:
+    name: rotarymars
+    groups: netdev
+    append: yes
+
 - name: Replace capslock to ctrl
   become: true
   ansible.builtin.lineinfile:
