@@ -190,3 +190,5 @@ apt_packages:
   - ocl-icd-libopencl1
   - mesa-opencl-icd
   - ocl-icd-opencl-dev
+  - iwd
+
