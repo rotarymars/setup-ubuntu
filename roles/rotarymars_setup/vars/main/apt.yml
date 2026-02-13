@@ -198,4 +198,6 @@ apt_packages:
   - usbmuxd
   - libimobiledevice6
   - isc-dhcp-client
+  - linux-image-generic
+  - linux-headers-generic
 
