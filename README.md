@@ -77,7 +77,11 @@ Freeze kernel at generic
 ```bash
 sudo apt-mark hold linux-image-generic-hwe-24.04 linux-headers-generic-hwe-24.04
 ```
+Execute below:
 
+```bash
+sudo rm /etc/apt/sources.list.d/google-chrome.list
+```
 # On thinkpad
 for realtek network cards
 
