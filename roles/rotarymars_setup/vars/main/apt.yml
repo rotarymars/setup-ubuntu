@@ -201,3 +201,5 @@ apt_packages:
   - linux-image-generic
   - linux-headers-generic
   - mutt
+  - libcurl4-openssl-dev
+  - libzip-dev
