@@ -200,4 +200,4 @@ apt_packages:
   - isc-dhcp-client
   - linux-image-generic
   - linux-headers-generic
-
+  - mutt
