@@ -14,7 +14,7 @@
 	st = status
 	co = checkout
 	br = branch
-	ci = commit -s
+	ci = commit
 	ps = push
 	pl = pull
 	lb = log --graph --decorate --oneline
