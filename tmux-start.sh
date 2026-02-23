@@ -16,8 +16,8 @@ if ! tmux has-session -t robot 2>/dev/null; then
 
   # Navigate panes
   tmux send-keys -t robot:main.0 "cd $ROBOT_PI" C-m
-  tmux send-keys -t robot:main.2 "cd $ROBOT_ESP" C-m
-  tmux send-keys -t robot:main.1 "cd ~" C-m
+  tmux send-keys -t robot:main.1 "cd $ROBOT_ESP" C-m
+  tmux send-keys -t robot:main.2 "cd ~" C-m
 
   # ---- Additional windows ----
   tmux new-window -t robot -n rpi
