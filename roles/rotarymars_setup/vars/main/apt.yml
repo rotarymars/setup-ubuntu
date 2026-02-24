@@ -203,3 +203,4 @@ apt_packages:
   - mutt
   - libcurl4-openssl-dev
   - libzip-dev
+  - librocksdb-dev
