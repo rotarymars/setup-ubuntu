@@ -91,7 +91,6 @@ apt_packages:
   - blueman
   - apt-fast
   - direnv
-  - cargo
   - sshpass
   - docker-compose-plugin
   - tigervnc-viewer
@@ -204,3 +203,4 @@ apt_packages:
   - libcurl4-openssl-dev
   - libzip-dev
   - librocksdb-dev
+  - rustup

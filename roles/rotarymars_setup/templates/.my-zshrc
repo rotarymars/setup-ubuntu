@@ -3,7 +3,7 @@ alias pbcopy='xsel --clipboard --input'
 alias g='git'
 alias ls='eza --icons -g --git'
 alias l='ls'
-export PATH="$PATH:/home/rotarymars/.local/bin"
+export PATH="$PATH:/home/rotarymars/.local/bin:/home/rotarymars/.cargo/bin"
 export PATH="$PATH:/home/rotarymars/.platformio/penv/bin"
 alias compile='clang++ -g -std=c++2b'
 alias accnew='npx acc new --template kyopuro'
@@ -207,3 +207,4 @@ zinit load zsh-users/zsh-syntax-highlighting
 zinit load zsh-users/zsh-autosuggestions
 zinit load zsh-users/zsh-completions
 zinit load mollifier/cd-gitroot
+source <(jj util completion zsh)

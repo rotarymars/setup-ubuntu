@@ -87,6 +87,17 @@ echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-cent
   sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
 sudo apt update && sudo apt install antigravity
 ```
+
+Install stuff from rustup
+```bash
+rustup default stable
+```
+
+Install jj
+```bash
+cargo install --locked --bin jj jj-cli
+```
+
 # On thinkpad
 for realtek network cards
 
