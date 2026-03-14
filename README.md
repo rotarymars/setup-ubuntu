@@ -98,6 +98,16 @@ Install jj
 cargo install --locked --bin jj jj-cli
 ```
 
+Install claude code
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+Install ollama
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
 # On thinkpad
 for realtek network cards
 
