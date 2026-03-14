@@ -204,3 +204,4 @@ apt_packages:
   - libzip-dev
   - librocksdb-dev
   - rustup
+  - gimp
