@@ -27,6 +27,13 @@
     groups: netdev
     append: yes
 
+- name: Add rotarymars to input group
+  become: true
+  ansible.builtin.user:
+    name: rotarymars
+    groups: input
+    append: yes
+
 - name: Replace capslock to ctrl
   become: true
   ansible.builtin.lineinfile:
