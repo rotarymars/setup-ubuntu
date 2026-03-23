@@ -42,6 +42,8 @@ curl -fsSL https://gh.io/copilot-install | bash
 Install orca slicer
 ```
 https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.3.1
+
+flatpak install --user ./file.flatpak
 ```
 
 Install platformio
