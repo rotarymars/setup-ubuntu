@@ -110,6 +110,16 @@ Install ollama
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 
+Install proton
+https://protonvpn.com/ja/support/official-linux-vpn-ubuntu
+```
+wget https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_1.0.8_all.deb
+sudo dpkg -i ./protonvpn-stable-release_1.0.8_all.deb && sudo apt update
+sudo apt install proton-vpn-gnome-desktop
+sudo apt install gnome-shell-extension-appindicator
+```
+
+
 # On thinkpad
 for realtek network cards
 
