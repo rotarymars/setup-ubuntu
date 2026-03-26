@@ -119,6 +119,10 @@ sudo apt install proton-vpn-gnome-desktop
 sudo apt install gnome-shell-extension-appindicator
 ```
 
+Install act
+```bash
+gh extension install https://github.com/nektos/gh-act
+```
 
 # On thinkpad
 for realtek network cards
