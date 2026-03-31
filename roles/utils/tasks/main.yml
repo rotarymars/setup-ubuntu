@@ -149,3 +149,127 @@
   ansible.builtin.shell: |
     bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
 
+- name: Check if fzf is installed
+  ansible.builtin.stat:
+    path: ~/.fzf
+  register: fzf_check
+
+- name: Install fzf from git
+  ansible.builtin.shell: |
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install --all
+  when: not fzf_check.stat.exists
+
+- name: Configure ibus-mozc as default input method
+  ansible.builtin.command: im-config -n ibus
+  changed_when: false
+
+- name: Disable KVM for VirtualBox
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/modprobe.d/blacklist-kvm.conf
+    content: |
+      blacklist kvm
+      blacklist kvm_intel
+
+- name: Check for Realtek wifi card
+  ansible.builtin.shell: lspci | grep -i realtek | grep -i wireless
+  register: realtek_check
+  ignore_errors: true
+  changed_when: false
+
+- name: Add Thinkpad Realtek config
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/modprobe.d/30-rtw89.conf
+    content: |
+      options rtw89pci disable_aspm_l1=y
+      options rtw89pci disable_aspm_l1ss=y
+  when: realtek_check.rc == 0
+
+- name: Freeze kernel at generic
+  become: true
+  ansible.builtin.dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  loop:
+    - linux-image-generic-hwe-24.04
+    - linux-headers-generic-hwe-24.04
+
+- name: Remove google-chrome.list if it exists
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/google-chrome.list
+    state: absent
+
+- name: Check if Copilot CLI is installed
+  ansible.builtin.command: which copilot
+  register: copilot_check
+  ignore_errors: true
+  changed_when: false
+
+- name: Install Copilot CLI
+  ansible.builtin.shell: curl -fsSL https://gh.io/copilot-install | bash
+  when: copilot_check.rc != 0
+
+- name: Check if Claude Code is installed
+  ansible.builtin.command: which claude
+  register: claude_check
+  ignore_errors: true
+  changed_when: false
+
+- name: Install Claude Code
+  ansible.builtin.shell: curl -fsSL https://claude.ai/install.sh | bash
+  when: claude_check.rc != 0
+
+- name: Check if Ollama is installed
+  ansible.builtin.command: which ollama
+  register: ollama_check
+  ignore_errors: true
+  changed_when: false
+
+- name: Install Ollama
+  ansible.builtin.shell: curl -fsSL https://ollama.com/install.sh | sh
+  when: ollama_check.rc != 0
+
+- name: Check if PlatformIO is installed
+  ansible.builtin.stat:
+    path: ~/.platformio
+  register: pio_check
+
+- name: Install PlatformIO
+  ansible.builtin.shell: |
+    curl -fsSL -o get-platformio.py https://raw.githubusercontent.com/platformio/platformio-core-installer/master/get-platformio.py
+    python3 get-platformio.py
+    rm get-platformio.py
+  when: not pio_check.stat.exists
+
+- name: Check if gh-act extension is installed
+  ansible.builtin.shell: gh extension list | grep -q nektos/gh-act
+  register: gh_act_check
+  ignore_errors: true
+  changed_when: false
+
+- name: Install gh-act extension
+  ansible.builtin.command: gh extension install https://github.com/nektos/gh-act
+  when: gh_act_check.rc != 0
+
+- name: Check if Orca Slicer is installed via flatpak
+  ansible.builtin.shell: flatpak list --user | grep -q com.orcaslicer.OrcaSlicer
+  register: orca_check
+  ignore_errors: true
+  changed_when: false
+
+- name: Install Orca Slicer via Flatpak
+  ansible.builtin.command: flatpak install --user -y https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v2.3.1/OrcaSlicer_v2.3.1_Linux.flatpak
+  when: orca_check.rc != 0
+
+- name: Set rustup default stable
+  ansible.builtin.command: rustup default stable
+  changed_when: false
+
+- name: Install jj-cli via cargo
+  ansible.builtin.command: cargo install --locked --bin jj jj-cli
+  args:
+    creates: ~/.cargo/bin/jj
+

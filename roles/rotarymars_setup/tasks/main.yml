@@ -1,4 +1,10 @@
 ---
+- name: Load variables
+  ansible.builtin.include_vars:
+    dir: vars/main
+    extensions:
+      - yml
+
 - name: Set target roles
   ansible.builtin.set_fact:
     # target_roles: ["bluetooth_pan"]
