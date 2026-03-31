@@ -52,24 +52,6 @@ curl -fsSL -o get-platformio.py https://raw.githubusercontent.com/platformio/pla
 python3 get-platformio.py
 ```
 
-Install JetBrain IDEs manually
-```bash
-sudo mv <IDE_FOLDER> /opt/<IDE_NAME>
-```
-
-Install DaVinci resolve
-
-https://www.danieltufvesson.com/makeresolvedeb
-
-Currently installed IDE
-
-- CLion at `/opt/clion`
-- DataGrip at `/opt/DataGrip`
-- dataspell at `/opt/dataspell`
-- pycharm at `/opt/pycharm`
-- webstorm at `/opt/webstorm`
-- IntelliJ IDEA at `/opt/idea`
-
 Freeze kernel at generic
 ```bash
 sudo apt-mark hold linux-image-generic-hwe-24.04 linux-headers-generic-hwe-24.04
