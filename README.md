@@ -106,6 +106,17 @@ Install act
 gh extension install https://github.com/nektos/gh-act
 ```
 
+Install gemini-cli and stuff
+```bash
+npm install -g  @google/gemini-cli
+gemini mcp add -s user chrome-devtools npx chrome-devtools-mcp@latest
+```
+
+Install coderabbit cli
+```bash
+curl -fsSL https://cli.coderabbit.ai/install.sh | sh
+```
+
 # On thinkpad
 for realtek network cards
 
