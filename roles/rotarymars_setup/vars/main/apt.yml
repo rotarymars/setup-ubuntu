@@ -211,3 +211,4 @@ apt_packages:
   - librocksdb-dev
   - rustup
   - gimp
+  - steam
