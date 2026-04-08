@@ -2,35 +2,35 @@
 - name: Add rotarymars to docker group
   become: true
   ansible.builtin.user:
-    name: rotarymars
+    name: "{{ ansible_user }}"
     groups: docker
     append: yes
 
 - name: Add rotarymars to video group
   become: true
   ansible.builtin.user:
-    name: rotarymars
+    name: "{{ ansible_user }}"
     groups: video
     append: yes
 
 - name: Add rotarymars to dialout group
   become: true
   ansible.builtin.user:
-    name: rotarymars
+    name: "{{ ansible_user }}"
     groups: dialout
     append: yes
 
 - name: Add rotarymars to netdev group
   become: true
   ansible.builtin.user:
-    name: rotarymars
+    name: "{{ ansible_user }}"
     groups: netdev
     append: yes
 
 - name: Add rotarymars to input group
   become: true
   ansible.builtin.user:
-    name: rotarymars
+    name: "{{ ansible_user }}"
     groups: input
     append: yes
 

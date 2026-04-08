@@ -1,7 +1,7 @@
 ---
 - name: Load variables
   ansible.builtin.include_vars:
-    dir: vars/main
+    dir: ../vars/main
     extensions:
       - yml
 

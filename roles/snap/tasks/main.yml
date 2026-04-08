@@ -1,6 +1,13 @@
 ---
+- name: Check if snapd is running
+  ansible.builtin.systemd:
+    name: snapd
+  register: snapd_status
+  ignore_errors: true
+
 - name: Install snap packages
   become: true
   ansible.builtin.snap:
     name: "{{ snap_packages }}"
     classic: true
+  when: snapd_status.status is defined and snapd_status.status.ActiveState == "active"

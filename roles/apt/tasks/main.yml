@@ -1,4 +1,14 @@
 ---
+- name: Check if i386 is enabled
+  ansible.builtin.command: dpkg --print-foreign-architectures
+  register: foreign_arch
+  changed_when: false
+
+- name: Add i386 architecture
+  become: true
+  ansible.builtin.command: dpkg --add-architecture i386
+  when: "'i386' not in foreign_arch.stdout"
+
 - name: Install apt key
   become: true
   ansible.builtin.get_url:
