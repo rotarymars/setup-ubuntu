@@ -8,6 +8,13 @@
   become: true
   ansible.builtin.command: dpkg --add-architecture i386
   when: "'i386' not in foreign_arch.stdout"
+  register: i386_added
+
+- name: Refresh apt cache after adding i386
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+  when: i386_added is changed
 
 - name: Ensure keyring directories exist
   become: true
