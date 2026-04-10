@@ -29,9 +29,11 @@
 - name: Install apt key
   become: true
   ansible.builtin.shell: |
-    curl -fsSL {{ item.url }} | gpg --dearmor --yes -o {{ item.keyname }}
+    set -o pipefail && curl -fsSL "{{ item.url }}" | gpg --dearmor --yes -o "{{ item.keyname }}"
+  args:
+    executable: /bin/bash
+    creates: "{{ item.keyname }}"
   loop: "{{ apt_keys }}"
-  changed_when: true
 - name: Install apt repository
   become: true
   ansible.builtin.apt_repository:
