@@ -9,12 +9,22 @@
   ansible.builtin.command: dpkg --add-architecture i386
   when: "'i386' not in foreign_arch.stdout"
 
+- name: Ensure keyring directories exist
+  become: true
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - /etc/apt/keyrings
+    - /usr/share/keyrings
+
 - name: Install apt key
   become: true
-  ansible.builtin.get_url:
-    url: "{{ item.url }}"
-    dest: "{{ item.keyname }}"
+  ansible.builtin.shell: |
+    curl -fsSL {{ item.url }} | gpg --dearmor --yes -o {{ item.keyname }}
   loop: "{{ apt_keys }}"
+  changed_when: true
 - name: Install apt repository
   become: true
   ansible.builtin.apt_repository:

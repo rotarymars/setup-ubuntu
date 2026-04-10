@@ -27,8 +27,8 @@ apt_repositories:
   - ppa:zhangsongcui3371/fastfetch
   - ppa:lakinduakash/lwh
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main
-  - deb [signed-by=/usr/share/keyrings/oracle-vbox.asc] https://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }}  contrib
-  - deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main
+  - deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-vbox.asc] https://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }}  contrib
+  - deb [arch=amd64 signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main
 apt_packages:
   - dirmngr
   - ca-certificates
