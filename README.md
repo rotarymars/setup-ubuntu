@@ -117,6 +117,7 @@ Install coderabbit cli
 curl -fsSL https://cli.coderabbit.ai/install.sh | sh
 ```
 
+Uncomment HandleLidSwitch=suspend in /etc/systemd/logind.conf
 # On thinkpad
 for realtek network cards
 
