@@ -34,8 +34,11 @@
     diffFilter = delta --color-only
 	[core]
     pager = delta
+	quotepath = false
 
 [merge]
     conflictstyle = zdiff3
 [credential]
 	helper = store
+[coderabbit]
+	machineId = cli/96feb985ec5e4012b0ec5eee19520e43
