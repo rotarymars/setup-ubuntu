@@ -222,6 +222,53 @@
   ansible.builtin.shell: curl -fsSL https://claude.ai/install.sh | bash
   when: claude_check.rc != 0
 
+- name: Clone Seeed-Studio/kicad-mcp-server
+  ansible.builtin.git:
+    repo: https://github.com/Seeed-Studio/kicad-mcp-server
+    dest: ~/.local/share/kicad-mcp-server
+    depth: 1
+    update: yes
+  register: kicad_mcp_clone
+
+- name: Drop stale test_generation import from kicad-mcp-server
+  ansible.builtin.lineinfile:
+    path: ~/.local/share/kicad-mcp-server/src/kicad_mcp_server/server.py
+    line: "    test_generation,"
+    state: absent
+
+- name: Install kicad-mcp-server into dedicated venv (editable)
+  ansible.builtin.pip:
+    name: ~/.local/share/kicad-mcp-server
+    editable: true
+    virtualenv: ~/.local/share/kicad-mcp-server/.venv
+    virtualenv_command: python3 -m venv
+    state: present
+
+- name: Check if ~/.claude.json exists
+  ansible.builtin.stat:
+    path: ~/.claude.json
+  register: claude_json_stat
+
+- name: Load existing Claude config
+  ansible.builtin.slurp:
+    src: ~/.claude.json
+  register: claude_json_raw
+  when: claude_json_stat.stat.exists
+
+- name: Merge kicad MCP server into Claude config
+  vars:
+    existing_config: "{{ (claude_json_raw.content | b64decode | from_json) if claude_json_stat.stat.exists else {} }}"
+    existing_mcp: "{{ (existing_config.mcpServers | default({})) | dict2items | rejectattr('key', 'equalto', 'kicad-schematic') | list | items2dict }}"
+    kicad_mcp:
+      kicad:
+        command: "{{ ansible_env.HOME }}/.local/share/kicad-mcp-server/.venv/bin/kicad-mcp-server"
+        args: []
+    merged_config: "{{ existing_config | combine({'mcpServers': existing_mcp | combine(kicad_mcp)}, recursive=True) }}"
+  ansible.builtin.copy:
+    content: "{{ merged_config | to_nice_json }}"
+    dest: ~/.claude.json
+    mode: '0600'
+
 - name: Check if Ollama is installed
   ansible.builtin.command: which ollama
   register: ollama_check
