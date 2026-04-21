@@ -222,6 +222,34 @@
   ansible.builtin.shell: curl -fsSL https://claude.ai/install.sh | bash
   when: claude_check.rc != 0
 
+- name: Check if ~/.claude.json exists
+  ansible.builtin.stat:
+    path: ~/.claude.json
+  register: claude_json_stat
+
+- name: Load existing Claude config
+  ansible.builtin.slurp:
+    src: ~/.claude.json
+  register: claude_json_raw
+  when: claude_json_stat.stat.exists
+
+- name: Merge kicad-schematic MCP server into Claude config
+  vars:
+    existing_config: "{{ (claude_json_raw.content | b64decode | from_json) if claude_json_stat.stat.exists else {} }}"
+    existing_mcp: "{{ existing_config.mcpServers | default({}) }}"
+    kicad_mcp:
+      kicad-schematic:
+        command: uvx
+        args:
+          - kicad-mcp
+          - --editor-type
+          - schematic
+    merged_config: "{{ existing_config | combine({'mcpServers': existing_mcp | combine(kicad_mcp)}, recursive=True) }}"
+  ansible.builtin.copy:
+    content: "{{ merged_config | to_nice_json }}"
+    dest: ~/.claude.json
+    mode: '0600'
+
 - name: Check if Ollama is installed
   ansible.builtin.command: which ollama
   register: ollama_check
