@@ -60,6 +60,7 @@ apt_packages:
   - network-manager-l2tp-gnome
   - xsel
   - python3-pip
+  - python3-venv
   - exuberant-ctags
   - ripgrep
   - eza
