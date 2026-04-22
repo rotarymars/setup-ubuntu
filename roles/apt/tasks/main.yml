@@ -1,4 +1,12 @@
 ---
+- name: Check enabled foreign architectures
+  ansible.builtin.command: dpkg --print-foreign-architectures
+  register: _dpkg_foreign_arch
+  changed_when: false
+- name: Enable i386 architecture (required for steam-installer and other 32-bit packages)
+  become: true
+  ansible.builtin.command: dpkg --add-architecture i386
+  when: "'i386' not in _dpkg_foreign_arch.stdout.split()"
 - name: Install apt key
   become: true
   ansible.builtin.get_url:
