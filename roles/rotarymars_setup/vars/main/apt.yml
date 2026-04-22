@@ -211,4 +211,5 @@ apt_packages:
   - librocksdb-dev
   - rustup
   - gimp
-  - steam
+  - steam-installer
+  - pdfcrack
