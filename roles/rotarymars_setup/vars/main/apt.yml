@@ -213,3 +213,4 @@ apt_packages:
   - gimp
   - steam-installer
   - pdfcrack
+  - hashcat
