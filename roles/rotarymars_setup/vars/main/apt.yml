@@ -60,6 +60,7 @@ apt_packages:
   - network-manager-l2tp-gnome
   - xsel
   - python3-pip
+  - python3-venv
   - exuberant-ctags
   - ripgrep
   - eza
@@ -96,7 +97,6 @@ apt_packages:
   - blueman
   - apt-fast
   - direnv
-  - cargo
   - sshpass
   - docker-compose-plugin
   - tigervnc-viewer
@@ -168,7 +168,6 @@ apt_packages:
   - kitty
   - parallel
   - libgtkmm-3.0-dev
-  - libcurl4-gnutls-dev
   - libsqlite3-dev
   - libssl-dev
   - nlohmann-json3-dev
@@ -211,4 +210,4 @@ apt_packages:
   - librocksdb-dev
   - rustup
   - gimp
-  - steam
+  - steam-installer
