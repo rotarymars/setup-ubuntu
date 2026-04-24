@@ -117,6 +117,11 @@ Install coderabbit cli
 curl -fsSL https://cli.coderabbit.ai/install.sh | sh
 ```
 
+Install openclaw
+```bash
+curl -fsSL https://openclaw.ai/install.sh | bash
+```
+
 # On thinkpad
 for realtek network cards
 
