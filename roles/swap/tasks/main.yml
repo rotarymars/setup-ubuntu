@@ -1,0 +1,41 @@
+---
+- name: Stat swap file
+  ansible.builtin.stat:
+    path: "{{ swap_file_path }}"
+  register: swap_file_stat
+
+- name: Allocate swap file
+  become: true
+  ansible.builtin.command: "fallocate -l {{ swap_size_mib }}M {{ swap_file_path }}"
+  when: not swap_file_stat.stat.exists
+
+- name: Lock down swap file permissions
+  become: true
+  ansible.builtin.file:
+    path: "{{ swap_file_path }}"
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: Format swap file
+  become: true
+  ansible.builtin.command: "mkswap {{ swap_file_path }}"
+  when: not swap_file_stat.stat.exists
+
+- name: Register swap file in /etc/fstab
+  become: true
+  ansible.builtin.lineinfile:
+    path: /etc/fstab
+    regexp: "^{{ swap_file_path | regex_escape }}\\s"
+    line: "{{ swap_file_path }} none swap sw 0 0"
+    state: present
+
+- name: Get active swap devices
+  ansible.builtin.command: swapon --show=NAME --noheadings
+  register: active_swaps
+  changed_when: false
+
+- name: Enable swap file
+  become: true
+  ansible.builtin.command: "swapon {{ swap_file_path }}"
+  when: swap_file_path not in active_swaps.stdout_lines

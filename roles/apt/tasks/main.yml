@@ -1,4 +1,16 @@
 ---
+- name: Remove legacy antigravity sources list
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/antigravity.list
+    state: absent
+
+- name: Remove legacy antigravity binary keyring
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/keyrings/antigravity-repo-key.gpg
+    state: absent
+
 - name: Install apt key
   become: true
   ansible.builtin.get_url:
