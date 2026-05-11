@@ -187,14 +187,24 @@
       options rtw89pci disable_aspm_l1ss=y
   when: realtek_check.rc == 0
 
-- name: Freeze kernel at generic
-  become: true
-  ansible.builtin.dpkg_selections:
-    name: "{{ item }}"
-    selection: hold
+- name: Check which kernel HWE meta packages are installed
+  ansible.builtin.command: "dpkg-query -W -f='${Status}' {{ item }}"
+  register: hwe_kernel_status
   loop:
     - linux-image-generic-hwe-24.04
     - linux-headers-generic-hwe-24.04
+  failed_when: false
+  changed_when: false
+
+- name: Freeze kernel at generic
+  become: true
+  ansible.builtin.dpkg_selections:
+    name: "{{ item.item }}"
+    selection: hold
+  loop: "{{ hwe_kernel_status.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when: item.rc == 0 and ' ok installed' in item.stdout
 
 - name: Remove google-chrome.list if it exists
   become: true

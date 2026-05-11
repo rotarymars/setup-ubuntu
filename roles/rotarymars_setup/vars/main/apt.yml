@@ -18,6 +18,8 @@ apt_keys:
     keyname: /etc/apt/keyrings/antigravity-repo-key.asc
   - url: https://cyberbotics.com/Cyberbotics.asc
     keyname: /etc/apt/keyrings/Cyberbotics.asc
+  - url: https://dl.k6.io/key.gpg
+    keyname: /etc/apt/keyrings/k6-archive-keyring.asc
 apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/googlechrom-keyring.asc] http://dl.google.com/linux/chrome/deb/ stable main
   - ppa:kicad/kicad-9.0-releases
@@ -32,6 +34,7 @@ apt_repositories:
   - deb [signed-by=/usr/share/keyrings/oracle-vbox.asc] https://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }}  contrib
   - deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.asc] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/Cyberbotics.asc] https://cyberbotics.com/debian binary-amd64/
+  - deb [signed-by=/etc/apt/keyrings/k6-archive-keyring.asc] https://dl.k6.io/deb stable main
 apt_packages:
   - dirmngr
   - ca-certificates
@@ -215,3 +218,4 @@ apt_packages:
   - pdfcrack
   - hashcat
   - webots
+  - k6
