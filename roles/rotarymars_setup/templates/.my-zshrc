@@ -1,3 +1,4 @@
+ulimit -n 8192
 export PATH="$PATH:/opt/nvim-linux64/bin"
 alias pbcopy='xsel --clipboard --input'
 alias g='git'
