@@ -164,6 +164,15 @@
   ansible.builtin.command: im-config -n ibus
   changed_when: false
 
+- name: Raise fs.inotify.max_user_instances
+  become: true
+  ansible.posix.sysctl:
+    name: fs.inotify.max_user_instances
+    value: "8192"
+    state: present
+    sysctl_file: /etc/sysctl.conf
+    reload: true
+
 - name: Disable KVM for VirtualBox
   become: true
   ansible.builtin.copy:
