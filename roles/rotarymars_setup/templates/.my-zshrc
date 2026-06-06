@@ -1,6 +1,6 @@
 ulimit -n 8192
 export PATH="$PATH:/opt/nvim-linux64/bin"
-alias pbcopy='xsel --clipboard --input'
+alias pbcopy='wl-copy'
 alias g='git'
 alias ls='eza --icons -g --git'
 alias l='ls'

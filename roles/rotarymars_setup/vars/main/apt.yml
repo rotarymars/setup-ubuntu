@@ -219,3 +219,4 @@ apt_packages:
   - hashcat
   - webots
   - k6
+  - wl-clipboard
