@@ -220,3 +220,4 @@ apt_packages:
   - webots
   - k6
   - wl-clipboard
+  - libsdl2-dev
