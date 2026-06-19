@@ -221,3 +221,4 @@ apt_packages:
   - k6
   - wl-clipboard
   - libsdl2-dev
+  - python3-dotenv-cli
