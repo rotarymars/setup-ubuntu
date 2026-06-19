@@ -326,8 +326,13 @@
   ignore_errors: true
   changed_when: false
 
+- name: Ensure Flathub remote is configured for the user
+  ansible.builtin.command: flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  when: orca_check.rc != 0
+  changed_when: false
+
 - name: Install Orca Slicer via Flatpak
-  ansible.builtin.command: flatpak install --user -y https://github.com/OrcaSlicer/OrcaSlicer/releases/download/v2.3.1/OrcaSlicer_v2.3.1_Linux.flatpak
+  ansible.builtin.command: flatpak install --user -y flathub com.orcaslicer.OrcaSlicer
   when: orca_check.rc != 0
 
 - name: Set rustup default stable
