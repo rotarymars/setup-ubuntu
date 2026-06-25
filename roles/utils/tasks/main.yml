@@ -298,6 +298,11 @@
   ansible.builtin.shell: curl -fsSL https://ollama.com/install.sh | sh
   when: ollama_check.rc != 0
 
+- name: Install Zed editor
+  ansible.builtin.shell: curl -f https://zed.dev/install.sh | sh
+  args:
+    creates: ~/.local/bin/zed
+
 - name: Check if PlatformIO is installed
   ansible.builtin.stat:
     path: ~/.platformio

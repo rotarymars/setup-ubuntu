@@ -22,6 +22,7 @@ apt_keys:
     keyname: /etc/apt/keyrings/k6-archive-keyring.asc
 apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/googlechrom-keyring.asc] http://dl.google.com/linux/chrome/deb/ stable main
+  - deb [arch=amd64 signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/edge stable main
   - ppa:kicad/kicad-9.0-releases
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
   - ppa:obsproject/obs-studio
@@ -44,6 +45,7 @@ apt_packages:
   - ffmpeg
   - apt-fast
   - google-chrome-stable
+  - microsoft-edge-stable
   - rpi-imager
   - ibus-mozc
   - mozc-utils-gui
