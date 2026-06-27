@@ -224,3 +224,4 @@ apt_packages:
   - wl-clipboard
   - libsdl2-dev
   - python3-dotenv-cli
+  - nvidia-cuda-toolkit
