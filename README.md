@@ -122,6 +122,32 @@ Install openclaw
 curl -fsSL https://openclaw.ai/install.sh | bash
 ```
 
+Install Minecraft: Education Edition via Waydroid
+
+There is no native Linux build, so run the Android version inside Waydroid.
+Ansible installs the `waydroid` package; the steps below are one-time and interactive.
+```bash
+# 1. Initialize with Google Play (downloads ~1-2 GB Android image) and start the service
+sudo waydroid init -s GAPPS
+sudo systemctl enable --now waydroid-container
+
+# 2. Switch to a Wayland session: log out -> gear icon -> "Ubuntu on Wayland" -> log back in
+
+# 3. Launch the Android UI
+waydroid show-full-ui
+
+# 4. Certify the device with Google (Play Store blocks uncertified devices)
+sudo waydroid shell -- sh -c "sqlite3 /data/data/*/*/gservices.db 'select * from main where name = \"android_id\";'"
+# Register the printed number at https://www.google.com/android/uncertified
+
+# 5. Restart the session so certification takes effect
+waydroid session stop   # wait 1-2 min, then:
+waydroid show-full-ui
+
+# 6. In the UI: sign into Google Play, install "Minecraft Education",
+#    then launch it and sign in with a Microsoft 365 Education account.
+```
+
 # On thinkpad
 for realtek network cards
 
