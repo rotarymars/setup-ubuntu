@@ -20,6 +20,8 @@ apt_keys:
     keyname: /etc/apt/keyrings/Cyberbotics.asc
   - url: https://dl.k6.io/key.gpg
     keyname: /etc/apt/keyrings/k6-archive-keyring.asc
+  - url: https://repo.waydro.id/waydroid.gpg
+    keyname: /usr/share/keyrings/waydroid.gpg
 apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/googlechrom-keyring.asc] http://dl.google.com/linux/chrome/deb/ stable main
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/packages.microsoft.asc] https://packages.microsoft.com/repos/edge stable main
@@ -37,6 +39,7 @@ apt_repositories:
   - deb [arch=amd64 signed-by=/etc/apt/keyrings/Cyberbotics.asc] https://cyberbotics.com/debian binary-amd64/
   - deb [signed-by=/etc/apt/keyrings/k6-archive-keyring.asc] https://dl.k6.io/deb stable main
   - deb [arch=amd64,i386 signed-by=/usr/share/keyrings/winehq-archive.asc] https://dl.winehq.org/wine-builds/ubuntu {{ ansible_distribution_release }} main
+  - deb [signed-by=/usr/share/keyrings/waydroid.gpg] https://repo.waydro.id/ {{ ansible_distribution_release }} main
 apt_packages:
   - dirmngr
   - ca-certificates
@@ -227,3 +230,4 @@ apt_packages:
   - python3-dotenv-cli
   - nvidia-cuda-toolkit
   - winehq-stable
+  - waydroid
