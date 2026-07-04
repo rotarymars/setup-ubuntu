@@ -241,6 +241,20 @@
   ansible.builtin.shell: curl -fsSL https://claude.ai/install.sh | bash
   when: claude_check.rc != 0
 
+- name: Check if Codex CLI is installed
+  ansible.builtin.command: which codex
+  register: codex_check
+  ignore_errors: true
+  changed_when: false
+
+- name: Install Codex CLI
+  ansible.builtin.shell: |
+    export ASDF_DIR="$HOME/.asdf"
+    . "$HOME/.asdf/asdf.sh"
+    npm install -g @openai/codex
+    asdf reshim nodejs
+  when: codex_check.rc != 0
+
 - name: Clone Seeed-Studio/kicad-mcp-server
   ansible.builtin.git:
     repo: https://github.com/Seeed-Studio/kicad-mcp-server
