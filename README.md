@@ -46,6 +46,19 @@ https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.3.1
 flatpak install --user ./file.flatpak
 ```
 
+Install Chitubox
+
+Download the Linux x64 `.tar.gz` (needs a free account) from
+https://www.chitubox.com/en/download/chitubox-free
+```bash
+# Qt runtime deps
+sudo apt install libxcb-xinerama0 libxcb-cursor0 libgl1
+
+tar -xzf CHITUBOX_Basic_x64_V*.tar.gz
+# run the bundled installer, then launch from the install dir:
+#   right-click CHITUBOX_Basic.sh -> "Run as a Program" (or ./CHITUBOX_Basic.sh)
+```
+
 Install platformio
 ```bash
 curl -fsSL -o get-platformio.py https://raw.githubusercontent.com/platformio/platformio-core-installer/master/get-platformio.py

@@ -232,3 +232,5 @@ apt_packages:
   - winehq-stable
   - waydroid
   - libcamera-dev
+  - libxcb-xinerama0
+  - libgl1
