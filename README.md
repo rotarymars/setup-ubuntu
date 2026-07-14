@@ -49,7 +49,7 @@ flatpak install --user ./file.flatpak
 Install Chitubox
 
 Download the Linux x64 `.tar.gz` (needs a free account) from
-https://www.chitubox.com/en/download/chitubox-free
+https://www.chitubox.com/en/download/previous/chitubox-free
 ```bash
 # Qt runtime deps
 sudo apt install libxcb-xinerama0 libxcb-cursor0 libgl1
