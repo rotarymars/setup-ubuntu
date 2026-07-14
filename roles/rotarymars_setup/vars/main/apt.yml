@@ -231,3 +231,4 @@ apt_packages:
   - nvidia-cuda-toolkit
   - winehq-stable
   - waydroid
+  - libcamera-dev
