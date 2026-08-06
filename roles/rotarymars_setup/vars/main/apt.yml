@@ -234,3 +234,4 @@ apt_packages:
   - libcamera-dev
   - libxcb-xinerama0
   - libgl1
+  - git-email
