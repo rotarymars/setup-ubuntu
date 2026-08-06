@@ -235,3 +235,6 @@ apt_packages:
   - libxcb-xinerama0
   - libgl1
   - git-email
+  - git-credential-oauth
+  - cpanminus
+  - libauthen-sasl-perl
