@@ -161,6 +161,11 @@ waydroid show-full-ui
 #    then launch it and sign in with a Microsoft 365 Education account.
 ```
 
+Install antigravity cli
+```bash
+curl -fsSL https://antigravity.google/cli/install.sh | bash
+```
+
 # On thinkpad
 for realtek network cards
 
