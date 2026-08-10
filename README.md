@@ -166,6 +166,11 @@ Install antigravity cli
 curl -fsSL https://antigravity.google/cli/install.sh | bash
 ```
 
+
+Enable stacked PRs in gh-act
+```
+gh extension install github/gh-stack
+```
 # On thinkpad
 for realtek network cards
 
