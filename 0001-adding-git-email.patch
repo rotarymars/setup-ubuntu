@@ -1,0 +1,21 @@
+From f94e5e8e672e10646bb2dcec5384aca2edf51bce Mon Sep 17 00:00:00 2001
+From: rotarymars <s.goto2050@gmail.com>
+Date: Thu, 6 Aug 2026 10:52:53 +0900
+Subject: [PATCH] adding git-email
+
+---
+ roles/rotarymars_setup/vars/main/apt.yml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/roles/rotarymars_setup/vars/main/apt.yml b/roles/rotarymars_setup/vars/main/apt.yml
+index 7b806ed..769ed3d 100644
+--- a/roles/rotarymars_setup/vars/main/apt.yml
++++ b/roles/rotarymars_setup/vars/main/apt.yml
+@@ -234,3 +234,4 @@ apt_packages:
+   - libcamera-dev
+   - libxcb-xinerama0
+   - libgl1
++  - git-email
+-- 
+2.43.0
+

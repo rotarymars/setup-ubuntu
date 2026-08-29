@@ -11,11 +11,31 @@
     path: /etc/apt/keyrings/antigravity-repo-key.gpg
     state: absent
 
+- name: Check enabled foreign architectures
+  become: true
+  ansible.builtin.command: dpkg --print-foreign-architectures
+  register: dpkg_foreign_architectures
+  changed_when: false
+
+- name: Enable i386 architecture
+  become: true
+  ansible.builtin.command: dpkg --add-architecture i386
+  when: "'i386' not in dpkg_foreign_architectures.stdout_lines"
+  register: dpkg_add_i386
+
+- name: Refresh apt cache after enabling i386
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+  when: dpkg_add_i386 is changed
+
 - name: Install apt key
   become: true
   ansible.builtin.get_url:
     url: "{{ item.url }}"
     dest: "{{ item.keyname }}"
+    force: true
+    mode: "0644"
   loop: "{{ apt_keys }}"
 - name: Install apt repository
   become: true
