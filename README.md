@@ -171,6 +171,11 @@ Enable stacked PRs in gh-act
 ```
 gh extension install github/gh-stack
 ```
+
+Install epson driver
+
+- go to https://download-center.epson.com/search/?language=ja
+
 # On thinkpad
 for realtek network cards
 
