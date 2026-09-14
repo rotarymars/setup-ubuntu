@@ -92,6 +92,13 @@
     src: ".my-zshrc"
     dest: "~/.my-zshrc"
 
+# Must be .zshenv: it is the only startup file zsh reads before
+# /etc/zsh/zshrc, which is where the global compinit we opt out of runs.
+- name: Copy .zshenv
+  ansible.builtin.template:
+    src: ".zshenv"
+    dest: "~/.zshenv"
+
 - name: Copy .hotspot_config.zsh
   ansible.builtin.template:
     src: "hotspot_config.zsh"
