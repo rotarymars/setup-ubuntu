@@ -1,0 +1,33 @@
+---
+# Workspace Matrix arranges GNOME workspaces in a two dimensional grid.
+# GNOME 40+ lays workspaces out as a single row, so Ctrl+Alt+Up/Down are bound
+# but have nowhere to go; this extension gives that second axis.
+# https://extensions.gnome.org/extension/1485/workspace-matrix/
+workspace_grid_uuid: wsmatrix@martin.zurowietz.de
+workspace_grid_ego_url: https://extensions.gnome.org
+workspace_grid_extension_dir: "~/.local/share/gnome-shell/extensions/{{ workspace_grid_uuid }}"
+
+workspace_grid_rows: 3
+workspace_grid_columns: 3
+
+# Extension look and feel; keys come from
+# schemas/org.gnome.shell.extensions.wsmatrix.gschema.xml
+workspace_grid_show_thumbnails: true
+workspace_grid_show_overview_grid: true
+workspace_grid_popup_timeout: 500
+# none | next-previous | rows-columns | next-previous-border
+workspace_grid_wraparound_mode: none
+
+# Ctrl+Alt+arrow moves between workspaces, Ctrl+Shift+Alt+arrow drags the
+# focused window along. These are the GNOME defaults, pinned so a fresh machine
+# ends up with a navigable grid.
+workspace_grid_set_keybindings: true
+workspace_grid_keybindings:
+  switch-to-workspace-left: ["<Super>Page_Up", "<Super><Alt>Left", "<Control><Alt>Left"]
+  switch-to-workspace-right: ["<Super>Page_Down", "<Super><Alt>Right", "<Control><Alt>Right"]
+  switch-to-workspace-up: ["<Control><Alt>Up"]
+  switch-to-workspace-down: ["<Control><Alt>Down"]
+  move-to-workspace-left: ["<Super><Shift>Page_Up", "<Super><Shift><Alt>Left", "<Control><Shift><Alt>Left"]
+  move-to-workspace-right: ["<Super><Shift>Page_Down", "<Super><Shift><Alt>Right", "<Control><Shift><Alt>Right"]
+  move-to-workspace-up: ["<Control><Shift><Alt>Up"]
+  move-to-workspace-down: ["<Control><Shift><Alt>Down"]

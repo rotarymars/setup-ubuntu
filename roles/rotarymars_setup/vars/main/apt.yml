@@ -57,6 +57,9 @@ apt_packages:
   - ibus-mozc
   - mozc-utils-gui
   - gnome-shell-extension-appindicator
+  - gnome-shell-extension-manager
+  - dconf-cli
+  - python3-gi
   - antigravity
   - curl
   - apt-transport-https
@@ -242,3 +245,4 @@ apt_packages:
   - cpanminus
   - libauthen-sasl-perl
   - onlyoffice-desktopeditors
+  - chrome-gnome-shell

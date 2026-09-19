@@ -172,6 +172,34 @@ Enable stacked PRs in gh-act
 gh extension install github/gh-stack
 ```
 
+### Workspace grid (田の字 / 3x3 virtual desktops)
+
+Handled by the `gnome-workspace-grid` role — no GUI steps needed.
+
+GNOME 40+ lays workspaces out as a single row, so `Ctrl+Alt+Up`/`Down` are bound but
+have nowhere to go. The role installs [Workspace Matrix](https://extensions.gnome.org/extension/1485/workspace-matrix/)
+(`wsmatrix@martin.zurowietz.de`), which is the maintained successor to the long-dead
+"Workspace Grid" extension, and works on Wayland. It picks the release matching the
+running GNOME Shell from the extensions.gnome.org API, so it keeps working across
+Ubuntu upgrades.
+
+Grid size lives in `roles/gnome-workspace-grid/defaults/main.yml`:
+
+```yaml
+workspace_grid_rows: 3
+workspace_grid_columns: 3   # 2 x 2 for a plain 田の字
+```
+
+`num-workspaces` is derived from rows x columns, and `dynamic-workspaces` is turned off.
+
+**After the playbook runs, log out and back in.** Wayland cannot restart GNOME Shell in
+place (`Alt+F2` -> `r` is X.org only), so the extension is not loaded until the next login.
+
+Tweak the rest interactively with:
+```bash
+gnome-extensions prefs wsmatrix@martin.zurowietz.de
+```
+
 Install epson driver
 
 - go to https://download-center.epson.com/search/?language=ja
