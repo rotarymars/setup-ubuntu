@@ -9,23 +9,27 @@
 - name: Install azooKey
   when: azookey_avx2.rc == 0
   block:
-    - name: Look up the latest azooKey release
-      ansible.builtin.uri:
-        url: "https://api.github.com/repos/{{ azookey_repo }}/releases/latest"
-      register: azookey_release
+    - name: Install the azooKey repository key
+      become: true
+      ansible.builtin.get_url:
+        url: "{{ azookey_apt_url }}/key.asc"
+        dest: /etc/apt/keyrings/ibus-azookey.asc
+        force: true
+        mode: "0644"
 
-    - name: Record the release package URL
-      ansible.builtin.set_fact:
-        azookey_deb_url: >-
-          {{ azookey_release.json.assets
-             | selectattr('name', 'match', '^ibus-azookey_.*_amd64\.deb$')
-             | map(attribute='browser_download_url') | first }}
+    - name: Add the azooKey APT repository
+      become: true
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/ibus-azookey.asc] {{ azookey_apt_url }} ./"
+        filename: ibus-azookey
 
-    # apt compares the package version, so this is a no-op when it is current.
+    # "latest" also picks up new releases on later playbook runs.
     - name: Install the ibus-azookey package
       become: true
       ansible.builtin.apt:
-        deb: "{{ azookey_deb_url }}"
+        name: ibus-azookey
+        state: latest
+        update_cache: true
       register: azookey_package
 
     - name: Restart IBus to load the engine

@@ -1,7 +1,7 @@
 ---
 # Unofficial IBus port of azooKey with the Zenzai neural converter.
 # https://github.com/rotarymars/azookey-for-ubuntu
-azookey_repo: rotarymars/azookey-for-ubuntu
+azookey_apt_url: https://rotarymars.github.io/azookey-for-ubuntu
 
 # Add "日本語 (azooKey)" to the GNOME input sources so Super+Space reaches it.
 azookey_add_input_source: true
