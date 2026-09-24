@@ -74,10 +74,34 @@
       register: workspace_grid_enabled
       changed_when: false
 
+    - name: Record the enabled GNOME Shell extensions
+      ansible.builtin.set_fact:
+        workspace_grid_enabled_list: "{{ workspace_grid_enabled.stdout | trim | regex_replace('^@as ', '') | from_yaml }}"
+
+    # Not "gnome-extensions enable": that goes through the running shell over
+    # D-Bus, and the shell only knows the extensions it scanned at login, so it
+    # rejects a freshly installed one. Wayland cannot rescan without a logout,
+    # so write the key the shell reads at startup instead.
     - name: Enable Workspace Matrix
-      ansible.builtin.command: "gnome-extensions enable {{ workspace_grid_uuid }}"
-      when: workspace_grid_uuid not in workspace_grid_enabled.stdout
-      changed_when: true
+      community.general.dconf:
+        key: /org/gnome/shell/enabled-extensions
+        value: "{{ (workspace_grid_enabled_list + [workspace_grid_uuid]) | to_json }}"
+      when: workspace_grid_uuid not in workspace_grid_enabled_list
+
+    - name: Keep Workspace Matrix out of the disabled list
+      ansible.builtin.command: "gsettings get org.gnome.shell disabled-extensions"
+      register: workspace_grid_disabled
+      changed_when: false
+
+    - name: Record the disabled GNOME Shell extensions
+      ansible.builtin.set_fact:
+        workspace_grid_disabled_list: "{{ workspace_grid_disabled.stdout | trim | regex_replace('^@as ', '') | from_yaml }}"
+
+    - name: Drop Workspace Matrix from the disabled list
+      community.general.dconf:
+        key: /org/gnome/shell/disabled-extensions
+        value: "{{ (workspace_grid_disabled_list | difference([workspace_grid_uuid])) | to_json }}"
+      when: workspace_grid_uuid in workspace_grid_disabled_list
 
     - name: Use a fixed number of workspaces
       community.general.dconf:
@@ -91,8 +115,8 @@
 
     - name: Configure Workspace Matrix
       community.general.dconf:
-        key: "/org/gnome/shell/extensions/wsmatrix/{{ item.key }}"
-        value: "{{ item.value }}"
+        key: "/org/gnome/shell/extensions/wsmatrix/{{ setting.key }}"
+        value: "{{ setting.value }}"
       loop:
         - key: num-rows
           value: "{{ workspace_grid_rows | int }}"
@@ -107,15 +131,17 @@
         - key: wraparound-mode
           value: "{{ workspace_grid_wraparound_mode | to_json }}"
       loop_control:
-        label: "{{ item.key }}"
+        loop_var: setting
+        label: "{{ setting.key }}"
 
     - name: Bind Ctrl+Alt+arrow to grid navigation
       community.general.dconf:
-        key: "/org/gnome/desktop/wm/keybindings/{{ item.key }}"
-        value: "{{ item.value | to_json }}"
+        key: "/org/gnome/desktop/wm/keybindings/{{ binding.key }}"
+        value: "{{ binding.value | to_json }}"
       loop: "{{ workspace_grid_keybindings | dict2items }}"
       loop_control:
-        label: "{{ item.key }}"
+        loop_var: binding
+        label: "{{ binding.key }}"
       when: workspace_grid_set_keybindings | bool
 
     - name: Check whether GNOME Shell has the extension loaded
