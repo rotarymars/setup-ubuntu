@@ -1,0 +1,59 @@
+---
+# The bundled llama.cpp build is compiled for AVX2 and crashes without it.
+- name: Check for AVX2 support
+  ansible.builtin.command: grep -qw avx2 /proc/cpuinfo
+  register: azookey_avx2
+  changed_when: false
+  failed_when: false
+
+- name: Install azooKey
+  when: azookey_avx2.rc == 0
+  block:
+    - name: Look up the latest azooKey release
+      ansible.builtin.uri:
+        url: "https://api.github.com/repos/{{ azookey_repo }}/releases/latest"
+      register: azookey_release
+
+    - name: Record the release package URL
+      ansible.builtin.set_fact:
+        azookey_deb_url: >-
+          {{ azookey_release.json.assets
+             | selectattr('name', 'match', '^ibus-azookey_.*_amd64\.deb$')
+             | map(attribute='browser_download_url') | first }}
+
+    # apt compares the package version, so this is a no-op when it is current.
+    - name: Install the ibus-azookey package
+      become: true
+      ansible.builtin.apt:
+        deb: "{{ azookey_deb_url }}"
+      register: azookey_package
+
+    - name: Restart IBus to load the engine
+      ansible.builtin.command: ibus restart
+      when: azookey_package is changed
+      failed_when: false
+
+    - name: Read the GNOME input sources
+      ansible.builtin.command: gsettings get org.gnome.desktop.input-sources sources
+      register: azookey_sources
+      changed_when: false
+      failed_when: false
+      when: azookey_add_input_source | bool
+
+    # The "@a(ss)" type prefix keeps Ansible from parsing the value into a list
+    # of lists, which dconf would store as the wrong type and GNOME would ignore.
+    - name: Add azooKey to the GNOME input sources
+      community.general.dconf:
+        key: /org/gnome/desktop/input-sources/sources
+        value: >-
+          @a(ss) {{ azookey_sources.stdout | trim | regex_replace('^@a\(ss\) ', '')
+             | regex_replace('\]$', (', ' if azookey_sources.stdout | trim is not search('\[\]$') else '') ~ "('ibus', 'azookey')]") }}
+      when:
+        - azookey_add_input_source | bool
+        - azookey_sources.rc == 0
+        - "\"('ibus', 'azookey')\" not in azookey_sources.stdout"
+
+- name: Warn about the missing AVX2 support
+  ansible.builtin.debug:
+    msg: Skipping azooKey; this CPU lacks the AVX2 instructions it needs.
+  when: azookey_avx2.rc != 0
