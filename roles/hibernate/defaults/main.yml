@@ -1,0 +1,15 @@
+---
+# Hibernate Status Button adds Hibernate (and Hybrid Sleep, with Alt held) to
+# the GNOME power menu, which Ubuntu hides.
+# https://extensions.gnome.org/extension/755/hibernate-status-button/
+hibernate_button_uuid: hibernate-status@dromi
+hibernate_button_ego_url: https://extensions.gnome.org
+hibernate_button_extension_dir: "~/.local/share/gnome-shell/extensions/{{ hibernate_button_uuid }}"
+
+# What closing the lid does. suspend-then-hibernate suspends, then wakes after
+# hibernate_delay and hibernates, so a forgotten laptop stops draining.
+# suspend | hibernate | hybrid-sleep | suspend-then-hibernate | ignore
+hibernate_lid_action: suspend-then-hibernate
+# Time in suspend before hibernating. Without it systemd waits until the battery
+# is estimated at 5%, which throws away most of the benefit.
+hibernate_delay: 1h

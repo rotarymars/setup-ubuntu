@@ -1,0 +1,12 @@
+// Ubuntu's /usr/share/polkit-1/rules.d/com.ubuntu.desktop.rules returns NO for
+// every hibernate action ("Disable hibernate by default in Ubuntu"). Rules run
+// in file name order, so this one is consulted first and wins.
+polkit.addRule(function(action, subject) {
+    if ((action.id == "org.freedesktop.login1.hibernate" ||
+         action.id == "org.freedesktop.login1.hibernate-multiple-sessions" ||
+         action.id == "org.freedesktop.login1.handle-hibernate-key" ||
+         action.id == "org.freedesktop.upower.hibernate") &&
+        subject.active && subject.local) {
+        return polkit.Result.YES;
+    }
+});
