@@ -250,12 +250,14 @@ The polkit override and the power-menu button are handled by the `hibernate` rol
 - [Hibernate Status Button](https://extensions.gnome.org/extension/755/hibernate-status-button/)
   (`hibernate-status@dromi`) is installed and enabled, adding Hibernate to the power
   menu (hold Alt for Hybrid Sleep). Log out and back in to load it.
-- Closing the lid does suspend-then-hibernate: it suspends, and after 1 hour wakes up and
-  hibernates (`/etc/systemd/logind.conf.d/10-lid-hibernate.conf` and
-  `/etc/systemd/sleep.conf.d/10-hibernate-delay.conf`, set by `hibernate_lid_action` and
-  `hibernate_delay` in `roles/hibernate/defaults/main.yml`). Without a fixed delay systemd
-  waits until the battery is estimated at 5%.
-  Before booting Windows, use Hibernate (the lid only hibernates after the delay).
+- Closing the lid on battery does suspend-then-hibernate: it suspends, and hibernates when
+  the battery runs low (the firmware low-battery alarm, or about 5%). On AC it only
+  suspends; this is decided when the lid closes, so unplugging later does not switch it.
+  Set by `hibernate_lid_action`, `hibernate_lid_action_ac` and `hibernate_delay` in
+  `roles/hibernate/defaults/main.yml` (`/etc/systemd/logind.conf.d/10-lid-hibernate.conf`;
+  a non-empty `hibernate_delay` such as `3h` writes
+  `/etc/systemd/sleep.conf.d/10-hibernate-delay.conf` to hibernate after a fixed time instead).
+  Before booting Windows, use Hibernate (the lid may never hibernate).
 
 Run only this role:
 ```bash

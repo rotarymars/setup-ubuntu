@@ -30,7 +30,7 @@
         content: |
           [Login]
           HandleLidSwitch={{ hibernate_lid_action }}
-          HandleLidSwitchExternalPower={{ hibernate_lid_action }}
+          HandleLidSwitchExternalPower={{ hibernate_lid_action_ac }}
         owner: root
         group: root
         mode: "0644"
@@ -54,6 +54,13 @@
         owner: root
         group: root
         mode: "0644"
+      when: hibernate_delay | length > 0
+
+    - name: Remove the hibernate delay drop-in
+      ansible.builtin.file:
+        path: /etc/systemd/sleep.conf.d/10-hibernate-delay.conf
+        state: absent
+      when: hibernate_delay | length == 0
   tags: [hibernate-lid]
 
 - name: Check for GNOME Shell

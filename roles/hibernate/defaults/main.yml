@@ -6,10 +6,14 @@ hibernate_button_uuid: hibernate-status@dromi
 hibernate_button_ego_url: https://extensions.gnome.org
 hibernate_button_extension_dir: "~/.local/share/gnome-shell/extensions/{{ hibernate_button_uuid }}"
 
-# What closing the lid does. suspend-then-hibernate suspends, then wakes after
-# hibernate_delay and hibernates, so a forgotten laptop stops draining.
+# What closing the lid does on battery. suspend-then-hibernate suspends, then
+# hibernates when the battery runs low (or after hibernate_delay, if set), so a
+# forgotten laptop never dies in suspend.
 # suspend | hibernate | hybrid-sleep | suspend-then-hibernate | ignore
 hibernate_lid_action: suspend-then-hibernate
-# Time in suspend before hibernating. Without it systemd waits until the battery
-# is estimated at 5%, which throws away most of the benefit.
-hibernate_delay: 1h
+# Same, on AC power. Hibernating while plugged in only costs a slow resume.
+# Decided when the lid closes: unplugging afterwards does not switch it.
+hibernate_lid_action_ac: suspend
+# Time in suspend before hibernating. Empty lets systemd decide from the
+# battery: it hibernates on the firmware low-battery alarm, or at about 5%.
+hibernate_delay: ""
