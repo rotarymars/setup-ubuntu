@@ -246,3 +246,4 @@ apt_packages:
   - libauthen-sasl-perl
   - onlyoffice-desktopeditors
   - chrome-gnome-shell
+  - gettext
