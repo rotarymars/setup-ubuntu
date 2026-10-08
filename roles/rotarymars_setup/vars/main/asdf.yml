@@ -15,6 +15,9 @@ asdf_plugins_without_dest:
   -
     name: uv
     version: latest
+  -
+    name: bun
+    version: latest
 asdf_plugins_with_dest:
   -
     name: lazydocker
