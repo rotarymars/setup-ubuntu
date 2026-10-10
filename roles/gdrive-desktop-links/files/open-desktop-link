@@ -1,0 +1,11 @@
+#!/bin/sh
+# Open Type=Link .desktop files (e.g. google-drive-ocamlfuse Google Docs) in the browser.
+# Anything else falls back to the text editor.
+for f in "$@"; do
+  url=$(sed -n 's/^URL=//p' "$f" | head -n1)
+  if grep -q '^Type=Link' "$f" && [ -n "$url" ]; then
+    xdg-open "$url" >/dev/null 2>&1 &
+  else
+    gnome-text-editor "$f" >/dev/null 2>&1 &
+  fi
+done

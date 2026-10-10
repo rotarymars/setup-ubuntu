@@ -1,0 +1,44 @@
+---
+- name: Create the user bin directory
+  ansible.builtin.file:
+    path: "{{ gdrive_links_bin | dirname }}"
+    state: directory
+    mode: "0755"
+
+- name: Install the .desktop link opener
+  ansible.builtin.copy:
+    src: open-desktop-link
+    dest: "{{ gdrive_links_bin }}"
+    mode: "0755"
+
+- name: Create the user applications directory
+  ansible.builtin.file:
+    path: "{{ gdrive_links_applications_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Register the opener as an application/x-desktop handler
+  ansible.builtin.copy:
+    dest: "{{ gdrive_links_applications_dir }}/{{ gdrive_links_desktop_id }}"
+    content: |
+      [Desktop Entry]
+      Type=Application
+      Name=Open Link (.desktop)
+      Exec={{ gdrive_links_bin | expanduser }} %F
+      MimeType=application/x-desktop;
+      NoDisplay=true
+    mode: "0644"
+  register: gdrive_links_entry
+
+- name: Refresh the user desktop database
+  ansible.builtin.command: "update-desktop-database {{ gdrive_links_applications_dir }}"
+  when: gdrive_links_entry.changed
+
+- name: Read the default application/x-desktop handler
+  ansible.builtin.command: xdg-mime query default application/x-desktop
+  register: gdrive_links_default
+  changed_when: false
+
+- name: Make the opener the default application/x-desktop handler
+  ansible.builtin.command: "xdg-mime default {{ gdrive_links_desktop_id }} application/x-desktop"
+  when: gdrive_links_default.stdout | trim != gdrive_links_desktop_id

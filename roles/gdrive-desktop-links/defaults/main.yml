@@ -1,0 +1,8 @@
+---
+# google-drive-ocamlfuse shows Google Docs/Sheets/Slides as Type=Link .desktop
+# files. Nothing handles application/x-desktop by default, so Nautilus opens
+# them as text. This handler opens their URL in the browser instead and falls
+# back to the text editor for every other .desktop file.
+gdrive_links_bin: ~/.local/bin/open-desktop-link
+gdrive_links_desktop_id: open-desktop-link.desktop
+gdrive_links_applications_dir: ~/.local/share/applications
