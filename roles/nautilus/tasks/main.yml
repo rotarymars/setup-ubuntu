@@ -1,0 +1,8 @@
+---
+# Thumbnailing a file on a FUSE mount (Google Drive, gvfs) can leave
+# totem-video-thumbnailer stuck in uninterruptible sleep. A task in that state
+# cannot be frozen, so every suspend attempt fails with "Device or resource busy".
+- name: Only generate thumbnails for local files
+  community.general.dconf:
+    key: /org/gnome/nautilus/preferences/show-image-thumbnails
+    value: "'local-only'"
