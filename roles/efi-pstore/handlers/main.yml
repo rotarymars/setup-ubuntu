@@ -1,0 +1,14 @@
+---
+# Takes effect now instead of on the next boot. Fails if pstore still holds a
+# record from efi_pstore; the blacklist then applies after a reboot.
+- name: Unload efi_pstore
+  become: true
+  ansible.builtin.command: modprobe -r efi_pstore
+  register: efi_pstore_unload
+  changed_when: efi_pstore_unload.rc == 0
+  failed_when: false
+
+- name: Update initramfs
+  become: true
+  ansible.builtin.command: update-initramfs -u
+  changed_when: true

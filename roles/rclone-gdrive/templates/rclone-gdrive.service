@@ -1,0 +1,26 @@
+[Unit]
+Description=Google Drive (rclone) at {{ rclone_gdrive_mount }}
+
+[Service]
+Type=notify
+# A crashed or aborted mount leaves "Transport endpoint is not connected" behind.
+ExecStartPre=-/usr/bin/fusermount3 -uz {{ rclone_gdrive_mount }}
+ExecStartPre=/usr/bin/mkdir -p {{ rclone_gdrive_mount }}
+# Short timeouts so a dropped network fails requests instead of hanging them,
+# and a long dir cache so most listings never touch the network.
+# Docs/Sheets/Slides become Type=Link .desktop files (see gdrive-desktop-links).
+ExecStart=/usr/bin/rclone mount {{ rclone_gdrive_remote }}: {{ rclone_gdrive_mount }} \
+  --vfs-cache-mode full \
+  --vfs-cache-max-size {{ rclone_gdrive_cache_max_size }} \
+  --dir-cache-time 24h \
+  --poll-interval 1m \
+  --timeout 30s \
+  --contimeout 15s \
+  --low-level-retries 3 \
+  --drive-export-formats desktop
+ExecStop=/usr/bin/fusermount3 -uz {{ rclone_gdrive_mount }}
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

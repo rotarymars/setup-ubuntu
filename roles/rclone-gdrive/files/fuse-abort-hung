@@ -1,0 +1,25 @@
+#!/bin/sh
+# systemd-sleep hook. A task waiting on a FUSE request cannot be frozen, so a
+# hung rclone mount makes every suspend attempt fail with "Device or resource
+# busy". Before suspend, abort any rclone connection that still has requests
+# in flight after a short grace period. The mount service then restarts it.
+[ "$1" = pre ] || exit 0
+
+# The FUSE connection id is the minor number of the mount's device.
+conns=$(awk '{
+  for (i = 7; i <= NF; i++) if ($i == "-") {
+    if ($(i + 1) == "fuse.rclone") { split($3, d, ":"); print d[2] }
+    break
+  }
+}' /proc/self/mountinfo)
+
+for c in $conns; do
+  dir=/sys/fs/fuse/connections/$c
+  [ -d "$dir" ] || continue
+  for _ in 1 2 3 4 5; do
+    [ "$(cat "$dir/waiting")" -eq 0 ] && continue 2
+    sleep 1
+  done
+  logger -t fuse-abort-hung "aborting hung rclone FUSE connection $c ($(cat "$dir/waiting") requests waiting)"
+  echo 1 > "$dir/abort"
+done

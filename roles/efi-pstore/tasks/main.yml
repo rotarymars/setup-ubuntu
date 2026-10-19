@@ -1,0 +1,15 @@
+---
+# Firmware workaround for this model only, see the comment in the file.
+# Remove once a BIOS or kernel update fixes the EFI page fault.
+- name: Keep efi_pstore from loading
+  become: true
+  ansible.builtin.copy:
+    src: blacklist-efi_pstore.conf
+    dest: /etc/modprobe.d/blacklist-efi_pstore.conf
+    owner: root
+    group: root
+    mode: "0644"
+  when: ansible_facts['product_name'] == '21M3CTO1WW'
+  notify:
+    - Unload efi_pstore
+    - Update initramfs

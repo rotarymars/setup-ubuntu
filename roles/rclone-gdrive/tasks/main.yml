@@ -1,0 +1,71 @@
+---
+# google-drive-ocamlfuse hung in FUSE readdir after the network dropped and
+# blocked suspend for a whole night. rclone fails requests on timeout instead.
+- name: Remove google-drive-ocamlfuse
+  become: true
+  ansible.builtin.apt:
+    name: google-drive-ocamlfuse
+    state: absent
+
+- name: Check for rclone
+  ansible.builtin.stat:
+    path: /usr/bin/rclone
+  register: rclone_bin
+
+# The Ubuntu package is too old; use the upstream .deb.
+- name: Install rclone
+  become: true
+  ansible.builtin.apt:
+    deb: "https://downloads.rclone.org/rclone-current-linux-{{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }}.deb"
+  when: not rclone_bin.stat.exists
+
+- name: Install fuse3
+  become: true
+  ansible.builtin.apt:
+    name: fuse3
+    state: present
+
+- name: Install the hung-FUSE suspend hook
+  become: true
+  ansible.builtin.copy:
+    src: fuse-abort-hung
+    dest: /usr/lib/systemd/system-sleep/fuse-abort-hung
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Create the user systemd directory
+  ansible.builtin.file:
+    path: "{{ ansible_facts.env.HOME }}/.config/systemd/user"
+    state: directory
+    mode: "0755"
+
+- name: Install the mount service
+  ansible.builtin.template:
+    src: rclone-gdrive.service
+    dest: "{{ ansible_facts.env.HOME }}/.config/systemd/user/{{ rclone_gdrive_service }}"
+    mode: "0644"
+  notify: Restart rclone-gdrive
+
+- name: Check for the rclone remote
+  ansible.builtin.command: rclone listremotes
+  register: rclone_remotes
+  changed_when: false
+
+- name: Note whether the remote exists
+  ansible.builtin.set_fact:
+    rclone_gdrive_configured: "{{ (rclone_gdrive_remote ~ ':') in rclone_remotes.stdout_lines }}"
+
+- name: Enable the mount service
+  ansible.builtin.systemd_service:
+    name: "{{ rclone_gdrive_service }}"
+    scope: user
+    daemon_reload: true
+    enabled: true
+    state: started
+  when: rclone_gdrive_configured
+
+- name: Remind to create the remote
+  ansible.builtin.debug:
+    msg: "No '{{ rclone_gdrive_remote }}:' remote yet. Run `rclone config` (storage: drive), then re-run this role."
+  when: not rclone_gdrive_configured

@@ -248,5 +248,5 @@ apt_packages:
   - onlyoffice-desktopeditors
   - chrome-gnome-shell
   - gettext
-  - google-drive-ocamlfuse
   - powertop
+  - stress-ng

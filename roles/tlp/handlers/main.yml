@@ -1,0 +1,5 @@
+---
+- name: Apply TLP settings
+  become: true
+  ansible.builtin.command: tlp start
+  changed_when: true

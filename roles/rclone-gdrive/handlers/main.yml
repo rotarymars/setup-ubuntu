@@ -1,0 +1,8 @@
+---
+- name: Restart rclone-gdrive
+  ansible.builtin.systemd_service:
+    name: "{{ rclone_gdrive_service }}"
+    scope: user
+    daemon_reload: true
+    state: restarted
+  when: rclone_gdrive_configured | default(false)

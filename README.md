@@ -287,6 +287,114 @@ Notes:
   `sudo rm /etc/default/grub.d/99-resume.cfg && sudo update-grub`.
   Drop `hibernate` from `target_roles` and remove `/etc/polkit-1/rules.d/10-enable-hibernate.rules`.
 
+### Google Drive at ~/google-mini (rclone)
+
+Mounted with `rclone mount` instead of google-drive-ocamlfuse. google-drive-ocamlfuse
+hung in FUSE readdir after the network dropped, and a task stuck on a FUSE request
+cannot be frozen, so every suspend attempt failed with "Device or resource busy" for
+a whole night (fan on, battery drained). rclone fails requests on timeout instead.
+
+The `rclone-gdrive` role (listed in `target_roles`):
+
+- Removes `google-drive-ocamlfuse`, installs rclone from the upstream `.deb` (the Ubuntu
+  package is old) and `fuse3`.
+- Installs the user unit `~/.config/systemd/user/rclone-gdrive.service`: short network
+  timeouts (`--timeout 30s --contimeout 15s`), a 24h dir cache, a 20G file cache
+  (`--vfs-cache-mode full`), and `--drive-export-formats desktop`, so Docs/Sheets/Slides
+  are Type=Link `.desktop` files that the `gdrive-desktop-links` opener handles.
+  `Restart=always`, because rclone exits cleanly (status 0) when the network is gone, e.g.
+  DNS failing right after resume, and `on-failure` would leave the mount down.
+- Installs `/usr/lib/systemd/system-sleep/fuse-abort-hung`: before suspend, it aborts any
+  rclone FUSE connection that still has requests waiting after 5s, so stuck tasks are
+  released and suspend goes through. The service then remounts.
+- Enables the service only once the `gdrive:` remote exists, otherwise prints a reminder.
+
+Settings are in `roles/rclone-gdrive/defaults/main.yml`.
+
+The remote needs a browser login, so create it once by hand between two runs of the role:
+```bash
+ansible-playbook -i inventory.ini main.yml --ask-become-pass -e '{"target_roles":["rclone-gdrive"]}'
+rclone config        # answers below
+ansible-playbook -i inventory.ini main.yml --ask-become-pass -e '{"target_roles":["rclone-gdrive"]}'
+```
+
+`rclone config` answers:
+
+| Prompt | Answer |
+|---|---|
+| `n/s/q>` | `n` (new remote) |
+| `name>` | `gdrive` |
+| `Storage>` | `drive` (Google Drive; the number changes between versions) |
+| `client_id>` / `client_secret>` | your own OAuth client, see below |
+| `scope>` | `1` (`drive`, full access) |
+| `service_account_file>` | Enter (blank) |
+| `Edit advanced config?` | `n` |
+| `Use web browser to automatically authenticate?` | `y`, log in; on "Google hasn't verified this app": Advanced -> Go to ... (unsafe) |
+| `Configure this as a Shared Drive (Team Drive)?` | `n` |
+| `Keep this "gdrive" remote?` | `y`, then `q` |
+
+Don't leave `client_id` blank: rclone's shared client is being retired during 2026 and is
+rate limited. The google-drive-ocamlfuse client works, its values are still in
+`~/.gdfuse/default/config` (`grep -E 'client_(id|secret)' ~/.gdfuse/default/config`).
+For a new one, in https://console.cloud.google.com: create a project, enable the
+Google Drive API, set up Google Auth Platform (External), **publish the app** (Audience ->
+"In production"; in "Testing" the login expires after 7 days), then Clients -> Create
+client -> Desktop app.
+
+Without Ansible, the same in one go:
+```bash
+set -e
+M="$HOME/google-mini"
+sudo apt-get remove -y google-drive-ocamlfuse || true
+command -v rclone >/dev/null || { curl -fsSLo /tmp/rclone.deb https://downloads.rclone.org/rclone-current-linux-amd64.deb && sudo apt-get install -y /tmp/rclone.deb; }
+sudo apt-get install -y fuse3
+sudo tee /usr/lib/systemd/system-sleep/fuse-abort-hung >/dev/null <<'EOF'
+#!/bin/sh
+[ "$1" = pre ] || exit 0
+conns=$(awk '{for (i = 7; i <= NF; i++) if ($i == "-") { if ($(i + 1) == "fuse.rclone") { split($3, d, ":"); print d[2] } break }}' /proc/self/mountinfo)
+for c in $conns; do
+  dir=/sys/fs/fuse/connections/$c; [ -d "$dir" ] || continue
+  for _ in 1 2 3 4 5; do [ "$(cat "$dir/waiting")" -eq 0 ] && continue 2; sleep 1; done
+  logger -t fuse-abort-hung "aborting hung rclone FUSE connection $c"; echo 1 > "$dir/abort"
+done
+EOF
+sudo chmod 755 /usr/lib/systemd/system-sleep/fuse-abort-hung
+mkdir -p ~/.config/systemd/user
+cat > ~/.config/systemd/user/rclone-gdrive.service <<EOF
+[Unit]
+Description=Google Drive (rclone) at $M
+[Service]
+Type=notify
+ExecStartPre=-/usr/bin/fusermount3 -uz $M
+ExecStartPre=/usr/bin/mkdir -p $M
+ExecStart=/usr/bin/rclone mount gdrive: $M --vfs-cache-mode full --vfs-cache-max-size 20G --dir-cache-time 24h --poll-interval 1m --timeout 30s --contimeout 15s --low-level-retries 3 --drive-export-formats desktop
+ExecStop=/usr/bin/fusermount3 -uz $M
+Restart=always
+RestartSec=10
+[Install]
+WantedBy=default.target
+EOF
+rclone listremotes | grep -qx 'gdrive:' || rclone config
+systemctl --user daemon-reload && systemctl --user enable --now rclone-gdrive.service
+```
+
+Verify:
+```bash
+systemctl --user status rclone-gdrive     # active (running)
+findmnt ~/google-mini                     # FSTYPE fuse.rclone
+journalctl -t fuse-abort-hung             # lines only when the hook had to abort a mount
+```
+
+Notes:
+- The first listing of a big folder is slow (fetched over the network), later ones come
+  from the cache.
+- If a suspend still hangs, `fusermount -uz ~/google-mini` frees stuck tasks.
+- `~/.gdfuse` (google-drive-ocamlfuse config and cache) is left behind; delete it once
+  rclone works, after copying the client ID and secret somewhere if you still need them.
+- Undo: `systemctl --user disable --now rclone-gdrive`, remove
+  `~/.config/systemd/user/rclone-gdrive.service` and
+  `/usr/lib/systemd/system-sleep/fuse-abort-hung`, and drop `rclone-gdrive` from `target_roles`.
+
 # On thinkpad
 for realtek network cards
 

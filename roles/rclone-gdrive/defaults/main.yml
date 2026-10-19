@@ -1,0 +1,8 @@
+---
+# Google Drive mounted with rclone instead of google-drive-ocamlfuse. The remote
+# needs a browser login, so create it once by hand: `rclone config`, new remote,
+# name "gdrive", storage "drive".
+rclone_gdrive_remote: gdrive
+rclone_gdrive_mount: "{{ ansible_facts.env.HOME }}/google-mini"
+rclone_gdrive_cache_max_size: 20G
+rclone_gdrive_service: rclone-gdrive.service

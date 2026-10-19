@@ -1,0 +1,43 @@
+---
+# TLP and power-profiles-daemon both write the CPU EPP and platform profile,
+# so only one of them may run.
+- name: Remove power-profiles-daemon
+  become: true
+  ansible.builtin.apt:
+    name: power-profiles-daemon
+    state: absent
+
+- name: Install TLP
+  become: true
+  ansible.builtin.apt:
+    name:
+      - tlp
+      - tlp-rdw
+    state: present
+
+- name: Write the TLP drop-in
+  become: true
+  ansible.builtin.copy:
+    src: 01-custom.conf
+    dest: /etc/tlp.d/01-custom.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Apply TLP settings
+
+# TLP restores the radio state itself; the systemd units would fight it.
+- name: Mask systemd-rfkill
+  become: true
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    masked: true
+  loop:
+    - systemd-rfkill.service
+    - systemd-rfkill.socket
+
+- name: Enable TLP
+  become: true
+  ansible.builtin.systemd_service:
+    name: tlp.service
+    enabled: true
+    state: started
