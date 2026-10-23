@@ -50,17 +50,22 @@
         dest: /etc/systemd/sleep.conf.d/10-hibernate-delay.conf
         content: |
           [Sleep]
+          {% if hibernate_delay | length > 0 %}
           HibernateDelaySec={{ hibernate_delay }}
+          {% endif %}
+          {% if hibernate_suspend_estimation | length > 0 %}
+          SuspendEstimationSec={{ hibernate_suspend_estimation }}
+          {% endif %}
         owner: root
         group: root
         mode: "0644"
-      when: hibernate_delay | length > 0
+      when: (hibernate_delay ~ hibernate_suspend_estimation) | length > 0
 
     - name: Remove the hibernate delay drop-in
       ansible.builtin.file:
         path: /etc/systemd/sleep.conf.d/10-hibernate-delay.conf
         state: absent
-      when: hibernate_delay | length == 0
+      when: (hibernate_delay ~ hibernate_suspend_estimation) | length == 0
   tags: [hibernate-lid]
 
 - name: Check for GNOME Shell

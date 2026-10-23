@@ -13,10 +13,14 @@ hibernate_button_extension_dir: "~/.local/share/gnome-shell/extensions/{{ hibern
 hibernate_lid_action: suspend-then-hibernate
 # Same, on AC power. Decided when the lid closes, so plain suspend here never
 # hibernates even if the charger is unplugged later. suspend-then-hibernate
-# wakes after hibernate_delay; still on AC it suspends again, on battery it
-# hibernates.
+# wakes every hibernate_suspend_estimation; still on AC it suspends again, on
+# battery it hibernates once the battery is low.
 hibernate_lid_action_ac: suspend-then-hibernate
-# Time in suspend before hibernating, or before rechecking AC. Empty lets
-# systemd decide from its stored battery discharge estimate, which can be
-# stale enough that it never hibernates.
-hibernate_delay: 60min
+# Time in suspend before hibernating regardless of charge. Empty hibernates
+# only when the battery gets low (about 5%).
+hibernate_delay: ""
+# How often systemd wakes from suspend to measure the battery and re-estimate
+# when it will be low. Without a delay this is the only safeguard against a
+# stale stored discharge rate, which once set an alarm ~70h out and let the
+# battery die, so keep it short.
+hibernate_suspend_estimation: 30min

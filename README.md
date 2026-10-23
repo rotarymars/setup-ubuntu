@@ -251,14 +251,17 @@ The polkit override and the power-menu button are handled by the `hibernate` rol
   (`hibernate-status@dromi`) is installed and enabled, adding Hibernate to the power
   menu (hold Alt for Hybrid Sleep). Log out and back in to load it.
 - Closing the lid does suspend-then-hibernate, on battery and on AC: it suspends, wakes
-  after `hibernate_delay` (60min), and hibernates if on battery or suspends again if
-  still on AC. The lid action is chosen when the lid closes, so with plain `suspend` on
-  AC, unplugging later never hibernates and the laptop drains to empty (s2idle uses
-  about 7%/h). Set by `hibernate_lid_action`, `hibernate_lid_action_ac` and
-  `hibernate_delay` in `roles/hibernate/defaults/main.yml`
+  every `hibernate_suspend_estimation` (30min) to measure the battery, and hibernates
+  once on battery and low (about 5%); still on AC it suspends again. The lid action is
+  chosen when the lid closes, so with plain `suspend` on AC, unplugging later never
+  hibernates and the laptop drains to empty (s2idle uses about 7%/h). Set by
+  `hibernate_lid_action`, `hibernate_lid_action_ac`, `hibernate_delay` and
+  `hibernate_suspend_estimation` in `roles/hibernate/defaults/main.yml`
   (`/etc/systemd/logind.conf.d/10-lid-hibernate.conf` and
-  `/etc/systemd/sleep.conf.d/10-hibernate-delay.conf`; an empty `hibernate_delay` drops
-  the latter and lets systemd guess from its stored battery estimate, which can be stale).
+  `/etc/systemd/sleep.conf.d/10-hibernate-delay.conf`). Set `hibernate_delay` (e.g.
+  `60min`) to hibernate after a fixed time instead. systemd keeps its discharge estimate
+  in `/var/lib/systemd/sleep/battery_discharge_percentage_rate_per_hour`; if it is stale
+  (it once said 1%/h), delete it so systemd re-measures.
   Before booting Windows, use Hibernate (the lid may never hibernate).
 
 Run only this role:
