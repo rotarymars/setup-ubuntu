@@ -250,3 +250,6 @@ apt_packages:
   - gettext
   - powertop
   - stress-ng
+  - qemu-user-static
+  - binfmt-support
+  - lld-18
