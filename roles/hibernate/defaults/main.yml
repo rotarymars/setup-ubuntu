@@ -11,9 +11,12 @@ hibernate_button_extension_dir: "~/.local/share/gnome-shell/extensions/{{ hibern
 # forgotten laptop never dies in suspend.
 # suspend | hibernate | hybrid-sleep | suspend-then-hibernate | ignore
 hibernate_lid_action: suspend-then-hibernate
-# Same, on AC power. Hibernating while plugged in only costs a slow resume.
-# Decided when the lid closes: unplugging afterwards does not switch it.
-hibernate_lid_action_ac: suspend
-# Time in suspend before hibernating. Empty lets systemd decide from the
-# battery: it hibernates on the firmware low-battery alarm, or at about 5%.
-hibernate_delay: ""
+# Same, on AC power. Decided when the lid closes, so plain suspend here never
+# hibernates even if the charger is unplugged later. suspend-then-hibernate
+# wakes after hibernate_delay; still on AC it suspends again, on battery it
+# hibernates.
+hibernate_lid_action_ac: suspend-then-hibernate
+# Time in suspend before hibernating, or before rechecking AC. Empty lets
+# systemd decide from its stored battery discharge estimate, which can be
+# stale enough that it never hibernates.
+hibernate_delay: 60min
