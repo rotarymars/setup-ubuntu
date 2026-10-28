@@ -253,3 +253,4 @@ apt_packages:
   - qemu-user-static
   - binfmt-support
   - lld-18
+  - adb
