@@ -400,6 +400,13 @@ Notes:
   `~/.config/systemd/user/rclone-gdrive.service` and
   `/usr/lib/systemd/system-sleep/fuse-abort-hung`, and drop `rclone-gdrive` from `target_roles`.
 
+# Instal artcraft cli
+```
+```
+https://getartcraft.com/apps/pdfcraft
+
+```
+```
 # On thinkpad
 for realtek network cards
 
