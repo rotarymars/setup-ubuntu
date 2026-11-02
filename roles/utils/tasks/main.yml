@@ -302,6 +302,31 @@
     dest: ~/.claude.json
     mode: '0600'
 
+- name: Ensure ~/.claude exists
+  ansible.builtin.file:
+    path: ~/.claude
+    state: directory
+    mode: '0700'
+
+- name: Check if ~/.claude/settings.json exists
+  ansible.builtin.stat:
+    path: ~/.claude/settings.json
+  register: claude_settings_stat
+
+- name: Load existing Claude settings
+  ansible.builtin.slurp:
+    src: ~/.claude/settings.json
+  register: claude_settings_raw
+  when: claude_settings_stat.stat.exists
+
+- name: Enable You should know plugin in Claude settings
+  vars:
+    existing_settings: "{{ (claude_settings_raw.content | b64decode | from_json) if claude_settings_stat.stat.exists else {} }}"
+    merged_settings: "{{ existing_settings | combine({'enabledPlugins': {'cc-plugin-you-should-know@builtin': true}}, recursive=True) }}"
+  ansible.builtin.copy:
+    content: "{{ merged_settings | to_nice_json }}"
+    dest: ~/.claude/settings.json
+
 - name: Check if Ollama is installed
   ansible.builtin.command: which ollama
   register: ollama_check

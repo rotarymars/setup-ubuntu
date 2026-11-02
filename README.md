@@ -138,11 +138,19 @@ curl -fsSL https://openclaw.ai/install.sh | bash
 Install Minecraft: Education Edition via Waydroid
 
 There is no native Linux build, so run the Android version inside Waydroid.
-Ansible installs the `waydroid` package; the steps below are one-time and interactive.
+
+`./exec.sh` (Ansible) only adds the Waydroid apt repo and installs the `waydroid` package.
+It does **not** initialize Waydroid, start the container, fix networking, or run any of the
+interactive steps; `install-waydroid.sh` and `fix-waydroid-net.sh` are not called by Ansible.
+After `./exec.sh`, do the following manually (one-time):
 ```bash
 # 1. Initialize with Google Play (downloads ~1-2 GB Android image) and start the service
 sudo waydroid init -s GAPPS
 sudo systemctl enable --now waydroid-container
+
+# 1b. If ufw and/or Docker are active, Android has no internet; open forwarding for waydroid0.
+#     The iptables rules are not persisted, so re-run after a reboot or Docker restart if needed.
+./fix-waydroid-net.sh
 
 # 2. Switch to a Wayland session: log out -> gear icon -> "Ubuntu on Wayland" -> log back in
 
