@@ -6,3 +6,7 @@ rclone_gdrive_remote: gdrive
 rclone_gdrive_mount: "{{ ansible_facts.env.HOME }}/google-mini"
 rclone_gdrive_cache_max_size: 20G
 rclone_gdrive_service: rclone-gdrive.service
+# How long a directory listing is reused before asking Drive again. 24h hid files
+# uploaded from the phone for hours (11/2026); 5m shows them within minutes.
+# `kill -HUP $(pgrep -f "rclone mount gdrive:")` flushes it at once.
+rclone_gdrive_dir_cache_time: 5m

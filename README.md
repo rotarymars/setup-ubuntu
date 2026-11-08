@@ -312,7 +312,7 @@ The `rclone-gdrive` role (listed in `target_roles`):
 - Removes `google-drive-ocamlfuse`, installs rclone from the upstream `.deb` (the Ubuntu
   package is old) and `fuse3`.
 - Installs the user unit `~/.config/systemd/user/rclone-gdrive.service`: short network
-  timeouts (`--timeout 30s --contimeout 15s`), a 24h dir cache, a 20G file cache
+  timeouts (`--timeout 30s --contimeout 15s`), a 5m dir cache, a 20G file cache
   (`--vfs-cache-mode full`), and `--drive-export-formats desktop`, so Docs/Sheets/Slides
   are Type=Link `.desktop` files that the `gdrive-desktop-links` opener handles.
   `Restart=always`, because rclone exits cleanly (status 0) when the network is gone, e.g.
@@ -323,6 +323,13 @@ The `rclone-gdrive` role (listed in `target_roles`):
 - Enables the service only once the `gdrive:` remote exists, otherwise prints a reminder.
 
 Settings are in `roles/rclone-gdrive/defaults/main.yml`.
+
+The dir cache was 24h until 11/2026: a file uploaded from the phone stayed invisible in
+Nautilus for hours. It is 5m now. To see a new file right away, flush the listings
+(nothing is unmounted or lost):
+```bash
+kill -HUP $(pgrep -f "rclone mount gdrive:")
+```
 
 The remote needs a browser login, so create it once by hand between two runs of the role:
 ```bash
@@ -380,7 +387,7 @@ Description=Google Drive (rclone) at $M
 Type=notify
 ExecStartPre=-/usr/bin/fusermount3 -uz $M
 ExecStartPre=/usr/bin/mkdir -p $M
-ExecStart=/usr/bin/rclone mount gdrive: $M --vfs-cache-mode full --vfs-cache-max-size 20G --dir-cache-time 24h --poll-interval 1m --timeout 30s --contimeout 15s --low-level-retries 3 --drive-export-formats desktop
+ExecStart=/usr/bin/rclone mount gdrive: $M --vfs-cache-mode full --vfs-cache-max-size 20G --dir-cache-time 5m --poll-interval 1m --timeout 30s --contimeout 15s --low-level-retries 3 --drive-export-formats desktop
 ExecStop=/usr/bin/fusermount3 -uz $M
 Restart=always
 RestartSec=10
