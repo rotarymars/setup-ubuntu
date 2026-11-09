@@ -254,3 +254,9 @@ apt_packages:
   - binfmt-support
   - lld-18
   - adb
+  - clang
+  - lld-18
+  - cmake
+  - ninja-build
+  - qemu-user-static
+  - binfmt-support
