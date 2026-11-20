@@ -37,6 +37,11 @@
     force: true
     mode: "0644"
   loop: "{{ apt_keys }}"
+- name: Remove superseded KiCad 9.0 PPA
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:kicad/kicad-9.0-releases
+    state: absent
 - name: Install apt repository
   become: true
   ansible.builtin.apt_repository:
